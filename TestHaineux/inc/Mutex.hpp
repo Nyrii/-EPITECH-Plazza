@@ -5,10 +5,13 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr  4 18:55:40 2016 guillaume wilmot
-// Last update Mon Apr  4 19:01:18 2016 guillaume wilmot
+// Last update Mon Apr  4 20:31:26 2016 guillaume wilmot
 //
 
-#include "IMutex.hpp"
+#ifndef MUTEX_HPP_
+# define MUTEX_HPP_
+
+# include "IMutex.hpp"
 
 class Mutex : public IMutex {
 public:
@@ -21,3 +24,5 @@ public:
 private:
   pthread_mutex_t	_mutex;
 };
+
+#endif /* !MUTEX_HPP */
