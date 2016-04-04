@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr  4 16:01:55 2016 guillaume wilmot
-// Last update Mon Apr  4 20:45:12 2016 guillaume wilmot
+// Last update Mon Apr  4 22:02:29 2016 guillaume wilmot
 //
 
 #include <stdlib.h>
@@ -14,39 +14,48 @@
 #include "Thread.hpp"
 #include "Mutex.hpp"
 #include "ScopedLock.hpp"
+#include "SafeQueue.hpp"
 
-Mutex			mutex;
+SafeQueue		test;
 
-void			*inc(void *arg)
+void			*push(void *)
 {
-  ScopedLock		lock(mutex);
-  int			**conv;
-  int			*c;
+  test.push(rand() % 100);
+  return (NULL);
+}
 
-  conv = (int **)arg;
-  c = conv[0];
-  *c += *conv[1];
+void			*pop(void *)
+{
+  int			i;
+
+  if (!test.tryPop(&i))
+    std::cout << "false" << std::endl;
+  else
+    std::cout << i << std::endl;
   return (NULL);
 }
 
 int			main(int ac, char **av)
 {
   Thread		*thread;
-  int			c = 0;
-  int			x;
+  int			nbThread;
   int			i;
-  int			*arg[2];
 
-  if (ac < 3)
+  if (ac < 2)
     return (-1);
-  thread = new Thread[atoi(av[2])];
-  x = atoi(av[1]);
-  arg[0] = &c;
-  arg[1] = &x;
-  for (i = 0; i < atoi(av[2]); i++)
-    thread[i].start(&inc, &arg);
-  for (i = 0; i < atoi(av[2]); i++)
+  nbThread = atoi(av[1]);
+  thread = new Thread[nbThread * 2];
+  for (i = 0; i < nbThread / 2; i++)
+    thread[i].start(&push, NULL);
+  test.setFinished();
+  while (i < nbThread)
+    {
+      thread[i].start(&push, NULL);
+      i++;
+    }
+  for (i = 0; i < nbThread; i++)
+    thread[nbThread + i].start(&pop, NULL);
+  for (i = 0; i < nbThread * 2; i++)
     thread[i].join();
-  std::cout << c << std::endl;
   delete[] thread;
 }
