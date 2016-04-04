@@ -5,20 +5,22 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr  4 20:36:43 2016 guillaume wilmot
-// Last update Mon Apr  4 20:46:56 2016 guillaume wilmot
+// Last update Mon Apr  4 20:59:33 2016 guillaume wilmot
 //
 
 #ifndef THREAD_HPP_
 # define THREAD_HPP_
 
+#include <stdlib.h>
+
 class		Thread {
 public:
-  Thread() {_started = 0;}
+  Thread();
   ~Thread() {}
 
-  void		start(void *(*ptr)(void *), void *arg) {pthread_create(&_thread, NULL, ptr, arg); _started = true;}
-  void		join() {pthread_join(_thread, NULL);}
-  bool		getStatus() const {return (_started);};
+  void		start(void *(*)(void *), void *);
+  void		join();
+  bool		getStatus() const;
 private:
   pthread_t	_thread;
   bool		_started;

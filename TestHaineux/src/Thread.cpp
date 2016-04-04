@@ -4,49 +4,30 @@
 // Made by guillaume wilmot
 // Login   <wilmot_g@epitech.net>
 //
-// Started on  Mon Apr  4 16:01:55 2016 guillaume wilmot
-// Last update Mon Apr  4 20:45:12 2016 guillaume wilmot
+// Started on  Mon Apr  4 20:57:09 2016 guillaume wilmot
+// Last update Mon Apr  4 21:03:45 2016 guillaume wilmot
 //
 
-#include <stdlib.h>
 #include <pthread.h>
-#include <iostream>
 #include "Thread.hpp"
-#include "Mutex.hpp"
-#include "ScopedLock.hpp"
 
-Mutex			mutex;
-
-void			*inc(void *arg)
+Thread::Thread()
 {
-  ScopedLock		lock(mutex);
-  int			**conv;
-  int			*c;
-
-  conv = (int **)arg;
-  c = conv[0];
-  *c += *conv[1];
-  return (NULL);
+  _started = false;
 }
 
-int			main(int ac, char **av)
+void		Thread::start(void *(*ptr)(void *), void *arg)
 {
-  Thread		*thread;
-  int			c = 0;
-  int			x;
-  int			i;
-  int			*arg[2];
+  pthread_create(&_thread, NULL, ptr, arg);
+  _started = true;
+}
 
-  if (ac < 3)
-    return (-1);
-  thread = new Thread[atoi(av[2])];
-  x = atoi(av[1]);
-  arg[0] = &c;
-  arg[1] = &x;
-  for (i = 0; i < atoi(av[2]); i++)
-    thread[i].start(&inc, &arg);
-  for (i = 0; i < atoi(av[2]); i++)
-    thread[i].join();
-  std::cout << c << std::endl;
-  delete[] thread;
+void		Thread::join()
+{
+  pthread_join(_thread, NULL);
+}
+
+bool		Thread::getStatus() const
+{
+  return (_started);
 }
