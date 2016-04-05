@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Mon Feb 29 13:25:56 2016 Nyrandone Noboud-Inpeng
-## Last update Tue Apr  5 01:25:14 2016 Florian Saurs
+## Last update Tue Apr  5 18:33:22 2016 Florian Saurs
 ##
 
 #
@@ -37,7 +37,8 @@ INCDIR		= -I inc/
 SRC		= Thread.cpp
 
 SRCPARS		= Parsing.cpp	\
-		  MainPars.cpp
+		  MainPars.cpp	\
+		  Core.cpp
 
 
 #
