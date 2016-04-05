@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Mon Feb 29 13:25:56 2016 Nyrandone Noboud-Inpeng
-## Last update Tue Apr  5 18:33:22 2016 Florian Saurs
+## Last update Tue Apr  5 23:31:33 2016 Florian Saurs
 ##
 
 #
@@ -40,6 +40,11 @@ SRCPARS		= Parsing.cpp	\
 		  MainPars.cpp	\
 		  Core.cpp
 
+SRCSERVEUR	= ServeurSocket.cpp	\
+		  MainServeur.cpp
+
+SRCCLIENT	= ClientSocket.cpp	\
+		  MainClient.cpp
 
 #
 ## OBJS
@@ -49,6 +54,10 @@ OBJ		= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))
 
 OBJPARS		= $(addprefix $(OBJDIR), $(SRCPARS:.cpp=.o))
 
+OBJSERVEUR	= $(addprefix $(OBJDIR), $(SRCSERVEUR:.cpp=.o))
+
+OBJCLIENT	= $(addprefix $(OBJDIR), $(SRCCLIENT:.cpp=.o))
+
 
 #
 ## BINARIES NAME
@@ -57,6 +66,10 @@ OBJPARS		= $(addprefix $(OBJDIR), $(SRCPARS:.cpp=.o))
 NAME		= tp
 
 NAMEPARS	= pars
+
+NAMESERVEUR	= server
+
+NAMECLIENT	= client
 
 
 #
@@ -75,6 +88,8 @@ CXXFLAGS = -W -Wall -Wextra -Werror -std=c++11
 all:
 		@make --no-print-directory $(NAME)
 		@make --no-print-directory $(NAMEPARS)
+		@make --no-print-directory $(NAMESERVEUR)
+		@make --no-print-directory $(NAMECLIENT)
 
 $(OBJDIR)%.o:	$(SRCDIR)%.cpp
 		@mkdir -p $(MAKEOBJ)
@@ -86,12 +101,22 @@ $(NAME): 	$(OBJ)
 $(NAMEPARS): 	$(OBJPARS)
 		$(CCX) -o $(NAMEPARS) $(OBJPARS) -lboost_regex
 
+$(NAMESERVEUR): $(OBJSERVEUR)
+		$(CCX) -o $(NAMESERVEUR) $(OBJSERVEUR)
+
+$(NAMECLIENT): $(OBJCLIENT)
+		$(CCX) -o $(NAMECLIENT) $(OBJCLIENT)
+
 clean:
 		$(RM) $(OBJ)
 		$(RM) $(OBJPARS)
+		$(RM) $(OBJSERVEUR)
+		$(RM) $(OBJCLIENT)
 
 fclean: 	clean
 		$(RM) $(NAME)
 		$(RM) $(NAMEPARS)
+		$(RM) $(NAMESERVEUR)
+		$(RM) $(NAMECLIENT)
 
 re:		fclean all
