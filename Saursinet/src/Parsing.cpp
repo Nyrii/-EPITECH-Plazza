@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Tue Apr  5 12:44:08 2016 Florian Saurs
+// Last update Tue Apr  5 15:05:29 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -19,7 +19,7 @@ Parsing::Parsing()
   _reg = new boost::regex[3];
   _reg[0] = boost::regex("0[1-68]([ ]?[0-9]{2}){4}");
   _reg[1] = boost::regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\\.[a-z]{2,4}");
-  _reg[2] = boost::regex("([0-9]{1,3}\\.){4}");
+  _reg[2] = boost::regex("([0-9]{1,3}\\.){3}[0-9]{1,3}");
   _nbReg = 3;
 }
 
@@ -32,10 +32,7 @@ std::string	Parsing::searchInCurrent(std::string current) const
 
   for (int i = 0; i < _nbReg; ++i)
     if (boost::regex_search(current, matches, _reg[i]))
-      {
-	std::string	match(matches[i].first, matches[i].second);
-	return (match);
-      }
+      return (matches[0]);
   return ("");
 }
 
@@ -58,23 +55,21 @@ void		Parsing::parseFile(std::string name) const
 
   std::string content( (std::istreambuf_iterator<char>(file) ),
                        (std::istreambuf_iterator<char>()    ) );
-  // if (file.is_open())
-  //   {
-  //     while (!file.eof())
-  // 	{
-  // 	  std::getline(file, current);
-  // 	  tmp += current;
-  // 	}
-  //   }
-  // while (content != "")
-  //   {
-      // std::cout << "boucle inf" << content << std::endl;
-  //     exit(0);
-  result = searchInCurrent(content);
-  found.push_back(result);
-      // content = content.substr(content.find(result));
-    //   exit(0);
-    // }
+
+  while (content != "")
+    {
+      result = searchInCurrent(content);
+      if (result != "")
+	{
+	  found.push_back(result);
+	  if (content.find(result) == std::string::npos + result.length())
+	    content = "";
+	  else
+	    content = content.substr(content.find(result) + result.length());
+	}
+      else
+	content = "";
+    }
   if (found.size() != 0)
     for (unsigned int i = 0; i < found.size(); ++i)
       std::cout << found.at(i) << std::endl;
