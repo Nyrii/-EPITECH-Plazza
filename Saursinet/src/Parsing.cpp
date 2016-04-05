@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Tue Apr  5 11:12:01 2016 Nyrandone Noboud-Inpeng
+// Last update Tue Apr  5 18:32:34 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -19,7 +19,7 @@ Parsing::Parsing()
   _reg = new boost::regex[3];
   _reg[0] = boost::regex("0[1-9]([ ]?[0-9]{2}){4}");
   _reg[1] = boost::regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\\.[a-z]{2,4}");
-  _reg[2] = boost::regex("([0-9]{1,3}\\.){4}");
+  _reg[2] = boost::regex("(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])");
   _nbReg = 3;
 }
 
@@ -32,10 +32,7 @@ std::string	Parsing::searchInCurrent(std::string current) const
 
   for (int i = 0; i < _nbReg; ++i)
     if (boost::regex_search(current, matches, _reg[i]))
-      {
-	std::string	match(matches[i].first, matches[i].second);
-	return (match);
-      }
+      return (matches[0]);
   return ("");
 }
 
@@ -44,6 +41,7 @@ void		Parsing::parseFile(std::string name) const
   std::string	result("");
   std::string	current;
   DIR		*directory;
+  std::vector<std::string>	found;
 
   directory = opendir(name.c_str());
   if (directory != NULL)
@@ -54,16 +52,26 @@ void		Parsing::parseFile(std::string name) const
   closedir(directory);
   std::ifstream	file(name.c_str(), std::ifstream::in);
 
-  if (file.is_open())
+  std::string content( (std::istreambuf_iterator<char>(file) ),
+                       (std::istreambuf_iterator<char>()    ) );
+
+  while (content != "")
     {
-      while (!file.eof() && result == "")
+      result = searchInCurrent(content);
+      if (result != "")
 	{
-	  std::getline(file, current);
-	  result = searchInCurrent(current);
+	  found.push_back(result);
+	  if (content.find(result) == std::string::npos + result.length())
+	    content = "";
+	  else
+	    content = content.substr(content.find(result) + result.length());
 	}
+      else
+	content = "";
     }
-  if (result != "")
-    std::cout << result << std::endl;
+  if (found.size() != 0)
+    for (unsigned int i = 0; i < found.size(); ++i)
+      std::cout << found.at(i) << std::endl;
   else
     std::cout << "Not found" << std::endl;
   file.close();
