@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr  4 20:36:43 2016 guillaume wilmot
-// Last update Mon Apr  4 21:21:17 2016 guillaume wilmot
+// Last update Mon Apr  4 21:39:22 2016 guillaume wilmot
 //
 
 #ifndef SAFEQUEUE_HPP_
@@ -16,7 +16,7 @@
 
 class SafeQueue {
 public:
-  SafeQueue();
+  SafeQueue() {}
   ~SafeQueue() {}
 
   void push(int);

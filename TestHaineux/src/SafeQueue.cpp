@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr  4 21:04:01 2016 guillaume wilmot
-// Last update Mon Apr  4 21:21:53 2016 guillaume wilmot
+// Last update Mon Apr  4 22:00:37 2016 guillaume wilmot
 //
 
 #include "SafeQueue.hpp"
@@ -15,7 +15,8 @@ void		SafeQueue::push(int val)
 {
   ScopedLock	lock(_mutex);
 
-  _queue.push(val);
+  if (!_isFinished)
+    _queue.push(val);
 }
 
 bool		SafeQueue::tryPop(int *val)
