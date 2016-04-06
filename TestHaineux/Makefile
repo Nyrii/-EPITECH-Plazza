@@ -5,12 +5,14 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Mon Feb 29 13:25:56 2016 Nyrandone Noboud-Inpeng
-## Last update Tue Apr  5 19:08:59 2016 guillaume wilmot
+## Last update Thu Apr  7 01:10:53 2016 guillaume wilmot
 ##
 
-SRC	= Main.cpp	\
-	  Thread.cpp	\
-	  Process.cpp	\
+SRC	= Main.cpp		\
+	  Thread.cpp		\
+	  Process.cpp		\
+	  Listener.cpp		\
+	  ThreadPool.cpp	\
 	  SafeQueue.cpp
 
 OBJ	= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))

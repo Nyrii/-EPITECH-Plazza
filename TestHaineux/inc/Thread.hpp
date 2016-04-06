@@ -1,11 +1,11 @@
 //
-// Thread.hpp for  in /home/wilmot_g/Rendu/cpp_plazza/TestHaineux
+// Thread.hpp for Plazza in /home/wilmot_g/Rendu/cpp_plazza/TestHaineux
 //
 // Made by guillaume wilmot
 // Login   <wilmot_g@epitech.net>
 //
-// Started on  Mon Apr  4 20:36:43 2016 guillaume wilmot
-// Last update Mon Apr  4 20:59:33 2016 guillaume wilmot
+// Started on  Wed Apr  6 23:55:40 2016 guillaume wilmot
+// Last update Wed Apr  6 23:55:40 2016 guillaume wilmot
 //
 
 #ifndef THREAD_HPP_

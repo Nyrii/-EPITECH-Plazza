@@ -1,11 +1,11 @@
 //
-// ScopedLock.hpp for  in /home/wilmot_g/Rendu/cpp_plazza/TestHaineux
+// ScopedLock.hpp for Plazza in /home/wilmot_g/Rendu/cpp_plazza/TestHaineux
 //
 // Made by guillaume wilmot
 // Login   <wilmot_g@epitech.net>
 //
-// Started on  Mon Apr  4 20:07:25 2016 guillaume wilmot
-// Last update Mon Apr  4 20:35:17 2016 guillaume wilmot
+// Started on  Wed Apr  6 23:56:11 2016 guillaume wilmot
+// Last update Wed Apr  6 23:56:11 2016 guillaume wilmot
 //
 
 #ifndef SCOPEDLOCK_HPP_
