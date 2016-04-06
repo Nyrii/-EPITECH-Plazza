@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 22:15:29 2016 Nyrandone Noboud-Inpeng
-// Last update Wed Apr  6 15:26:04 2016 Nyrandone Noboud-Inpeng
+// Last update Wed Apr  6 16:12:39 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <sys/stat.h>
@@ -58,7 +58,7 @@ int				namedPipe::create(int id)
   return (0);
 }
 
-int				namedPipe::destroy()
+int				namedPipe::destroy() const
 {
   if (unlink((static_cast<std::string>("./") + std::to_string(_id)).c_str()) == -1)
     {
@@ -68,7 +68,7 @@ int				namedPipe::destroy()
   return (0);
 }
 
-std::string			namedPipe::read()
+std::string			namedPipe::read() const
 {
   std::ifstream			readFile(std::string("./") + std::to_string(_id), std::ifstream::in);
   std::string			command = "";
@@ -83,22 +83,8 @@ std::string			namedPipe::read()
   return (command);
 }
 
-int				namedPipe::write(std::string const &command)
+int				namedPipe::write(std::string const &command) const
 {
-  // int				fd;
-  //
-  // if ((fd = open((std::string("./") + std::to_string(_id)).c_str(), O_WRONLY)) == -1)
-  //   {
-  //     std::cout << "mdr" << std::endl;
-  //     std::cerr << "Error: opening of a named pipe failed." << std::endl;
-  //     return (-1);
-  //   }
-  // ::write(fd, command.c_str(), command.length());
-  // if (close(fd) == -1)
-  //   {
-  //     std::cerr << "Error: close of a named pipe failed." << std::endl;
-  //     return (-1);
-  //   }
   std::ofstream			writeFile(std::string("./") + std::to_string(_id), std::ifstream::out);
 
   if (!writeFile.is_open())
@@ -114,4 +100,16 @@ int				namedPipe::write(std::string const &command)
 int				namedPipe::getId() const
 {
   return (_id);
+}
+
+std::ostream			&operator<<(std::ostream &os, namedPipe const &namedPipe)
+{
+  std::cout << namedPipe.read() << std::endl;
+  return (os);
+}
+
+std::string const		&operator>>(std::string const &command, namedPipe const &namedPipe)
+{
+  namedPipe.write(command);
+  return (command);
 }
