@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Mon Feb 29 13:25:56 2016 Nyrandone Noboud-Inpeng
-## Last update Tue Apr  5 23:31:33 2016 Florian Saurs
+## Last update Wed Apr  6 16:03:04 2016 Florian Saurs
 ##
 
 #
@@ -46,6 +46,12 @@ SRCSERVEUR	= ServeurSocket.cpp	\
 SRCCLIENT	= ClientSocket.cpp	\
 		  MainClient.cpp
 
+SRCSERVEURLOC	= ServeurSocketLocal.cpp	\
+		  MainServeurLocal.cpp
+
+SRCCLIENTLOC	= ClientSocketLocal.cpp	\
+		  MainClientLocal.cpp
+
 #
 ## OBJS
 #
@@ -57,6 +63,10 @@ OBJPARS		= $(addprefix $(OBJDIR), $(SRCPARS:.cpp=.o))
 OBJSERVEUR	= $(addprefix $(OBJDIR), $(SRCSERVEUR:.cpp=.o))
 
 OBJCLIENT	= $(addprefix $(OBJDIR), $(SRCCLIENT:.cpp=.o))
+
+OBJSERVEURLOC	= $(addprefix $(OBJDIR), $(SRCSERVEURLOC:.cpp=.o))
+
+OBJCLIENTLOC	= $(addprefix $(OBJDIR), $(SRCCLIENTLOC:.cpp=.o))
 
 
 #
@@ -70,6 +80,10 @@ NAMEPARS	= pars
 NAMESERVEUR	= server
 
 NAMECLIENT	= client
+
+NAMESERVEURLOC	= serverloc
+
+NAMECLIENTLOC	= clientloc
 
 
 #
@@ -90,6 +104,8 @@ all:
 		@make --no-print-directory $(NAMEPARS)
 		@make --no-print-directory $(NAMESERVEUR)
 		@make --no-print-directory $(NAMECLIENT)
+		@make --no-print-directory $(NAMESERVEURLOC)
+		@make --no-print-directory $(NAMECLIENTLOC)
 
 $(OBJDIR)%.o:	$(SRCDIR)%.cpp
 		@mkdir -p $(MAKEOBJ)
@@ -107,16 +123,26 @@ $(NAMESERVEUR): $(OBJSERVEUR)
 $(NAMECLIENT): $(OBJCLIENT)
 		$(CCX) -o $(NAMECLIENT) $(OBJCLIENT)
 
+$(NAMESERVEURLOC): $(OBJSERVEURLOC)
+		$(CCX) -o $(NAMESERVEURLOC) $(OBJSERVEURLOC)
+
+$(NAMECLIENTLOC): $(OBJCLIENTLOC)
+		$(CCX) -o $(NAMECLIENTLOC) $(OBJCLIENTLOC)
+
 clean:
 		$(RM) $(OBJ)
 		$(RM) $(OBJPARS)
 		$(RM) $(OBJSERVEUR)
 		$(RM) $(OBJCLIENT)
+		$(RM) $(OBJSERVEURLOC)
+		$(RM) $(OBJCLIENTLOC)
 
 fclean: 	clean
 		$(RM) $(NAME)
 		$(RM) $(NAMEPARS)
 		$(RM) $(NAMESERVEUR)
 		$(RM) $(NAMECLIENT)
+		$(RM) $(NAMESERVEURLOC)
+		$(RM) $(NAMECLIENTLOC)
 
 re:		fclean all

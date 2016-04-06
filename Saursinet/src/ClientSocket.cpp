@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Wed Apr  6 15:38:32 2016 Florian Saurs
+// Last update Wed Apr  6 16:18:34 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -26,17 +26,17 @@ int		ClientSocket::create()
   _sin.sin_addr.s_addr = inet_addr("127.0.0.1");
   _sin.sin_family = AF_INET;
   _sin.sin_port = htons(PORT);
-  if(connect(_sock, (SOCKADDR*)&_sin, sizeof(_sin)) != SOCKET_ERROR)
-    printf("Connexion à %s sur le port %d\n", inet_ntoa(_sin.sin_addr), htons(_sin.sin_port));
+  if(connect(_sock, (sockaddr*)&_sin, sizeof(_sin)) != SOCKET_ERROR)
+    std::cout << "Connexion à " << inet_ntoa(_sin.sin_addr) << " sur le port " << htons(_sin.sin_port) << std::endl;
   else
-    printf("Impossible de se connecter\n");
-  return (EXIT_SUCCESS);
+    std::cout << "Impossible de se connecter" << std::endl;
+  return (0);
 }
 
 int		ClientSocket::destroy()
 {
   closesocket(_sock);
-  return (EXIT_SUCCESS);
+  return (0);
 }
 
 std::string	ClientSocket::read()
@@ -44,11 +44,11 @@ std::string	ClientSocket::read()
   char buffer[32];
 
   if(recv(_sock, buffer, 32, 0) != SOCKET_ERROR)
-    printf("Recu : %s\n", buffer);
-  return ("");
+    std::cout << "Recu : " << buffer << std::endl;
+  return (buffer);
 }
 
 int		ClientSocket::write(std::string const &)
 {
-  return (EXIT_SUCCESS);
+  return (0);
 }

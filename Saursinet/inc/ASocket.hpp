@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Wed Apr  6 13:33:00 2016 Florian Saurs
-// Last update Wed Apr  6 15:29:49 2016 Florian Saurs
+// Last update Wed Apr  6 16:23:59 2016 Florian Saurs
 //
 
 #ifndef SOCKET_HPP_
@@ -14,6 +14,7 @@
 # include <errno.h>
 # include <arpa/inet.h>
 # include <unistd.h>
+# include <sys/un.h>
 
 # include "ICommunication.hpp"
 
@@ -22,21 +23,21 @@
 # define closesocket(s) close (s)
 # define PORT 8080
 
-typedef int SOCKET;
-typedef struct sockaddr_in SOCKADDR_IN;
-typedef struct sockaddr SOCKADDR;
-
 class	ASocket : public ICommunication
 {
 protected:
   int			_erreur;
-  SOCKADDR_IN		_sin;
-  SOCKET		_sock;
+  int			_sock;
   socklen_t		_recsize;
-  SOCKADDR_IN		_csin;
-  SOCKET		_csock;
+  int			_csock;
   socklen_t		_crecsize;
   int			_sock_err;
+
+  sockaddr_in		_sin;
+  sockaddr_in		_csin;
+
+  sockaddr_un		_sun;
+  sockaddr_un		_csun;
 
 public:
   virtual		~ASocket() {};

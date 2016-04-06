@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Wed Apr  6 15:38:28 2016 Florian Saurs
+// Last update Wed Apr  6 16:16:49 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -29,7 +29,7 @@ int		ServeurSocket::create()
       _sin.sin_addr.s_addr = htonl(INADDR_ANY);  /* Adresse IP automatique */
       _sin.sin_family = AF_INET;                 /* Protocole familial (IP) */
       _sin.sin_port = htons(PORT);               /* Listage du port */
-      _sock_err = bind(_sock, (SOCKADDR*)&_sin, _recsize);
+      _sock_err = bind(_sock, (sockaddr*)&_sin, _recsize);
       if (_sock_err != SOCKET_ERROR)
 	{
 	  // 5 is the number max of connection
@@ -38,19 +38,19 @@ int		ServeurSocket::create()
 	  if (_sock_err != SOCKET_ERROR)
 	    {
 	      std::cout << "Patientez pendant que le client se connecte sur le port " << PORT << "..." << std::endl;
-	      _csock = accept(_sock, (SOCKADDR*)&_csin, &_crecsize);
+	      _csock = accept(_sock, (sockaddr*)&_csin, &_crecsize);
 	      std::cout << "Un client se connecte avec la socket " << _csock << " de " <<
 		inet_ntoa(_csin.sin_addr) << ":" << htons(_csin.sin_port) << std::endl;
 	    }
 	  else
-	    perror("listen");
+	    std::cerr << "Listen" << std::endl;
 	}
       else
-	perror("bind");
+	std::cerr << "Bind" << std::endl;
     }
   else
-    perror("socket");
-  return (EXIT_SUCCESS);
+    std::cerr << "Socket" << std::endl;
+  return (0);
 }
 
 int		ServeurSocket::destroy()
@@ -59,7 +59,7 @@ int		ServeurSocket::destroy()
   closesocket(_csock);
   std::cout << "Fermeture de la socket serveur" << std::endl;
   closesocket(_sock);
-  return (EXIT_SUCCESS);
+  return (0);
 }
 
 std::string	ServeurSocket::read()
@@ -75,5 +75,5 @@ int		ServeurSocket::write(std::string const &buffer)
   else
     std::cout << "Erreur de transmission" << std::endl;
   shutdown(_csock, 2);
-  return (EXIT_SUCCESS);
+  return (0);
 }
