@@ -5,25 +5,24 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Tue Apr  5 23:34:34 2016 Florian Saurs
+// Last update Wed Apr  6 14:24:32 2016 Florian Saurs
 //
 
 #include <iostream>
 #include "../inc/ServeurSocket.hpp"
 
 ServeurSocket::ServeurSocket()
+{}
+
+ServeurSocket::~ServeurSocket()
+{}
+
+int		ServeurSocket::create()
 {
   _sock = socket(AF_INET, SOCK_STREAM, 0);
   _erreur = 0;
   _recsize = sizeof(_sin);
   _crecsize = sizeof(_csin);
-}
-
-ServeurSocket::~ServeurSocket()
-{}
-
-int	ServeurSocket::run()
-{
   if (_sock != INVALID_SOCKET)
     {
       std::cout << "La socket " << _sock << " est maintenant ouverte en mode TCP/IP" << std::endl;
@@ -47,12 +46,27 @@ int	ServeurSocket::run()
 	}
       else
 	perror("bind");
-      std::cout << "Fermeture de la socket client" << std::endl;
-      closesocket(_csock);
-      std::cout << "Fermeture de la socket serveur" << std::endl;
-      closesocket(_sock);
     }
   else
     perror("socket");
+  return (EXIT_SUCCESS);
+}
+
+int		ServeurSocket::destroy()
+{
+  std::cout << "Fermeture de la socket client" << std::endl;
+  closesocket(_csock);
+  std::cout << "Fermeture de la socket serveur" << std::endl;
+  closesocket(_sock);
+  return (EXIT_SUCCESS);
+}
+
+std::string	ServeurSocket::read()
+{
+  return ("");
+}
+
+int		ServeurSocket::write(std::string const &)
+{
   return (EXIT_SUCCESS);
 }

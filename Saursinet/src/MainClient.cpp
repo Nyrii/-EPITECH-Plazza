@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 23:31:50 2016 Florian Saurs
-// Last update Tue Apr  5 23:33:08 2016 Florian Saurs
+// Last update Wed Apr  6 14:25:26 2016 Florian Saurs
 //
 
 #include "../inc/ClientSocket.hpp"
@@ -14,5 +14,6 @@ int	main()
 {
   ClientSocket	sock;
 
-  sock.run();
+  sock.create();
+  sock.destroy();
 }
