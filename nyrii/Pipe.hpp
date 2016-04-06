@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:18:42 2016 Nyrandone Noboud-Inpeng
-// Last update Tue Apr  5 23:24:25 2016 Nyrandone Noboud-Inpeng
+// Last update Wed Apr  6 13:24:29 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef PIPE_HPP_
@@ -14,17 +14,17 @@
 # include <map>
 # include <vector>
 
-class		IPipe
+class			ICommunication
 {
 public:
-  virtual		~IPipe() {};
+  virtual		~ICommunication() {};
   virtual int		create() = 0;
   virtual int		destroy() = 0;
   virtual std::string	read() = 0;
   virtual int		write(std::string const &) = 0;
 };
 
-class					NamedPipe : public IPipe
+class					NamedPipe : public ICommunication
 {
 public:
   NamedPipe();
