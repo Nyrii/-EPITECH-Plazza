@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:24:35 2016 Florian Saurs
-// Last update Tue Apr  5 23:23:00 2016 Florian Saurs
+// Last update Wed Apr  6 13:28:40 2016 Florian Saurs
 //
 
 #ifndef SERVEURSOCKET_HPP_
@@ -28,7 +28,7 @@
 # define SOCKET_ERROR -1
 # define closesocket(s) close (s)
 
-# define PORT 23
+# define PORT 8080
 
 typedef int SOCKET;
 typedef struct sockaddr_in SOCKADDR_IN;
