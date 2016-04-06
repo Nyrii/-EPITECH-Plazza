@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Wed Apr  6 14:24:32 2016 Florian Saurs
+// Last update Wed Apr  6 15:38:28 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -32,6 +32,7 @@ int		ServeurSocket::create()
       _sock_err = bind(_sock, (SOCKADDR*)&_sin, _recsize);
       if (_sock_err != SOCKET_ERROR)
 	{
+	  // 5 is the number max of connection
 	  _sock_err = listen(_sock, 5);
 	  std::cout << "Listage du port " << PORT << "..." << std::endl;
 	  if (_sock_err != SOCKET_ERROR)
@@ -66,7 +67,13 @@ std::string	ServeurSocket::read()
   return ("");
 }
 
-int		ServeurSocket::write(std::string const &)
+int		ServeurSocket::write(std::string const &buffer)
 {
+  _sock_err = send(_csock, buffer.c_str(), 32, 0);
+  if(_sock_err != SOCKET_ERROR)
+    std::cout << "Chaine envoyée : " << buffer << std::endl;
+  else
+    std::cout << "Erreur de transmission" << std::endl;
+  shutdown(_csock, 2);
   return (EXIT_SUCCESS);
 }

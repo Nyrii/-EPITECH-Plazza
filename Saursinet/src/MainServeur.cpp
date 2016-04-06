@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 23:31:50 2016 Florian Saurs
-// Last update Wed Apr  6 14:25:44 2016 Florian Saurs
+// Last update Wed Apr  6 14:47:55 2016 Florian Saurs
 //
 
 #include "../inc/ServeurSocket.hpp"
@@ -15,5 +15,6 @@ int	main()
   ServeurSocket	sock;
 
   sock.create();
+  sock.write("toto");
   sock.destroy();
 }

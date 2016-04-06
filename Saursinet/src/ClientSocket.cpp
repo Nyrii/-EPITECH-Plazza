@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Wed Apr  6 14:18:49 2016 Florian Saurs
+// Last update Wed Apr  6 15:38:32 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -41,6 +41,10 @@ int		ClientSocket::destroy()
 
 std::string	ClientSocket::read()
 {
+  char buffer[32];
+
+  if(recv(_sock, buffer, 32, 0) != SOCKET_ERROR)
+    printf("Recu : %s\n", buffer);
   return ("");
 }
 

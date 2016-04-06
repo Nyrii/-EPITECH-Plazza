@@ -5,31 +5,21 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Wed Apr  6 13:33:00 2016 Florian Saurs
-// Last update Wed Apr  6 13:39:59 2016 Florian Saurs
+// Last update Wed Apr  6 15:29:49 2016 Florian Saurs
 //
 
 #ifndef SOCKET_HPP_
 # define SOCKET_HPP_
 
-# include <sys/socket.h>
-# include <sys/un.h>
-
 # include <errno.h>
-# include <netdb.h>
-# include <string.h>
-# include <sys/types.h>
-# include <netinet/in.h>
 # include <arpa/inet.h>
 # include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
 
 # include "ICommunication.hpp"
 
 # define INVALID_SOCKET -1
 # define SOCKET_ERROR -1
 # define closesocket(s) close (s)
-
 # define PORT 8080
 
 typedef int SOCKET;
