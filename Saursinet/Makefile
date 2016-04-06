@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Mon Feb 29 13:25:56 2016 Nyrandone Noboud-Inpeng
-## Last update Wed Apr  6 17:40:36 2016 Florian Saurs
+## Last update Thu Apr  7 00:31:22 2016 Florian Saurs
 ##
 
 #
@@ -40,6 +40,9 @@ SRCPARS		= Parsing.cpp	\
 		  MainPars.cpp	\
 		  Core.cpp
 
+SRCXOR		= CryptXor.cpp	\
+		  MainXor.cpp
+
 SRCSERVEUR	= ServeurSocket.cpp	\
 		  MainServeur.cpp
 
@@ -60,6 +63,8 @@ OBJ		= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))
 
 OBJPARS		= $(addprefix $(OBJDIR), $(SRCPARS:.cpp=.o))
 
+OBJXOR		= $(addprefix $(OBJDIR), $(SRCXOR:.cpp=.o))
+
 OBJSERVEUR	= $(addprefix $(OBJDIR), $(SRCSERVEUR:.cpp=.o))
 
 OBJCLIENT	= $(addprefix $(OBJDIR), $(SRCCLIENT:.cpp=.o))
@@ -76,6 +81,8 @@ OBJCLIENTLOC	= $(addprefix $(OBJDIR), $(SRCCLIENTLOC:.cpp=.o))
 NAME		= tp
 
 NAMEPARS	= pars
+
+NAMEXOR		= decodexor
 
 NAMESERVEUR	= server
 
@@ -102,6 +109,7 @@ CXXFLAGS = -W -Wall -Wextra -std=c++11
 all:
 		@make --no-print-directory $(NAME)
 		@make --no-print-directory $(NAMEPARS)
+		@make --no-print-directory $(NAMEXOR)
 		@make --no-print-directory $(NAMESERVEUR)
 		@make --no-print-directory $(NAMECLIENT)
 		@make --no-print-directory $(NAMESERVEURLOC)
@@ -116,6 +124,9 @@ $(NAME): 	$(OBJ)
 
 $(NAMEPARS): 	$(OBJPARS)
 		$(CCX) -o $(NAMEPARS) $(OBJPARS) -lboost_regex
+
+$(NAMEXOR): 	$(OBJXOR)
+		$(CCX) -o $(NAMEXOR) $(OBJXOR)
 
 $(NAMESERVEUR): $(OBJSERVEUR)
 		$(CCX) -o $(NAMESERVEUR) $(OBJSERVEUR)
@@ -132,6 +143,7 @@ $(NAMECLIENTLOC): $(OBJCLIENTLOC)
 clean:
 		$(RM) $(OBJ)
 		$(RM) $(OBJPARS)
+		$(RM) $(OBJXOR)
 		$(RM) $(OBJSERVEUR)
 		$(RM) $(OBJCLIENT)
 		$(RM) $(OBJSERVEURLOC)
@@ -139,6 +151,7 @@ clean:
 
 fclean: 	clean
 		$(RM) $(NAME)
+		$(RM) $(NAMEXOR)
 		$(RM) $(NAMEPARS)
 		$(RM) $(NAMESERVEUR)
 		$(RM) $(NAMECLIENT)
