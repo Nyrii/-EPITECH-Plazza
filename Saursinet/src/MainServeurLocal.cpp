@@ -5,16 +5,16 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 23:31:50 2016 Florian Saurs
-// Last update Wed Apr  6 14:47:34 2016 Florian Saurs
+// Last update Wed Apr  6 16:04:37 2016 Florian Saurs
 //
 
-#include "../inc/ClientSocket.hpp"
+#include "../inc/ServeurSocketLocal.hpp"
 
 int	main()
 {
-  ClientSocket	sock;
+  ServeurSocketLocal	sock;
 
   sock.create();
-  sock.read();
+  sock.write("toto");
   sock.destroy();
 }

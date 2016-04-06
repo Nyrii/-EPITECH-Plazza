@@ -5,52 +5,24 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:24:35 2016 Florian Saurs
-// Last update Tue Apr  5 23:23:00 2016 Florian Saurs
+// Last update Wed Apr  6 14:20:53 2016 Florian Saurs
 //
 
 #ifndef SERVEURSOCKET_HPP_
 # define SERVEURSOCKET_HPP_
 
-# include <sys/socket.h>
-# include <sys/un.h>
+# include "ASocket.hpp"
 
-# include <errno.h>
-# include <netdb.h>
-# include <string.h>
-# include <sys/types.h>
-# include <netinet/in.h>
-# include <arpa/inet.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-
-# define INVALID_SOCKET -1
-# define SOCKET_ERROR -1
-# define closesocket(s) close (s)
-
-# define PORT 23
-
-typedef int SOCKET;
-typedef struct sockaddr_in SOCKADDR_IN;
-typedef struct sockaddr SOCKADDR;
-
-class	ServeurSocket
+class	ServeurSocket : public ASocket
 {
-  int		_erreur;
-  SOCKADDR_IN	_sin;
-  SOCKET	_sock;
-  socklen_t	_recsize;
-
-  SOCKADDR_IN	_csin;
-  SOCKET	_csock;
-  socklen_t	_crecsize;
-  int		_sock_err;
-
 public:
   ServeurSocket();
-  ~ServeurSocket();
+  virtual	~ServeurSocket();
 
-  int	run();
+  int		create();
+  int		destroy();
+  std::string	read();
+  int		write(std::string const &);
 };
 
 #endif /* !SERVEURSOCKET_HPP_ */

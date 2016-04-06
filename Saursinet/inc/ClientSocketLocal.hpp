@@ -5,19 +5,19 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:24:35 2016 Florian Saurs
-// Last update Wed Apr  6 14:14:28 2016 Florian Saurs
+// Last update Wed Apr  6 15:58:17 2016 Florian Saurs
 //
 
-#ifndef CLIENTSOCKET_HPP_
-# define CLIENTSOCKET_HPP_
+#ifndef CLIENTSOCKETLOCAL_HPP_
+# define CLIENTSOCKETLOCAL_HPP_
 
 # include "ASocket.hpp"
 
-class	ClientSocket : public ASocket
+class	ClientSocketLocal : public ASocket
 {
 public:
-  ClientSocket();
-  virtual	~ClientSocket();
+  ClientSocketLocal();
+  virtual	~ClientSocketLocal();
 
   int		create();
   int		destroy();
@@ -25,4 +25,4 @@ public:
   int		write(std::string const &);
 };
 
-#endif /* !CLIENTSOCKET_HPP_ */
+#endif /* !CLIENTSOCKETLOCAL_HPP_ */
