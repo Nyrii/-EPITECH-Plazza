@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Mon Feb 29 13:25:56 2016 Nyrandone Noboud-Inpeng
-## Last update Wed Apr  6 16:03:04 2016 Florian Saurs
+## Last update Wed Apr  6 17:40:36 2016 Florian Saurs
 ##
 
 #
@@ -92,7 +92,7 @@ NAMECLIENTLOC	= clientloc
 
 LDFLAGS = -lpthread
 
-CXXFLAGS = -W -Wall -Wextra -Werror -std=c++11
+CXXFLAGS = -W -Wall -Wextra -std=c++11
 
 
 #

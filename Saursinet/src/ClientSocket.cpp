@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Wed Apr  6 16:18:34 2016 Florian Saurs
+// Last update Wed Apr  6 17:39:45 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -25,7 +25,7 @@ int		ClientSocket::create()
   _crecsize = sizeof(_csin);
   _sin.sin_addr.s_addr = inet_addr("127.0.0.1");
   _sin.sin_family = AF_INET;
-  _sin.sin_port = htons(PORT);
+  _sin.sin_port = 17030;
   if(connect(_sock, (sockaddr*)&_sin, sizeof(_sin)) != SOCKET_ERROR)
     std::cout << "Connexion à " << inet_ntoa(_sin.sin_addr) << " sur le port " << htons(_sin.sin_port) << std::endl;
   else

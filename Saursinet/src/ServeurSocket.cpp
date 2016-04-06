@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Wed Apr  6 16:16:49 2016 Florian Saurs
+// Last update Wed Apr  6 17:39:48 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -26,9 +26,9 @@ int		ServeurSocket::create()
   if (_sock != INVALID_SOCKET)
     {
       std::cout << "La socket " << _sock << " est maintenant ouverte en mode TCP/IP" << std::endl;
-      _sin.sin_addr.s_addr = htonl(INADDR_ANY);  /* Adresse IP automatique */
+      _sin.sin_addr.s_addr = inet_addr("127.0.0.1");  /* Adresse IP automatique */
       _sin.sin_family = AF_INET;                 /* Protocole familial (IP) */
-      _sin.sin_port = htons(PORT);               /* Listage du port */
+      _sin.sin_port = 17030;               /* Listage du port */
       _sock_err = bind(_sock, (sockaddr*)&_sin, _recsize);
       if (_sock_err != SOCKET_ERROR)
 	{
