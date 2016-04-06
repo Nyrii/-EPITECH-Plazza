@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:18:42 2016 Nyrandone Noboud-Inpeng
-// Last update Wed Apr  6 14:44:31 2016 Nyrandone Noboud-Inpeng
+// Last update Wed Apr  6 16:12:52 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef NAMEDPIPE_HH_
@@ -24,9 +24,9 @@ public:
   namedPipe				&operator=(namedPipe const &);
 
   int					create(int);
-  int					destroy();
-  std::string				read();
-  int					write(std::string const &);
+  int					destroy() const;
+  std::string				read() const;
+  int					write(std::string const &) const;
 
   int					getId() const;
 
@@ -34,5 +34,8 @@ public:
   int					_id;
   std::string				_path;
 };
+
+std::ostream				&operator<<(std::ostream &, namedPipe const &);
+std::string const			&operator>>(std::string const &command, namedPipe const &namedPipe);
 
 #endif /* !NAMEDPIPE_HH_ */
