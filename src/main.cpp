@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Thu Apr  7 20:45:14 2016 guillaume wilmot
+// Last update Thu Apr  7 22:57:49 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
@@ -22,19 +22,20 @@ int		main()
 
   namedPipe	*tmp = new namedPipe;
   pid_t		pid;
+  t_processState	mdr;
 
   // core();
   tmp->create(0);
+  mdr.state[1] = "lol";
   if (!(pid = fork()))
     {
-      std::cout << pid << std::endl;
-      std::string("OKEEEEEEEE") >> *tmp;
+      tmp->write2(mdr);
+      // std::string("OKEEEEEEEE") >> *tmp;
       exit(0);
     }
-
-  char 	str[100];
-  tmp->read2(str);
-  std::cout << str;
+  mdr.state[1] = "MDRRR";
+  tmp->read2(mdr);
+  std::cout << mdr.state[1] << std::endl;
 
   delete tmp;
   return (0);
