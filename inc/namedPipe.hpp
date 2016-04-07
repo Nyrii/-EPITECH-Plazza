@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:18:42 2016 Nyrandone Noboud-Inpeng
-// Last update Thu Apr  7 23:23:21 2016 Nyrandone Noboud-Inpeng
+// Last update Thu Apr  7 23:24:35 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef NAMEDPIPE_HH_
@@ -38,7 +38,7 @@ public:
 
       if (!writeFile.is_open())
 	{
-	  std::cerr << "Error: opening of a named pipe failed." << std::endl;
+	  std::cerr << "Error: opening of a named pipe to write in it failed." << std::endl;
 	  return (-1);
 	}
       writeFile.write(reinterpret_cast<char *>(&buf), sizeof(S));
@@ -55,7 +55,7 @@ public:
 
       if (!readFile.is_open())
 	{
-	  std::cerr << "Error: opening of a named pipe failed." << std::endl;
+	  std::cerr << "Error: opening of a named pipe to read in it failed." << std::endl;
 	  return (-1);
 	}
       readFile.read(reinterpret_cast<char *>(&buf), sizeof(T));
