@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 22:15:29 2016 Nyrandone Noboud-Inpeng
-// Last update Wed Apr  6 22:52:53 2016 Nyrandone Noboud-Inpeng
+// Last update Thu Apr  7 20:47:12 2016 guillaume wilmot
 //
 
 #include <sys/stat.h>
@@ -15,7 +15,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "namedPipe.hh"
+#include "namedPipe.hpp"
 
 namedPipe::namedPipe()
 {
@@ -104,7 +104,8 @@ int				namedPipe::getId() const
 
 std::ostream			&operator<<(std::ostream &os, namedPipe const &namedPipe)
 {
-  std::cout << namedPipe.read() << std::endl;
+  (void)namedPipe;
+  // std::cout << namedPipe.read() << std::endl;
   return (os);
 }
 

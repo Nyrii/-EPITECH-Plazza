@@ -5,19 +5,14 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:54:36 2016 guillaume wilmot
-// Last update Thu Apr  7 01:40:43 2016 guillaume wilmot
+// Last update Thu Apr  7 18:15:28 2016 guillaume wilmot
 //
 
-#include <stdlib.h>
-#include <pthread.h>
-#include <iostream>
+/**/
 #include <unistd.h>
-#include <signal.h>
+/**/
+#include <iostream>
 #include <cstdlib>
-#include "Thread.hpp"
-#include "Mutex.hpp"
-#include "ScopedLock.hpp"
-#include "SafeQueue.hpp"
 #include "Process.hpp"
 #include "Listener.hpp"
 

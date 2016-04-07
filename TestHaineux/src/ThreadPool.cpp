@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 00:30:45 2016 guillaume wilmot
-// Last update Thu Apr  7 01:49:10 2016 guillaume wilmot
+// Last update Thu Apr  7 17:52:29 2016 guillaume wilmot
 //
 
 #include "ScopedLock.hpp"
@@ -45,17 +45,17 @@ int		ThreadPool::assign()
 {
   ScopedLock	lock(_mutex);
 
-  Thread	*thread;
+  // Thread	*thread;
   t_queue	*elem;
 
   if (_working >= _nbThread || _stack.size() == 0)
     return (-1);
   elem = _stack.front();
   _stack.erase(_stack.begin());
-  thread = new Thread;
+  // thread = new Thread;
   _working++;
-  thread->start(elem->ptr, elem->args);
-  _threads.push_back(thread);
+  // thread->start(elem->ptr, elem->args);
+  // _threads.push_back(thread);
   delete elem;
   return (0);
 }

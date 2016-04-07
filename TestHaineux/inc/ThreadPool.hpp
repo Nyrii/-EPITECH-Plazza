@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 00:29:53 2016 guillaume wilmot
-// Last update Thu Apr  7 01:33:15 2016 guillaume wilmot
+// Last update Thu Apr  7 18:15:53 2016 guillaume wilmot
 //
 
 #ifndef THREADPOOL_HPP_
@@ -14,7 +14,7 @@
 # include <iostream>
 # include <vector>
 # include "Mutex.hpp"
-# include "Thread.hpp"
+# include "CondThread.hpp"
 
 /* TO REPLACE WITH SAURS' */
 enum Information
@@ -41,7 +41,7 @@ private:
   int				_nbThread;
   int				_working;
   Mutex				_mutex;
-  std::vector<Thread *>		_threads;
+  std::vector<CondThread *>	_threads;
   std::vector<t_queue *>	_stack;
 };
 

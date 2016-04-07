@@ -1,11 +1,11 @@
 ##
 ## Makefile for Makefile in /Users/noboud_n/rendu/cpp_plazza
-## 
+##
 ## Made by Nyrandone Noboud-Inpeng
 ## Login   <noboud_n@epitech.net>
-## 
+##
 ## Started on  Thu Apr  7 13:52:42 2016 Nyrandone Noboud-Inpeng
-## Last update Thu Apr  7 14:39:36 2016 Nyrandone Noboud-Inpeng
+## Last update Thu Apr  7 19:23:47 2016 guillaume wilmot
 ##
 
 SRC	= CryptCaesar.cpp	\
@@ -16,7 +16,7 @@ OBJ	= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))
 
 RM	= rm -f
 
-CC	= g++
+CC	= g++ -std=c++11
 
 NAME	= plazza
 
