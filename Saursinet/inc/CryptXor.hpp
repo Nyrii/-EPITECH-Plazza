@@ -5,12 +5,13 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Thu Apr  7 00:19:09 2016 Florian Saurs
-// Last update Thu Apr  7 00:29:36 2016 Florian Saurs
+// Last update Thu Apr  7 17:31:43 2016 Florian Saurs
 //
 
 #ifndef CRYPTXOR
 # define CRYPTXOR
 
+# include <stdint.h>
 # include <iostream>
 
 class	CryptXor
@@ -19,7 +20,7 @@ public:
   CryptXor();
   ~CryptXor();
 
-  std::string	decrypt(int, std::string);
+  std::string	decrypt(uint16_t, std::string);
 };
 
 #endif /* !CRYPTXOR */
