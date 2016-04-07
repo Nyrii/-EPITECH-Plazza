@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 22:15:29 2016 Nyrandone Noboud-Inpeng
-// Last update Wed Apr  6 16:12:39 2016 Nyrandone Noboud-Inpeng
+// Last update Wed Apr  6 22:52:53 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <sys/stat.h>
@@ -24,7 +24,7 @@ namedPipe::namedPipe()
 
 namedPipe::~namedPipe()
 {
-  unlink((std::string("./") + std::to_string(_id)).c_str());
+  unlink((std::string("./np") + std::to_string(_id)).c_str());
 }
 
 namedPipe::namedPipe(namedPipe const &src)
@@ -44,7 +44,7 @@ namedPipe			&namedPipe::operator=(namedPipe const &src)
 int				namedPipe::create(int id)
 {
   _id = id;
-  if (mkfifo((std::string("./") + std::to_string(_id)).c_str(),
+  if (mkfifo((std::string("./np") + std::to_string(_id)).c_str(),
 	     S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) == -1)
     {
       unlink((std::string("./") + std::to_string(_id)).c_str());
@@ -60,7 +60,7 @@ int				namedPipe::create(int id)
 
 int				namedPipe::destroy() const
 {
-  if (unlink((static_cast<std::string>("./") + std::to_string(_id)).c_str()) == -1)
+  if (unlink((static_cast<std::string>("./np") + std::to_string(_id)).c_str()) == -1)
     {
       std::cerr << "Error: unlink of a named pipe failed." << std::endl;
       return (-1);
@@ -70,7 +70,7 @@ int				namedPipe::destroy() const
 
 std::string			namedPipe::read() const
 {
-  std::ifstream			readFile(std::string("./") + std::to_string(_id), std::ifstream::in);
+  std::ifstream			readFile(std::string("./np") + std::to_string(_id), std::ifstream::in);
   std::string			command = "";
 
   if (!readFile.is_open())
@@ -85,7 +85,7 @@ std::string			namedPipe::read() const
 
 int				namedPipe::write(std::string const &command) const
 {
-  std::ofstream			writeFile(std::string("./") + std::to_string(_id), std::ifstream::out);
+  std::ofstream			writeFile(std::string("./np") + std::to_string(_id), std::ifstream::out);
 
   if (!writeFile.is_open())
     {

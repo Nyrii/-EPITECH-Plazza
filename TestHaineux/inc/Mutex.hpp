@@ -1,11 +1,11 @@
 //
-// IMutex.hpp for  in /home/wilmot_g/Rendu/cpp_plazza/TestHaineux
+// Mutex.hpp for Plazza in /home/wilmot_g/Rendu/cpp_plazza/TestHaineux
 //
 // Made by guillaume wilmot
 // Login   <wilmot_g@epitech.net>
 //
-// Started on  Mon Apr  4 18:55:40 2016 guillaume wilmot
-// Last update Tue Apr  5 14:32:44 2016 guillaume wilmot
+// Started on  Wed Apr  6 23:55:22 2016 guillaume wilmot
+// Last update Wed Apr  6 23:55:23 2016 guillaume wilmot
 //
 
 #ifndef MUTEX_HPP_
