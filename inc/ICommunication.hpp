@@ -5,12 +5,13 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr  6 13:44:41 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr  8 10:32:18 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr  8 10:33:20 2016 Florian Saurs
 //
 
 #ifndef ICOMMUNICATION_HPP_
 # define ICOMMUNICATION_HPP_
 
+# include <iostream>
 # include <map>
 
 typedef struct			s_processState
