@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Sat Apr  9 00:02:12 2016 Florian Saurs
+// Last update Sat Apr  9 00:04:20 2016 Florian Saurs
 //
 
 #include <dirent.h>
@@ -100,7 +100,7 @@ void				Core::runProcess(std::string fileName, type _type) const
 	  found = pars.parseFile(Xor.Decrypt(content, 0, i++), _type);
 	}
       start = 0;
-      while (start < 24 && found.size() == 0)
+      while (start <= 25 && found.size() == 0)
 	found = pars.parseFile(Xor.Decrypt(content, start++, 0), _type);
     }
   for (std::vector<std::string>::iterator it = found.begin(); it != found.end(); ++it)
