@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr  6 13:44:41 2016 Nyrandone Noboud-Inpeng
-// Last update Thu Apr  7 23:18:16 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr  8 09:55:40 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef ICOMMUNICATION_HPP_
@@ -15,7 +15,8 @@
 
 typedef struct			s_processState
 {
-  std::map<int, std::string>	state;
+  int				id;
+  std::string			nameFile;
 }				t_processState;
 
 class				ICommunication

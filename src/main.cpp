@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Thu Apr  7 22:57:49 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr  8 09:54:16 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
@@ -26,16 +26,21 @@ int		main()
 
   // core();
   tmp->create(0);
-  mdr.state[1] = "lol";
+  mdr.id = 42;
+  mdr.tmp = "mdr";
+  std::cout << mdr.id << std::endl;
+  std::cout << mdr.tmp << std::endl;
   if (!(pid = fork()))
     {
       tmp->write2(mdr);
       // std::string("OKEEEEEEEE") >> *tmp;
       exit(0);
     }
-  mdr.state[1] = "MDRRR";
+  mdr.id = 2;
+  mdr.tmp = "lol";
   tmp->read2(mdr);
-  std::cout << mdr.state[1] << std::endl;
+  std::cout << mdr.id << std::endl;
+  std::cout << mdr.tmp << std::endl;
 
   delete tmp;
   return (0);

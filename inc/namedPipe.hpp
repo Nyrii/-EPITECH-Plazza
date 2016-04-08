@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:18:42 2016 Nyrandone Noboud-Inpeng
-// Last update Thu Apr  7 23:24:35 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr  8 09:55:21 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef NAMEDPIPE_HH_
@@ -30,9 +30,9 @@ public:
   int					create(int);
   int					destroy() const;
   std::string				read() const;
-  int					write(std::string const &) const;
+
   template <typename S>
-  int					write2(S &buf) const
+  int					write(S &buf) const
   {
       std::fstream			writeFile(std::string("./np") + std::to_string(_id), std::fstream::out);
 
@@ -45,11 +45,8 @@ public:
       writeFile.close();
       return (0);
   }
-
-  int					getId() const;
-
   template <typename T>
-  int					read2(T &buf) const
+  int					read(T &buf) const
     {
       std::fstream			readFile(std::string("./np") + std::to_string(_id), std::fstream::in);
 
@@ -63,7 +60,7 @@ public:
       return (0);
     }
 
-
+  int					getId() const;
   private:
   int					_id;
   std::string				_path;
