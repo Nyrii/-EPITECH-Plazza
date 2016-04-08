@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 22:15:29 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr  8 10:42:09 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr  8 10:47:28 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <sys/stat.h>
@@ -26,6 +26,7 @@ namedPipe::~namedPipe()
 namedPipe::namedPipe(namedPipe const &src)
 {
   _id = src.getId();
+  _path = src.getPath();
 }
 
 namedPipe			&namedPipe::operator=(namedPipe const &src)
@@ -33,6 +34,7 @@ namedPipe			&namedPipe::operator=(namedPipe const &src)
   if (this != &src)
     {
       _id = src.getId();
+      _path = src.getPath();
     }
   return (*this);
 }
@@ -94,6 +96,11 @@ void				namedPipe::read(t_processState &buf) const
 int				namedPipe::getId() const
 {
   return (_id);
+}
+
+std::string			namedPipe::getPath() const
+{
+  return (_path);
 }
 
 std::ostream			&operator<<(std::ostream &os, namedPipe const &namedPipe)
