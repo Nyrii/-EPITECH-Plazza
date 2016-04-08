@@ -5,15 +5,11 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 22:15:29 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr  8 10:30:44 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr  8 10:42:09 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <sys/stat.h>
-#include <sys/types.h>
-#include <fcntl.h>
 #include <unistd.h>
-#include <iostream>
-#include <string>
 #include <fstream>
 #include "namedPipe.hpp"
 
@@ -44,11 +40,12 @@ namedPipe			&namedPipe::operator=(namedPipe const &src)
 int				namedPipe::create(int id)
 {
   _id = id;
-  if (mkfifo((std::string("./np") + std::to_string(_id)).c_str(),
+  _path = std::string("./np") + std::to_string(_id);
+  if (mkfifo(_path.c_str(),
 	     S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) == -1)
     {
-      unlink((std::string("./") + std::to_string(_id)).c_str());
-      if (mkfifo((std::string("./") + std::to_string(_id)).c_str(),
+      unlink(_path.c_str());
+      if (mkfifo(_path.c_str(),
            S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) == -1)
 	{
 	  std::cerr << "Error: creation of a named pipe failed." << std::endl;
@@ -60,7 +57,7 @@ int				namedPipe::create(int id)
 
 int				namedPipe::destroy() const
 {
-  if (unlink((static_cast<std::string>("./np") + std::to_string(_id)).c_str()) == -1)
+  if (unlink(_path.c_str()) == -1)
     {
       std::cerr << "Error: unlink of a named pipe failed." << std::endl;
       return (-1);
@@ -70,7 +67,7 @@ int				namedPipe::destroy() const
 
 void				namedPipe::write(t_processState &buf) const
 {
-  std::fstream			writeFile(std::string("./np") + std::to_string(_id), std::fstream::out);
+  std::fstream			writeFile(_path, std::fstream::out);
 
   if (!writeFile.is_open())
     {
@@ -83,7 +80,7 @@ void				namedPipe::write(t_processState &buf) const
 
 void				namedPipe::read(t_processState &buf) const
 {
-  std::fstream			readFile(std::string("./np") + std::to_string(_id), std::fstream::in);
+  std::fstream			readFile(_path, std::fstream::in);
 
   if (!readFile.is_open())
     {
