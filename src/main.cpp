@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr  8 09:54:16 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr  8 10:06:04 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
@@ -27,20 +27,20 @@ int		main()
   // core();
   tmp->create(0);
   mdr.id = 42;
-  mdr.tmp = "mdr";
+  mdr.fileName = "mdr";
   std::cout << mdr.id << std::endl;
-  std::cout << mdr.tmp << std::endl;
+  std::cout << mdr.fileName << std::endl;
   if (!(pid = fork()))
     {
-      tmp->write2(mdr);
+      tmp->write(mdr);
       // std::string("OKEEEEEEEE") >> *tmp;
       exit(0);
     }
   mdr.id = 2;
-  mdr.tmp = "lol";
-  tmp->read2(mdr);
+  mdr.fileName = "lol";
+  tmp->read(mdr);
   std::cout << mdr.id << std::endl;
-  std::cout << mdr.tmp << std::endl;
+  std::cout << mdr.fileName << std::endl;
 
   delete tmp;
   return (0);

@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 22:15:29 2016 Nyrandone Noboud-Inpeng
-// Last update Thu Apr  7 20:47:12 2016 guillaume wilmot
+// Last update Fri Apr  8 10:30:44 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <sys/stat.h>
@@ -68,33 +68,30 @@ int				namedPipe::destroy() const
   return (0);
 }
 
-std::string			namedPipe::read() const
+void				namedPipe::write(t_processState &buf) const
 {
-  std::ifstream			readFile(std::string("./np") + std::to_string(_id), std::ifstream::in);
-  std::string			command = "";
-
-  if (!readFile.is_open())
-    {
-      std::cerr << "Error: opening of a named pipe failed." << std::endl;
-      return ("");
-    }
-  std::getline(readFile, command);
-  readFile.close();
-  return (command);
-}
-
-int				namedPipe::write(std::string const &command) const
-{
-  std::ofstream			writeFile(std::string("./np") + std::to_string(_id), std::ifstream::out);
+  std::fstream			writeFile(std::string("./np") + std::to_string(_id), std::fstream::out);
 
   if (!writeFile.is_open())
     {
-      std::cerr << "Error: opening of a named pipe failed." << std::endl;
-      return (-1);
+      std::cerr << "Error: opening of a named pipe to write in it failed." << std::endl;
+      return ;
     }
-  writeFile << command;
+  writeFile.write(reinterpret_cast<char *>(&buf), sizeof(t_processState));
   writeFile.close();
-  return (0);
+}
+
+void				namedPipe::read(t_processState &buf) const
+{
+  std::fstream			readFile(std::string("./np") + std::to_string(_id), std::fstream::in);
+
+  if (!readFile.is_open())
+    {
+      std::cerr << "Error: opening of a named pipe to read in it failed." << std::endl;
+      return ;
+    }
+  readFile.read(reinterpret_cast<char *>(&buf), sizeof(t_processState));
+  readFile.close();
 }
 
 int				namedPipe::getId() const
@@ -111,6 +108,7 @@ std::ostream			&operator<<(std::ostream &os, namedPipe const &namedPipe)
 
 std::string const		&operator>>(std::string const &command, namedPipe const &namedPipe)
 {
-  namedPipe.write(command);
+  (void)namedPipe;
+  // namedPipe.write(command);
   return (command);
 }
