@@ -5,12 +5,18 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Thu Apr  7 13:52:42 2016 Nyrandone Noboud-Inpeng
-## Last update Fri Apr  8 10:51:41 2016 Florian Saurs
+## Last update Fri Apr  8 10:57:56 2016 Florian Saurs
 ##
 
-SRC	= CryptCaesar.cpp	\
-	  CryptXor.cpp		\
-	  NamedPipe.cpp		\
+SRC	= CryptCaesar.cpp		\
+	  CryptXor.cpp			\
+	  NamedPipe.cpp			\
+	  ClientSocket.cpp		\
+	  ClientSocketLocal.cpp		\
+	  ServeurSocket.cpp		\
+	  ServeurSocketLocal.cpp	\
+	  Parsing.cpp			\
+	  Core.cpp			\
 	  main.cpp
 
 OBJ	= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))
@@ -34,7 +40,7 @@ $(OBJDIR)%.o: $(SRCDIR)%.cpp
 	$(CC) $(CFLAGS) $(INCDIR) -o $@ -c $<
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ)
+	$(CC) -o $(NAME) $(OBJ) -lboost_regex
 
 all: $(NAME)
 
