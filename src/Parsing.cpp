@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Fri Apr  8 17:23:07 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr  8 18:36:11 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
@@ -31,22 +31,24 @@ std::string	Parsing::searchInCurrent(std::string current) const
   boost::smatch	matches;
 
   for (int i = 0; i < _nbReg; ++i)
-    if (boost::regex_search(current, matches, _reg[i]))
-      return (matches[0]);
+    {
+      if (boost::regex_search(current, matches, _reg[i]))
+	return (matches[0]);
+    }
   return ("");
 }
 
-void		Parsing::parseFile(std::string name) const
+void				Parsing::parseFile(std::string name) const
 {
-  std::string	result("");
-  std::string	current;
-  DIR		*directory;
+  std::string			result("");
+  std::string			current;
+  DIR				*directory;
   std::vector<std::string>	found;
 
   directory = opendir(name.c_str());
   if (directory != NULL)
     {
-      std::cerr << name << " is a directory." << std::endl;
+      std::cerr << "Error: " + name + "is a directory" << std::endl;
       return ;
     }
   closedir(directory);
