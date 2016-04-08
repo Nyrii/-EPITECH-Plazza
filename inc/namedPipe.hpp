@@ -5,17 +5,11 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:18:42 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr  8 10:30:06 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr  8 10:43:35 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef NAMEDPIPE_HH_
 # define NAMEDPIPE_HH_
-
-# include <map>
-# include <vector>
-
-# include <unistd.h>
-# include <fcntl.h>
 
 # include "ICommunication.hpp"
 
