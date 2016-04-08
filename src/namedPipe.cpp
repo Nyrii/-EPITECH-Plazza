@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 22:15:29 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr  8 10:47:28 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr  8 10:50:10 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <sys/stat.h>
@@ -20,7 +20,7 @@ namedPipe::namedPipe()
 
 namedPipe::~namedPipe()
 {
-  unlink((std::string("./np") + std::to_string(_id)).c_str());
+  unlink(_path.c_str());
 }
 
 namedPipe::namedPipe(namedPipe const &src)
