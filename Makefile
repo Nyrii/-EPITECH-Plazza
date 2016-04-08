@@ -5,10 +5,11 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Thu Apr  7 13:52:42 2016 Nyrandone Noboud-Inpeng
-## Last update Thu Apr  7 19:23:47 2016 guillaume wilmot
+## Last update Fri Apr  8 10:36:39 2016 Florian Saurs
 ##
 
 SRC	= CryptCaesar.cpp	\
+	  CryptXor.cpp		\
 	  main.cpp		\
 	  namedPipe.cpp
 
