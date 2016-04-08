@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Fri Apr  8 11:09:51 2016 Florian Saurs
+// Last update Fri Apr  8 17:44:43 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -19,11 +19,15 @@ ClientSocketLocal::~ClientSocketLocal()
 
 int		ClientSocketLocal::create(int)
 {
+  struct sockaddr_un saddr;
+
   _sock = socket(AF_UNIX, SOCK_STREAM, 0);
   _erreur = 0;
   _recsize = sizeof(_sun);
   _crecsize = sizeof(_csun);
-  struct sockaddr_un saddr = {AF_UNIX, "server_socket"};
+  // struct sockaddr_un saddr = {AF_UNIX, };
+  saddr.sun_family = AF_UNIX;
+  strcpy(saddr.sun_path, "server_socket");
   _sun = saddr;
   if(connect(_sock, (sockaddr*)&_sun, sizeof(_sun)) != SOCKET_ERROR)
     std::cout << "Connexion à la socket en local" << std::endl;

@@ -5,10 +5,10 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Thu Apr  7 00:18:46 2016 Florian Saurs
-// Last update Fri Apr  8 10:41:46 2016 Florian Saurs
+// Last update Fri Apr  8 17:23:03 2016 Nyrandone Noboud-Inpeng
 //
 
-#include "../inc/CryptXor.hpp"
+#include "CryptXor.hpp"
 
 CryptXor::CryptXor()
 {}

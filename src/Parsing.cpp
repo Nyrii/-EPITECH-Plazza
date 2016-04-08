@@ -5,14 +5,14 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Tue Apr  5 18:32:34 2016 Florian Saurs
+// Last update Fri Apr  8 17:23:07 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
 #include <fstream>
 #include <cstdio>
 #include <dirent.h>
-#include "../inc/Parsing.hpp"
+#include "Parsing.hpp"
 
 Parsing::Parsing()
 {

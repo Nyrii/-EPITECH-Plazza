@@ -5,11 +5,11 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Fri Apr  8 11:10:40 2016 Florian Saurs
+// Last update Fri Apr  8 17:23:11 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
-#include "../inc/ServeurSocket.hpp"
+#include "ServeurSocket.hpp"
 
 ServeurSocket::ServeurSocket()
 {}

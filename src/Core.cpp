@@ -5,11 +5,11 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Tue Apr  5 18:33:13 2016 Florian Saurs
+// Last update Fri Apr  8 17:22:56 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <boost/regex.hpp>
-#include "../inc/Core.hpp"
+#include "Core.hpp"
 
 Core::Core()
 {

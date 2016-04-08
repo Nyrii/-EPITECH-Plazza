@@ -5,11 +5,11 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Fri Apr  8 15:34:06 2016 Florian Saurs
+// Last update Fri Apr  8 17:23:14 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
-#include "../inc/ServeurSocketLocal.hpp"
+#include "ServeurSocketLocal.hpp"
 
 ServeurSocketLocal::ServeurSocketLocal()
 {}

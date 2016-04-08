@@ -5,19 +5,21 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Thu Apr  7 13:52:42 2016 Nyrandone Noboud-Inpeng
-## Last update Fri Apr  8 10:57:56 2016 Florian Saurs
+## Last update Fri Apr  8 18:02:53 2016 Nyrandone Noboud-Inpeng
 ##
 
-SRC	= CryptCaesar.cpp		\
-	  CryptXor.cpp			\
-	  NamedPipe.cpp			\
-	  ClientSocket.cpp		\
+SRC	= ClientSocket.cpp		\
 	  ClientSocketLocal.cpp		\
-	  ServeurSocket.cpp		\
-	  ServeurSocketLocal.cpp	\
-	  Parsing.cpp			\
 	  Core.cpp			\
-	  main.cpp
+	  CommunicationError.cpp	\
+	  CryptCaesar.cpp		\
+	  CryptXor.cpp			\
+	  Errors.cpp			\
+	  Main.cpp			\
+	  NamedPipe.cpp			\
+	  Parsing.cpp			\
+	  ServeurSocket.cpp		\
+	  ServeurSocketLocal.cpp
 
 OBJ	= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))
 

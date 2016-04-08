@@ -5,11 +5,12 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Fri Apr  8 11:10:44 2016 Florian Saurs
+// Last update Fri Apr  8 17:53:48 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
-#include "../inc/ClientSocket.hpp"
+#include "ClientSocket.hpp"
+#include "Errors.hpp"
 
 ClientSocket::ClientSocket()
 {}

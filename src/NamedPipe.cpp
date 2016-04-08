@@ -5,13 +5,14 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 22:15:29 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr  8 10:50:10 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr  8 18:07:02 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <sys/stat.h>
 #include <unistd.h>
 #include <fstream>
 #include "namedPipe.hpp"
+#include "Errors.hpp"
 
 namedPipe::namedPipe()
 {
@@ -46,13 +47,10 @@ int				namedPipe::create(int id)
   if (mkfifo(_path.c_str(),
 	     S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) == -1)
     {
-      unlink(_path.c_str());
+    //   // unlink(_path.c_str());
       if (mkfifo(_path.c_str(),
            S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) == -1)
-	{
-	  std::cerr << "Error: creation of a named pipe failed." << std::endl;
-	  return (-1);
-	}
+	throw CommunicationError("Error: creation of a named pipe failed.");
     }
   return (0);
 }
@@ -61,7 +59,7 @@ int				namedPipe::destroy() const
 {
   if (unlink(_path.c_str()) == -1)
     {
-      std::cerr << "Error: unlink of a named pipe failed." << std::endl;
+      throw CommunicationError("Error: unlink of a named pipe failed.");
       return (-1);
     }
   return (0);
@@ -72,10 +70,7 @@ void				namedPipe::write(t_processState &buf) const
   std::fstream			writeFile(_path, std::fstream::out);
 
   if (!writeFile.is_open())
-    {
-      std::cerr << "Error: opening of a named pipe to write in it failed." << std::endl;
-      return ;
-    }
+    throw CommunicationError("Error: opening of a named pipe to write in it failed.");
   writeFile.write(reinterpret_cast<char *>(&buf), sizeof(t_processState));
   writeFile.close();
 }
@@ -85,10 +80,7 @@ void				namedPipe::read(t_processState &buf) const
   std::fstream			readFile(_path, std::fstream::in);
 
   if (!readFile.is_open())
-    {
-      std::cerr << "Error: opening of a named pipe to read in it failed." << std::endl;
-      return ;
-    }
+    throw CommunicationError("Error: opening of a named pipe to read in it failed.");
   readFile.read(reinterpret_cast<char *>(&buf), sizeof(t_processState));
   readFile.close();
 }
