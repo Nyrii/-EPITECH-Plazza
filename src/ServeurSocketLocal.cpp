@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Fri Apr  8 11:12:03 2016 Florian Saurs
+// Last update Fri Apr  8 15:34:06 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -19,6 +19,8 @@ ServeurSocketLocal::~ServeurSocketLocal()
 
 int		ServeurSocketLocal::create(int)
 {
+  struct sockaddr_un saddr;
+
   unlink("server_socket");
   _sock = socket(AF_UNIX, SOCK_STREAM, 0);
   _erreur = 0;
@@ -28,7 +30,9 @@ int		ServeurSocketLocal::create(int)
     {
       std::cout << "La socket " << _sock <<
 	" est maintenant ouverte en mode TCP/IP" << std::endl;
-      struct sockaddr_un saddr = {AF_UNIX, "server_socket"};
+      // struct sockaddr_un saddr = {AF_UNIX, };
+      saddr.sun_family = AF_UNIX;
+      strcpy(saddr.sun_path, "server_socket");
       _sun = saddr;
       _sock_err = bind(_sock, (sockaddr*)&_sun, _recsize);
       if (_sock_err == SOCKET_ERROR)
