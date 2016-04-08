@@ -5,11 +5,12 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Fri Apr  8 17:23:11 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr  8 18:22:14 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
 #include "ServeurSocket.hpp"
+#include "Errors.hpp"
 
 ServeurSocket::ServeurSocket()
 {}
@@ -25,7 +26,7 @@ int		ServeurSocket::create(int)
   _crecsize = sizeof(_csin);
   if (_sock != INVALID_SOCKET)
     {
-      std::cout << "La socket " << _sock << " est maintenant ouverte en mode TCP/IP" << std::endl;
+      std::cout << "The socket " << _sock << " is now opened in TCP/IP" << std::endl;
       _sin.sin_addr.s_addr = inet_addr("127.0.0.1");  /* Adresse IP automatique */
       _sin.sin_family = AF_INET;                 /* Protocole familial (IP) */
       _sin.sin_port = 17030;               /* Listage du port */
@@ -34,30 +35,30 @@ int		ServeurSocket::create(int)
 	{
 	  // 5 is the number max of connection
 	  _sock_err = listen(_sock, 5);
-	  std::cout << "Listage du port " << PORT << "..." << std::endl;
+	  std::cout << "Listing the port " << PORT << "..." << std::endl;
 	  if (_sock_err != SOCKET_ERROR)
 	    {
-	      std::cout << "Patientez pendant que le client se connecte sur le port " << PORT << "..." << std::endl;
+	      std::cout << "Please wait during the client's connection to the port " << PORT << "..." << std::endl;
 	      _csock = accept(_sock, (sockaddr*)&_csin, &_crecsize);
-	      std::cout << "Un client se connecte avec la socket " << _csock << " de " <<
+	      std::cout << "A client is connecting with the socket " << _csock << " of " <<
 		inet_ntoa(_csin.sin_addr) << ":" << htons(_csin.sin_port) << std::endl;
 	    }
 	  else
-	    std::cerr << "Listen" << std::endl;
+	    throw CommunicationError("Error: listen error.");
 	}
       else
-	std::cerr << "Bind" << std::endl;
+	throw CommunicationError("Error: bind error.");
     }
   else
-    std::cerr << "Socket" << std::endl;
+    throw CommunicationError("Error: socket error.");
   return (0);
 }
 
 int		ServeurSocket::destroy() const
 {
-  std::cout << "Fermeture de la socket client" << std::endl;
+  std::cout << "Close of the client socket" << std::endl;
   closesocket(_csock);
-  std::cout << "Fermeture de la socket serveur" << std::endl;
+  std::cout << "Close of the server socket" << std::endl;
   closesocket(_sock);
   return (0);
 }
@@ -71,7 +72,7 @@ void		ServeurSocket::write(t_processState &tmp) const
 
   err = send(_csock, &tmp, sizeof(tmp), 0);
   if(err != SOCKET_ERROR)
-    std::cout << "Chaine envoyée : " << std::endl;
+    std::cout << "String sent : " << std::endl;
   else
     std::cout << "Erreur de transmission" << std::endl;
   shutdown(_csock, 2);

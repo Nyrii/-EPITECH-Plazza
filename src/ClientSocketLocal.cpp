@@ -5,11 +5,12 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Fri Apr  8 17:44:43 2016 Florian Saurs
+// Last update Fri Apr  8 18:21:23 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
-#include "../inc/ClientSocketLocal.hpp"
+#include "ClientSocketLocal.hpp"
+#include "Errors.hpp"
 
 ClientSocketLocal::ClientSocketLocal()
 {}
@@ -30,9 +31,9 @@ int		ClientSocketLocal::create(int)
   strcpy(saddr.sun_path, "server_socket");
   _sun = saddr;
   if(connect(_sock, (sockaddr*)&_sun, sizeof(_sun)) != SOCKET_ERROR)
-    std::cout << "Connexion à la socket en local" << std::endl;
+    std::cout << "Connection to the socket via local" << std::endl;
   else
-    std::cout << "Impossible de se connecter" << std::endl;
+    throw CommunicationError("Error: local connection impossible.");
   return (0);
 }
 

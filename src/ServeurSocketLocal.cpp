@@ -5,11 +5,12 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Fri Apr  8 18:08:04 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr  8 18:22:32 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
 #include "ServeurSocketLocal.hpp"
+#include "Errors.hpp"
 
 ServeurSocketLocal::ServeurSocketLocal()
 {}
@@ -36,18 +37,18 @@ int		ServeurSocketLocal::create(int)
       _sun = saddr;
       _sock_err = bind(_sock, (sockaddr*)&_sun, _recsize);
       if (_sock_err == SOCKET_ERROR)
-	std::cerr << "Bind error" << std::endl;
+	throw CommunicationError("Error: bind error.");
     }
   else
-    std::cerr << "Socket error" << std::endl;
+    throw CommunicationError("Error: socket error.");
   return (0);
 }
 
 int		ServeurSocketLocal::destroy() const
 {
-  std::cout << "Fermeture de la socket client" << std::endl;
+  std::cout << "Close of the client socket" << std::endl;
   closesocket(_csock);
-  std::cout << "Fermeture de la socket serveur" << std::endl;
+  std::cout << "Close of the server socket" << std::endl;
   closesocket(_sock);
   return (0);
 }
@@ -77,6 +78,6 @@ void		ServeurSocketLocal::write(t_processState &) const
 	    }
 	}
       else
-	std::cerr << "Listen error" << std::endl;
+	throw CommunicationError("Error: listen error");
     }
 }

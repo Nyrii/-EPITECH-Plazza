@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Fri Apr  8 17:53:48 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr  8 18:21:50 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
@@ -28,9 +28,9 @@ int		ClientSocket::create(int)
   _sin.sin_family = AF_INET;
   _sin.sin_port = 17030;
   if(connect(_sock, (sockaddr*)&_sin, sizeof(_sin)) != SOCKET_ERROR)
-    std::cout << "Connexion à " << inet_ntoa(_sin.sin_addr) << " sur le port " << htons(_sin.sin_port) << std::endl;
+    std::cout << "Connection to " << inet_ntoa(_sin.sin_addr) << " on port " << htons(_sin.sin_port) << std::endl;
   else
-    std::cout << "Impossible de se connecter" << std::endl;
+    throw CommunicationError("Error: connection impossible.");
   return (0);
 }
 
@@ -45,7 +45,7 @@ void		ClientSocket::read(t_processState &) const
   char buffer[32];
 
   if(recv(_sock, buffer, 32, 0) != SOCKET_ERROR)
-    std::cout << "Recu : " << buffer << std::endl;
+    std::cout << "Received : " << buffer << std::endl;
 }
 
 void		ClientSocket::write(t_processState &) const
