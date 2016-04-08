@@ -5,18 +5,25 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
-// Last update Tue Apr  5 18:02:43 2016 Florian Saurs
+// Last update Fri Apr  8 20:23:30 2016 Florian Saurs
 //
 
 #ifndef CORE_HPP_
 # define CORE_HPP_
 
+# include <map>
 # include <vector>
 # include <iostream>
 
+enum	type {
+  PHONE_NUMBER,
+  EMAIL_ADDRESS,
+  IP_ADDRESS
+};
+
 class	Core
 {
-  std::vector<std::string>	_comparison;
+  std::map<std::string, type>	_compare;
 
 public:
   Core();
@@ -25,6 +32,8 @@ public:
   int	read() const;
   int	parseCommandLine(std::vector<std::string> *) const;
   int	commandIsFalse(std::string) const;
+  void	takeCommandFromInput(std::string, std::vector<std::string> *) const;
+  void	runProcess(std::string, type) const;
 };
 
 #endif /* !CORE_HPP_ */

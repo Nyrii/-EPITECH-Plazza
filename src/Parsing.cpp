@@ -5,13 +5,12 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Tue Apr  5 18:32:34 2016 Florian Saurs
+// Last update Fri Apr  8 23:50:51 2016 Florian Saurs
 //
 
 #include <iostream>
 #include <fstream>
 #include <cstdio>
-#include <dirent.h>
 #include "../inc/Parsing.hpp"
 
 Parsing::Parsing()
@@ -26,38 +25,24 @@ Parsing::Parsing()
 Parsing::~Parsing()
 {}
 
-std::string	Parsing::searchInCurrent(std::string current) const
+std::string	Parsing::searchInCurrent(std::string current, type _type) const
 {
   boost::smatch	matches;
 
-  for (int i = 0; i < _nbReg; ++i)
-    if (boost::regex_search(current, matches, _reg[i]))
-      return (matches[0]);
+  if (boost::regex_search(current, matches, _reg[_type]))
+    return (matches[0]);
   return ("");
 }
 
-void		Parsing::parseFile(std::string name) const
+std::vector<std::string>	Parsing::parseFile(std::string content, type _type) const
 {
-  std::string	result("");
-  std::string	current;
-  DIR		*directory;
+  std::string			result("");
+  std::string			current;
   std::vector<std::string>	found;
-
-  directory = opendir(name.c_str());
-  if (directory != NULL)
-    {
-      std::cerr << name << " is a directory." << std::endl;
-      return ;
-    }
-  closedir(directory);
-  std::ifstream	file(name.c_str(), std::ifstream::in);
-
-  std::string content( (std::istreambuf_iterator<char>(file) ),
-                       (std::istreambuf_iterator<char>()    ) );
 
   while (content != "")
     {
-      result = searchInCurrent(content);
+      result = searchInCurrent(content, _type);
       if (result != "")
 	{
 	  found.push_back(result);
@@ -69,10 +54,5 @@ void		Parsing::parseFile(std::string name) const
       else
 	content = "";
     }
-  if (found.size() != 0)
-    for (unsigned int i = 0; i < found.size(); ++i)
-      std::cout << found.at(i) << std::endl;
-  else
-    std::cout << "Not found" << std::endl;
-  file.close();
+  return (found);
 }
