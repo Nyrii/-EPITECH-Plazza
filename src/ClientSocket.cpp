@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Wed Apr  6 17:39:45 2016 Florian Saurs
+// Last update Fri Apr  8 11:10:44 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -17,7 +17,7 @@ ClientSocket::ClientSocket()
 ClientSocket::~ClientSocket()
 {}
 
-int		ClientSocket::create()
+int		ClientSocket::create(int)
 {
   _sock = socket(AF_INET, SOCK_STREAM, 0);
   _erreur = 0;
@@ -33,22 +33,19 @@ int		ClientSocket::create()
   return (0);
 }
 
-int		ClientSocket::destroy()
+int		ClientSocket::destroy() const
 {
   closesocket(_sock);
   return (0);
 }
 
-std::string	ClientSocket::read()
+void		ClientSocket::read(t_processState &) const
 {
   char buffer[32];
 
   if(recv(_sock, buffer, 32, 0) != SOCKET_ERROR)
     std::cout << "Recu : " << buffer << std::endl;
-  return (buffer);
 }
 
-int		ClientSocket::write(std::string const &)
-{
-  return (0);
-}
+void		ClientSocket::write(t_processState &) const
+{}

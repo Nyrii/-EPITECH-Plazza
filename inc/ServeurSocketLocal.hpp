@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:24:35 2016 Florian Saurs
-// Last update Wed Apr  6 15:58:00 2016 Florian Saurs
+// Last update Fri Apr  8 11:04:13 2016 Florian Saurs
 //
 
 #ifndef SERVEURSOCKETLOCAL_HPP_
@@ -17,12 +17,12 @@ class	ServeurSocketLocal : public ASocket
 {
 public:
   ServeurSocketLocal();
-  virtual	~ServeurSocketLocal();
+  ~ServeurSocketLocal();
 
-  int		create();
-  int		destroy();
-  std::string	read();
-  int		write(std::string const &);
+  int		create(int);
+  int		destroy() const;
+  void		read(t_processState &) const;
+  void		write(t_processState &) const;
 };
 
 #endif /* !SERVEURSOCKETLOCAL_HPP_ */

@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Wed Apr  6 17:39:48 2016 Florian Saurs
+// Last update Fri Apr  8 11:10:40 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -17,7 +17,7 @@ ServeurSocket::ServeurSocket()
 ServeurSocket::~ServeurSocket()
 {}
 
-int		ServeurSocket::create()
+int		ServeurSocket::create(int)
 {
   _sock = socket(AF_INET, SOCK_STREAM, 0);
   _erreur = 0;
@@ -53,7 +53,7 @@ int		ServeurSocket::create()
   return (0);
 }
 
-int		ServeurSocket::destroy()
+int		ServeurSocket::destroy() const
 {
   std::cout << "Fermeture de la socket client" << std::endl;
   closesocket(_csock);
@@ -62,18 +62,17 @@ int		ServeurSocket::destroy()
   return (0);
 }
 
-std::string	ServeurSocket::read()
-{
-  return ("");
-}
+void		ServeurSocket::read(t_processState &) const
+{}
 
-int		ServeurSocket::write(std::string const &buffer)
+void		ServeurSocket::write(t_processState &tmp) const
 {
-  _sock_err = send(_csock, buffer.c_str(), 32, 0);
-  if(_sock_err != SOCKET_ERROR)
-    std::cout << "Chaine envoyée : " << buffer << std::endl;
+  int		err;
+
+  err = send(_csock, &tmp, sizeof(tmp), 0);
+  if(err != SOCKET_ERROR)
+    std::cout << "Chaine envoyée : " << std::endl;
   else
     std::cout << "Erreur de transmission" << std::endl;
   shutdown(_csock, 2);
-  return (0);
 }

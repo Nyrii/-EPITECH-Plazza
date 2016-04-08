@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Wed Apr  6 13:33:00 2016 Florian Saurs
-// Last update Wed Apr  6 16:23:59 2016 Florian Saurs
+// Last update Fri Apr  8 11:02:10 2016 Florian Saurs
 //
 
 #ifndef SOCKET_HPP_
@@ -41,10 +41,10 @@ protected:
 
 public:
   virtual		~ASocket() {};
-  virtual int		create() = 0;
-  virtual int		destroy() = 0;
-  virtual std::string	read() = 0;
-  virtual int		write(std::string const &) = 0;
+  virtual int		create(int) = 0;
+  virtual int		destroy() const = 0;
+  virtual void		read(t_processState &) const = 0;
+  virtual void		write(t_processState &) const = 0;
 };
 
 #endif /* !SOCKET_HPP_ */

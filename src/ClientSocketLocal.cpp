@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Wed Apr  6 17:28:55 2016 Florian Saurs
+// Last update Fri Apr  8 11:09:51 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -17,7 +17,7 @@ ClientSocketLocal::ClientSocketLocal()
 ClientSocketLocal::~ClientSocketLocal()
 {}
 
-int		ClientSocketLocal::create()
+int		ClientSocketLocal::create(int)
 {
   _sock = socket(AF_UNIX, SOCK_STREAM, 0);
   _erreur = 0;
@@ -32,13 +32,13 @@ int		ClientSocketLocal::create()
   return (0);
 }
 
-int		ClientSocketLocal::destroy()
+int		ClientSocketLocal::destroy() const
 {
   closesocket(_sock);
   return (0);
 }
 
-std::string	ClientSocketLocal::read()
+void		ClientSocketLocal::read(t_processState &) const
 {
   char	ch = 'A';
 
@@ -46,10 +46,7 @@ std::string	ClientSocketLocal::read()
   ::read(_sock, &ch, 1);
   std::cout << "Char received from server " << ch << std::endl;
   close(_sock);
-  return ("");
 }
 
-int		ClientSocketLocal::write(std::string const &)
-{
-  return (0);
-}
+void		ClientSocketLocal::write(t_processState &) const
+{}

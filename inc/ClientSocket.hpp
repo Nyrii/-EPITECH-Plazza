@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:24:35 2016 Florian Saurs
-// Last update Wed Apr  6 14:14:28 2016 Florian Saurs
+// Last update Fri Apr  8 11:04:27 2016 Florian Saurs
 //
 
 #ifndef CLIENTSOCKET_HPP_
@@ -17,12 +17,12 @@ class	ClientSocket : public ASocket
 {
 public:
   ClientSocket();
-  virtual	~ClientSocket();
+  ~ClientSocket();
 
-  int		create();
-  int		destroy();
-  std::string	read();
-  int		write(std::string const &);
+  int		create(int);
+  int		destroy() const;
+  void		read(t_processState &) const;
+  void		write(t_processState &) const;
 };
 
 #endif /* !CLIENTSOCKET_HPP_ */
