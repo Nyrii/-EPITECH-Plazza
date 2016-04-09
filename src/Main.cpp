@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr  8 23:59:47 2016 Florian Saurs
+// Last update Sat Apr  9 19:17:22 2016 Nyrandone Noboud-Inpeng
 //
 
 // #include <iostream>
@@ -26,8 +26,8 @@
 
 int		main()
 {
-  // CryptCaesar	tmp;
-  // std::cout << tmp.Decrypt("Xlzccrldv Nzcdfk kvb2 wfivmvi", 17) << std::endl;
+  CryptCaesar	tmp;
+  std::cout << tmp.Decrypt("eqweqw", 2, 0) << std::endl;
 
   // namedPipe	*tmp = new namedPipe;
   // pid_t		pid;
@@ -52,9 +52,9 @@ int		main()
   // std::cout << mdr.fileName << std::endl;
 
   // delete tmp;
-  Core	core;
-
-  core.read();
+  // Core	core;
+  //
+  // core.read();
   // core();
   // try
   //   {

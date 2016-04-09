@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Thu Apr  7 10:34:02 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr  8 10:44:16 2016 Florian Saurs
+// Last update Sat Apr  9 19:27:49 2016 Nyrandone Noboud-Inpeng
 //
 
 #include "CryptCaesar.hh"
@@ -24,15 +24,10 @@ std::string		CryptCaesar::Decrypt(std::string to_decrypt, int key, uint16_t)
 {
   for (unsigned int i = 0; i < to_decrypt.length(); i++)
     {
-      if (isalpha(to_decrypt[i]))
-	{
-	  for (int k = 0; k < key; k++)
-	    {
-	      to_decrypt[i] -= 1;
-	      if (!isalpha(to_decrypt[i]))
-		to_decrypt[i] += ('z' - 'a') + 1;
-	    }
-	}
+      if (to_decrypt[i] - key < 0)
+	to_decrypt[i] = (to_decrypt[i] - key + 255) % 255;
+      else
+	to_decrypt[i] = (to_decrypt[i] - key) % 255;
     }
   return (to_decrypt);
 }
