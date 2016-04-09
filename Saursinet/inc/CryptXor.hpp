@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Thu Apr  7 00:19:09 2016 Florian Saurs
-// Last update Thu Apr  7 17:31:43 2016 Florian Saurs
+// Last update Fri Apr  8 23:36:15 2016 Florian Saurs
 //
 
 #ifndef CRYPTXOR
