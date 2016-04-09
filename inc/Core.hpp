@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
-// Last update Fri Apr  8 20:23:30 2016 Florian Saurs
+// Last update Sat Apr  9 20:17:20 2016 Saursinet
 //
 
 #ifndef CORE_HPP_
@@ -14,6 +14,7 @@
 # include <map>
 # include <vector>
 # include <iostream>
+# include "ICommunication.hpp"
 
 enum	type {
   PHONE_NUMBER,
@@ -34,6 +35,8 @@ public:
   int	commandIsFalse(std::string) const;
   void	takeCommandFromInput(std::string, std::vector<std::string> *) const;
   void	runProcess(std::string, type) const;
+  void	execParse(std::string, type) const;
+  void	initConnection() const;
 };
 
 #endif /* !CORE_HPP_ */

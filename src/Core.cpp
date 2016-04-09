@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Sat Apr  9 00:04:20 2016 Florian Saurs
+// Last update Sat Apr  9 20:16:33 2016 Saursinet
 //
 
 #include <dirent.h>
@@ -16,6 +16,8 @@
 #include "../inc/Parsing.hpp"
 #include "../inc/CryptXor.hpp"
 #include "../inc/CryptCaesar.hh"
+#include "../inc/ClientSocketLocal.hpp"
+#include "../inc/ServeurSocketLocal.hpp"
 
 Core::Core()
 {
@@ -79,13 +81,14 @@ int				Core::read() const
   return (0);
 }
 
-void				Core::runProcess(std::string fileName, type _type) const
+void				Core::execParse(std::string fileName, type _type) const
 {
   Parsing			pars;
   std::vector<std::string>	found;
   uint16_t			i = 0;
   int				start = 0;
   CryptXor			Xor;
+  CryptCaesar			Caesar;
   std::ifstream			file(fileName.c_str(), std::ifstream::in);
   std::string			content((std::istreambuf_iterator<char>(file) ),
 					(std::istreambuf_iterator<char>()    ) );
@@ -101,11 +104,36 @@ void				Core::runProcess(std::string fileName, type _type) const
 	}
       start = 0;
       while (start <= 25 && found.size() == 0)
-	found = pars.parseFile(Xor.Decrypt(content, start++, 0), _type);
+	found = pars.parseFile(Caesar.Decrypt(content, start++, 0), _type);
     }
   for (std::vector<std::string>::iterator it = found.begin(); it != found.end(); ++it)
     std::cout << *it << std::endl;
   file.close();
+  sleep(5);
+}
+
+void	Core::initConnection() const
+{
+
+}
+
+void			Core::runProcess(std::string fileName, type _type) const
+{
+  int			pid;
+  static int		id = 0;
+  ServeurSocketLocal	*serv = new ServeurSocketLocal();
+
+  serv->create(id++);
+  // if (_sonTab.size() == 0)
+  //   initConnection();
+  pid = fork();
+  if (pid == 0)
+    {
+      ClientSocketLocal	*client = new ClientSocketLocal();
+
+      client->create(id - 1);
+      execParse(fileName, _type);
+    }
 }
 
 int				Core::parseCommandLine(std::vector<std::string> *command) const
