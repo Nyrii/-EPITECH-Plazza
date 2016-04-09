@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:54:36 2016 guillaume wilmot
-// Last update Thu Apr  7 18:15:28 2016 guillaume wilmot
+// Last update Fri Apr  8 17:19:18 2016 guillaume wilmot
 //
 
 /**/
@@ -30,11 +30,12 @@ int			main(int ac, char **av)
   nbProcess = std::atoi(av[1]);
   args[0] = nbProcess;
   process = new Process[nbProcess];
-  for (int i = 0; i < nbProcess; i++)
+  // for (int i = 0; i < nbProcess; i++)
+  for (int i = 0; i < 1; i++)
     {
       args[1] = i;
       process[i].create(&Listener::start, args);
     }
-  sleep(1);
+  while (1) sleep(1);
   return (0);
 }

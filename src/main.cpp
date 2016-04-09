@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Thu Apr  7 20:45:14 2016 guillaume wilmot
+// Last update Thu Apr  7 22:48:21 2016 guillaume wilmot
 //
 
 #include <iostream>
@@ -28,13 +28,16 @@ int		main()
   if (!(pid = fork()))
     {
       std::cout << pid << std::endl;
-      std::string("OKEEEEEEEE") >> *tmp;
+      std::string("OKEEEEEEEEPDSUCEMESBOULE") >> *tmp;
       exit(0);
     }
 
-  char 	str[100];
+  int		str[6];
+  for (int i = 0; i < 6; i++)
+    str[i] = 0;
   tmp->read2(str);
-  std::cout << str;
+  for (int i = 0; i < 6; i++)
+    std::cout << str[i] << " ";
 
   delete tmp;
   return (0);

@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Thu Apr  7 01:51:53 2016 guillaume wilmot
+// Last update Fri Apr  8 19:07:17 2016 guillaume wilmot
 //
 
 /**/
@@ -21,40 +21,42 @@ Listener::Listener()
   _nbThread = 0;
 }
 
-void		*toast(void *args)
-{
-  t_args	*toDo;
-
-  toDo = reinterpret_cast<t_args *>(args);
-  std::cout << toDo->order << " " << toDo->file << std::endl;
-  toDo->callback->dec();
-  return (NULL);
-}
-
 void		Listener::init(int nbThread, int id)
 {
   _nbThread = nbThread;
   _id = id;
 }
 
+void            *toast(void *arg)
+{
+  t_args        *args;
+
+  args = reinterpret_cast<t_args *>(arg);
+  std::cout << args->order << " " << args->file << std::endl;
+  return (NULL);
+}
+
 void		*Listener::listen()
 {
   ThreadPool	threadPool(_nbThread);
 
-  threadPool.queue(&toast, PHONE_NUMBER, "ma bite.txt");
-  threadPool.queue(&toast, EMAIL_ADDRESS, "ma botte.txt");
-  threadPool.queue(&toast, IP_ADDRESS, "ma batte.txt");
-  threadPool.queue(&toast, PHONE_NUMBER, "ma bille.txt");
-  threadPool.queue(&toast, EMAIL_ADDRESS, "ma balle.txt");
-  threadPool.queue(&toast, IP_ADDRESS, "ma biche.txt");
-  threadPool.assign();
-  threadPool.assign();
-  threadPool.assign();
-  threadPool.assign();
-  threadPool.assign();
-  usleep(10000);
-  threadPool.assign();
+  threadPool.init(&CondThread::begin);
   sleep(1);
+  for (unsigned int i = 0; i < _nbThread * 2; i++)
+    {
+      /**/
+      std::string		Test = "EXEC xxxxxxx";
+      Test[11] = i % 10 + '0';
+      Test[10] = (i / 10) % 10 + '0';
+      Test[9] = (i / 100) % 10 + '0';
+      Test[8] = (i / 1000) % 10 + '0';
+      Test[7] = (i / 10000) % 10 + '0';
+      Test[6] = (i / 100000) % 10 + '0';
+      Test[5] = (i / 1000000) % 10 + '0';
+      /**/
+      threadPool.queue(&toast, PHONE_NUMBER, "\033[01;32m" + Test + "\033[0m");
+    }
+  while (1) sleep(1);
   return (NULL);
 }
 
