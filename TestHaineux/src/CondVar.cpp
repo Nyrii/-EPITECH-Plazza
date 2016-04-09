@@ -5,33 +5,33 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Tue Apr  5 14:58:51 2016 guillaume wilmot
-// Last update Tue Apr  5 15:23:49 2016 guillaume wilmot
+// Last update Thu Apr  7 23:59:32 2016 guillaume wilmot
 //
 
 #include "CondVar.hpp"
 
-Condvar::CondVar(Mutex &mutex)
+CondVar::CondVar(Mutex &mutex)
 {
   _mutex = &mutex;
-  pthread_cond_init(_condition, NULL);
+  pthread_cond_init(&_condition, NULL);
 }
 
-Condvar::~CondVar()
+CondVar::~CondVar()
 {
-  pthread_cond_destroy(_condition);
+  pthread_cond_destroy(&_condition);
 }
 
-void		Condvar::wait()
+void		CondVar::wait()
 {
-  pthread_cond_wait (_condition, _mutex);
+  pthread_cond_wait(&_condition, _mutex->getMutex());
 }
 
-void		Condvar::signal()
+void		CondVar::signal()
 {
-  pthread_cond_signal(_condition);
+  pthread_cond_signal(&_condition);
 }
 
-void		Condvar::broadcast()
+void		CondVar::broadcast()
 {
-  pthread_cond_broadcast(_condition);
+  pthread_cond_broadcast(&_condition);
 }

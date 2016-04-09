@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:55:40 2016 guillaume wilmot
-// Last update Thu Apr  7 18:47:37 2016 guillaume wilmot
+// Last update Fri Apr  8 18:25:27 2016 guillaume wilmot
 //
 
 #ifndef CONDTHREAD_HPP_
@@ -14,18 +14,28 @@
 # include <stdlib.h>
 # include "Thread.hpp"
 # include "CondVar.hpp"
+# include "ThreadPool.hpp"
+# include "Queue.hpp"
+# include "ProtectedVar.hpp"
 
-class		CondThread {
+class		ThreadPool;
+
+class		CondThread : public Thread{
 public:
-  CondThread() {}
+  CondThread();
   ~CondThread() {}
 
+  bool		isWorking();
   void		wake();
-  void		assignOrder();
+  void		sleep();
+  void		assignOrder(t_queue *);
+  void		*listen();
+  static void	*begin(void *);
 
 private:
-  Thread	_thread;
-  CondVar	_cond;
+  CondVar		_cond;
+  Mutex			_mutex;
+  ProtectedVar<t_queue *> _order;
 };
 
 #endif /* !CONDTHREAD_HPP */

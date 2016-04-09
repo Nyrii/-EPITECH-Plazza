@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 00:30:45 2016 guillaume wilmot
-// Last update Thu Apr  7 17:52:29 2016 guillaume wilmot
+// Last update Fri Apr  8 19:15:40 2016 guillaume wilmot
 //
 
 #include "ScopedLock.hpp"
@@ -17,11 +17,27 @@ ThreadPool::ThreadPool(int nbThread)
   _working = 0;
 }
 
-void		ThreadPool::dec()
+int		ThreadPool::init(void *(*ptr)(void *))
+{
+  int		i;
+
+  for (i = 0; i < _nbThread; i++)
+    {
+      CondThread	*thread;
+
+      thread = new CondThread;
+      thread->start(ptr, thread);
+      _threads.push_back(thread);
+    }
+  return (0);
+}
+
+void		ThreadPool::callback()
 {
   ScopedLock	lock(_mutex);
 
-  _working--;
+  std::cout << "Callback" << std::endl;
+  assign(true);
 }
 
 int		ThreadPool::queue(void *(*ptr)(void *), Information order, const std::string &file)
@@ -38,24 +54,31 @@ int		ThreadPool::queue(void *(*ptr)(void *), Information order, const std::strin
   elem->args->file = file;
   elem->ptr = ptr;
   _stack.push_back(elem);
+  assign(false);
   return (0);
 }
 
-int		ThreadPool::assign()
+int		ThreadPool::assign(bool dec)
 {
-  ScopedLock	lock(_mutex);
-
-  // Thread	*thread;
   t_queue	*elem;
 
+  if (dec)
+    _working--;
+  std::cout << "Before Assign : " << _working << " " << _stack.size() << std::endl;
   if (_working >= _nbThread || _stack.size() == 0)
     return (-1);
+  std::cout << "After Assign" << std::endl;
   elem = _stack.front();
-  _stack.erase(_stack.begin());
-  // thread = new Thread;
-  _working++;
-  // thread->start(elem->ptr, elem->args);
-  // _threads.push_back(thread);
-  delete elem;
+  for (unsigned int i = 0; i < _threads.size(); i++)
+    if (!_threads[i]->isWorking())
+      {
+	_stack.erase(_stack.begin());
+	_working++;
+	std::cout << "WTF1" << std::endl;
+	_threads[i]->assignOrder(elem);
+	std::cout << "WTF2" << std::endl;
+	return (0);
+      }
+  std::cout << "Fail" << std::endl;
   return (0);
 }
