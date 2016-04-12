@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 22:15:29 2016 Nyrandone Noboud-Inpeng
-// Last update Tue Apr 12 16:04:58 2016 Nyrandone Noboud-Inpeng
+// Last update Tue Apr 12 16:45:06 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <fcntl.h>
@@ -89,9 +89,11 @@ int				NamedPipe::destroy() const
   return (0);
 }
 
-void				NamedPipe::write(t_processState &buf) const
+int				NamedPipe::write(t_processState &buf) const
 {
-  ::write(_wfd, &buf, sizeof(t_processState));
+  if (!::write(_wfd, &buf, sizeof(t_processState)))
+    return (0);
+  return (-1);
   // std::fstream			writeFile(_path, std::fstream::out);
   //
   // if (!writeFile.is_open())
@@ -100,9 +102,11 @@ void				NamedPipe::write(t_processState &buf) const
   // writeFile.close();
 }
 
-void				NamedPipe::read(t_processState &buf) const
+int				NamedPipe::read(t_processState &buf) const
 {
-  ::read(_rfd, &buf, sizeof(t_processState));
+  if (!::read(_rfd, &buf, sizeof(t_processState)))
+    return (0);
+  return (-1);
   // std::fstream			readFile(_path, std::fstream::in);
   //
   // if (!readFile.is_open())
