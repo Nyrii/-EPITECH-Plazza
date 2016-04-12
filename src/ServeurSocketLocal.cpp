@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Fri Apr  8 18:22:32 2016 Nyrandone Noboud-Inpeng
+// Last update Tue Apr 12 16:57:27 2016 Saursinet
 //
 
 #include <iostream>
@@ -55,10 +55,12 @@ int		ServeurSocketLocal::destroy() const
   return (0);
 }
 
-void		ServeurSocketLocal::read(t_processState &) const
-{}
+int		ServeurSocketLocal::read(t_processState &) const
+{
+  return (0);
+}
 
-void		ServeurSocketLocal::write(t_processState &) const
+int		ServeurSocketLocal::write(t_processState &) const
 {
   int		err;
 
@@ -82,4 +84,5 @@ void		ServeurSocketLocal::write(t_processState &) const
       else
 	throw CommunicationError("Error: listen error");
     }
+  return (0);
 }

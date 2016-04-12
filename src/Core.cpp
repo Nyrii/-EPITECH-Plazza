@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Tue Apr 12 14:25:23 2016 Nyrandone Noboud-Inpeng
+// Last update Tue Apr 12 17:00:10 2016 Saursinet
 //
 
 #include <dirent.h>
@@ -29,7 +29,13 @@ Core::Core()
 }
 
 Core::~Core()
-{}
+{
+  t_processState	state;
+
+  state = {-1, false, ""};
+  for (std::map<int, ICommunication *>::iterator it = _sonTab.begin(); it != _sonTab.end(); ++it)
+    _sonTab[it->first]->write(state);
+}
 
 int				Core::commandIsFalse(std::string str) const
 {
@@ -95,7 +101,6 @@ void				Core::execParse(std::string fileName, type _type) const
   std::string			content((std::istreambuf_iterator<char>(file) ),
 					(std::istreambuf_iterator<char>()    ) );
 
-
   found = pars.parseFile(content, _type);
   while (found.size() == 0)
     {
@@ -114,44 +119,64 @@ void				Core::execParse(std::string fileName, type _type) const
   sleep(5);
 }
 
-void			Core::initConnection(void *) const
+int			Core::checkAvailable() const
 {
-  // ClientSocketLocal	*client = new ClientSocketLocal();
+  t_processState	state;
 
-  //     client->create(id - 1);
-  //     execParse(fileName, _type);
+  for (std::map<int, ICommunication *>::const_iterator it = _sonTab.begin(); it != _sonTab.end(); ++it)
+    if ((it->second)->read(state) == 0 || state.free == true)
+      return (it->first);
+    return (0);
 }
 
-// int			Core::checkOkay()
-// {}
+void			Core::fillIt(int pid, std::string fileName)
+{
+    t_processState	state;
+
+    state = {0, false, fileName};
+    _sonTab[pid]->write(state);
+}
+
+void			Core::launchWork(std::string fileName, NamedPipe *serv, type _type)
+{
+    t_processState	struc;
+    int			retRead;
+
+    _isFinished = false;
+    while (_isFinished == false)
+      {
+      struc = {getpid(), false, fileName};
+	serv->write(struc);
+	execParse(fileName, _type);
+      struc = {getpid(), true, fileName};
+	serv->write(struc);
+	if ((retRead = serv->read(struc)) == 0 && struc.id == 0)
+	  fileName = struc.fileName;
+	else if ((retRead == 0 && struc.id == -1) || retRead == -1)
+	  _isFinished = true;
+      }
+    exit (0);
+}
 
 void			Core::runProcess(std::string fileName, type _type)
 {
-  int			pid;
-  static int		id = -1;
-  t_processState	struc;
-  // ServeurSocketLocal	*serv = new ServeurSocketLocal();
-  // Process		child;
+    int			pid;
+    static int		id = -1;
+    t_processState	struc;
 
-  // serv->create(id++);
-  // child.create(&initConnection, NULL);
-  NamedPipe	*serv = new NamedPipe();
+    if (_sonTab.size() != 0 && (pid = checkAvailable()) != 0)
+      fillIt(pid, fileName);
+    else
+      {
+	NamedPipe	*serv = new NamedPipe();
 
-  std::cout << "go in funct" << std::endl;
-  serv->create(++id);
-  pid = fork();
-  if (pid == 0)
-    {
-      _sonTab.insert(std::pair<int, ICommunication *>(getpid(), serv));
-    struc = {getpid(), false, fileName};
-      serv->write(struc);
-      execParse(fileName, _type);
-      struc = {getpid(), true, fileName};
-      serv->write(struc);
-      exit(0);
-    }
-  serv->read(struc);
-  std::cout << "id = " << struc.id << " et " << struc.free << std::endl;
+	serv->create(++id);
+	pid = fork();
+	if (pid == 0)
+	  launchWork(fileName, serv, _type);
+	serv->read(struc);
+        _sonTab.insert(std::pair<int, ICommunication *>(struc.id, serv));
+      }
 }
 
 int				Core::parseCommandLine(std::vector<std::string> *command)

@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:24:35 2016 Florian Saurs
-// Last update Fri Apr  8 11:04:13 2016 Florian Saurs
+// Last update Tue Apr 12 16:58:59 2016 Saursinet
 //
 
 #ifndef SERVEURSOCKETLOCAL_HPP_
@@ -21,8 +21,8 @@ public:
 
   int		create(int);
   int		destroy() const;
-  void		read(t_processState &) const;
-  void		write(t_processState &) const;
+  int		read(t_processState &) const;
+  int		write(t_processState &) const;
 };
 
 #endif /* !SERVEURSOCKETLOCAL_HPP_ */

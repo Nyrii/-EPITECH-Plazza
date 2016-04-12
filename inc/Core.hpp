@@ -15,6 +15,7 @@
 # include <vector>
 # include <iostream>
 # include "ICommunication.hpp"
+# include "namedPipe.hpp"
 
 enum	type {
   PHONE_NUMBER,
@@ -26,6 +27,7 @@ class	Core
 {
   std::map<std::string, type>	_compare;
   std::map<int, ICommunication *>	_sonTab;
+  bool				_isFinished;
 
 public:
   Core();
@@ -37,7 +39,9 @@ public:
   void	takeCommandFromInput(std::string, std::vector<std::string> *) const;
   void	runProcess(std::string, type);
   void	execParse(std::string, type) const;
-  void	initConnection(void *) const;
+  int	checkAvailable() const;
+  void	fillIt(int, std::string);
+  void	launchWork(std::string, NamedPipe *, type);
 };
 
 #endif /* !CORE_HPP_ */
