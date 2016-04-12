@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:18:42 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr  8 10:47:30 2016 Nyrandone Noboud-Inpeng
+// Last update Tue Apr 12 15:49:07 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef NAMEDPIPE_HH_
@@ -13,13 +13,13 @@
 
 # include "ICommunication.hpp"
 
-class					namedPipe : public ICommunication
+class					NamedPipe : public ICommunication
 {
 public:
-  namedPipe();
-  ~namedPipe();
-  namedPipe(namedPipe const &);
-  namedPipe				&operator=(namedPipe const &);
+  NamedPipe();
+  ~NamedPipe();
+  NamedPipe(NamedPipe const &);
+  NamedPipe				&operator=(NamedPipe const &);
 
   int					create(int);
   int					destroy() const;
@@ -30,10 +30,9 @@ public:
   std::string				getPath() const;
   private:
   int					_id;
+  int					_rfd;
+  int					_wfd;
   std::string				_path;
 };
-
-std::ostream				&operator<<(std::ostream &, namedPipe const &);
-std::string const			&operator>>(std::string const &command, namedPipe const &namedPipe);
 
 #endif /* !NAMEDPIPE_HH_ */

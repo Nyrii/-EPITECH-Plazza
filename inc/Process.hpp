@@ -5,10 +5,10 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:56:05 2016 guillaume wilmot
-// Last update Thu Apr  7 00:11:35 2016 guillaume wilmot
+// Last update Tue Apr 12 14:21:44 2016 Nyrandone Noboud-Inpeng
 //
 
-#ifndef PROCESS_HP_
+#ifndef PROCESS_HPP_
 # define PROCESS_HPP_
 
 class		Process {

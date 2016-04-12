@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Tue Apr 12 13:47:55 2016 Saursinet
+// Last update Tue Apr 12 14:25:23 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <dirent.h>
@@ -134,7 +134,7 @@ void			Core::runProcess(std::string fileName, type _type) const
   // child.create(&initConnection, NULL);
   // if (_sonTab.size() == 0)
   //   initConnection();
-  namedPipe	*serv = new namedPipe();
+  NamedPipe	*serv = new NamedPipe();
 
   serv->create(++id);
   pid = fork();

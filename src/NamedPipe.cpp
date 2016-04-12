@@ -5,32 +5,37 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 22:15:29 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr  8 18:07:02 2016 Nyrandone Noboud-Inpeng
+// Last update Tue Apr 12 15:49:54 2016 Nyrandone Noboud-Inpeng
 //
 
+#include <fcntl.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <fstream>
 #include "namedPipe.hpp"
 #include "Errors.hpp"
 
-namedPipe::namedPipe()
+NamedPipe::NamedPipe()
 {
   _id = 0;
+  _rfd = 0;
+  _wfd = 0;
 }
 
-namedPipe::~namedPipe()
+NamedPipe::~NamedPipe()
 {
   unlink(_path.c_str());
+  close(_rfd);
+  close(_wfd);
 }
 
-namedPipe::namedPipe(namedPipe const &src)
+NamedPipe::NamedPipe(NamedPipe const &src)
 {
   _id = src.getId();
   _path = src.getPath();
 }
 
-namedPipe			&namedPipe::operator=(namedPipe const &src)
+NamedPipe			&NamedPipe::operator=(NamedPipe const &src)
 {
   if (this != &src)
     {
@@ -40,22 +45,35 @@ namedPipe			&namedPipe::operator=(namedPipe const &src)
   return (*this);
 }
 
-int				namedPipe::create(int id)
+int				NamedPipe::create(int id)
 {
   _id = id;
   _path = std::string("./np") + std::to_string(_id);
   if (mkfifo(_path.c_str(),
-	     S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) == -1)
+	     S_IRWXU | S_IRGRP | S_IWGRP) == -1)
     {
       unlink(_path.c_str());
       if (mkfifo(_path.c_str(),
-           S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) == -1)
+		 S_IRWXU | S_IRGRP | S_IWGRP) == -1)
 	throw CommunicationError("Error: creation of a named pipe failed.");
+    }
+  std::cout << _path << std::endl;
+  _rfd = open(_path.c_str(), O_RDONLY | O_NONBLOCK);
+  if (_rfd == -1)
+    {
+      destroy();
+      throw CommunicationError("Error: opening of a named pipe to read in it failed.");
+    }
+  _wfd = open(_path.c_str(), O_WRONLY | O_NONBLOCK);
+  if (_wfd == -1)
+    {
+      destroy();
+      throw CommunicationError("Error: opening of a named pipe to write in it failed.");
     }
   return (0);
 }
 
-int				namedPipe::destroy() const
+int				NamedPipe::destroy() const
 {
   if (unlink(_path.c_str()) == -1)
     {
@@ -65,46 +83,34 @@ int				namedPipe::destroy() const
   return (0);
 }
 
-void				namedPipe::write(t_processState &buf) const
+void				NamedPipe::write(t_processState &buf) const
 {
-  std::fstream			writeFile(_path, std::fstream::out);
-
-  if (!writeFile.is_open())
-    throw CommunicationError("Error: opening of a named pipe to write in it failed.");
-  writeFile.write(reinterpret_cast<char *>(&buf), sizeof(t_processState));
-  writeFile.close();
+  ::write(_wfd, &buf, sizeof(t_processState));
+  // std::fstream			writeFile(_path, std::fstream::out);
+  //
+  // if (!writeFile.is_open())
+  //   throw CommunicationError("Error: opening of a named pipe to write in it failed.");
+  // writeFile.write(reinterpret_cast<char *>(&buf), sizeof(t_processState));
+  // writeFile.close();
 }
 
-void				namedPipe::read(t_processState &buf) const
+void				NamedPipe::read(t_processState &buf) const
 {
-  std::fstream			readFile(_path, std::fstream::in);
-
-  if (!readFile.is_open())
-    throw CommunicationError("Error: opening of a named pipe to read in it failed.");
-  readFile.read(reinterpret_cast<char *>(&buf), sizeof(t_processState));
-  readFile.close();
+  ::read(_rfd, &buf, sizeof(t_processState));
+  // std::fstream			readFile(_path, std::fstream::in);
+  //
+  // if (!readFile.is_open())
+  //   throw CommunicationError("Error: opening of a named pipe to read in it failed.");
+  // readFile.read(reinterpret_cast<char *>(&buf), sizeof(t_processState));
+  // readFile.close();
 }
 
-int				namedPipe::getId() const
+int				NamedPipe::getId() const
 {
   return (_id);
 }
 
-std::string			namedPipe::getPath() const
+std::string			NamedPipe::getPath() const
 {
   return (_path);
-}
-
-std::ostream			&operator<<(std::ostream &os, namedPipe const &namedPipe)
-{
-  (void)namedPipe;
-  // std::cout << namedPipe.read() << std::endl;
-  return (os);
-}
-
-std::string const		&operator>>(std::string const &command, namedPipe const &namedPipe)
-{
-  (void)namedPipe;
-  // namedPipe.write(command);
-  return (command);
 }
