@@ -18,17 +18,17 @@ ClientSocketLocal::ClientSocketLocal()
 ClientSocketLocal::~ClientSocketLocal()
 {}
 
-int		ClientSocketLocal::create(int)
+int		ClientSocketLocal::create(int _id)
 {
   struct sockaddr_un saddr;
 
+  _path = std::string("./soLoc") + std::to_string(_id);
   _sock = socket(AF_UNIX, SOCK_STREAM, 0);
   _erreur = 0;
   _recsize = sizeof(_sun);
   _crecsize = sizeof(_csun);
-  // struct sockaddr_un saddr = {AF_UNIX, };
   saddr.sun_family = AF_UNIX;
-  strcpy(saddr.sun_path, "server_socket");
+  strcpy(saddr.sun_path, _path.c_str());
   _sun = saddr;
   if(connect(_sock, (sockaddr*)&_sun, sizeof(_sun)) != SOCKET_ERROR)
     std::cout << "Connection to the socket via local" << std::endl;

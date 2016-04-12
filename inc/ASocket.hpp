@@ -39,6 +39,8 @@ protected:
   sockaddr_un		_sun;
   sockaddr_un		_csun;
 
+  std::string		_path;
+
 public:
   virtual		~ASocket() {};
   virtual int		create(int) = 0;

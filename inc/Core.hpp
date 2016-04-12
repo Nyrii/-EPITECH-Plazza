@@ -25,16 +25,17 @@ enum	type {
 class	Core
 {
   std::map<std::string, type>	_compare;
+  std::map<int, ICommunication *>	_sonTab;
 
 public:
   Core();
   ~Core();
 
   int	read() const;
-  int	parseCommandLine(std::vector<std::string> *) const;
+  int	parseCommandLine(std::vector<std::string> *);
   int	commandIsFalse(std::string) const;
   void	takeCommandFromInput(std::string, std::vector<std::string> *) const;
-  void	runProcess(std::string, type) const;
+  void	runProcess(std::string, type);
   void	execParse(std::string, type) const;
   void	initConnection(void *) const;
 };

@@ -16,13 +16,16 @@ ServeurSocketLocal::ServeurSocketLocal()
 {}
 
 ServeurSocketLocal::~ServeurSocketLocal()
-{}
+{
+  unlink(_path.c_str());
+}
 
-int		ServeurSocketLocal::create(int)
+int		ServeurSocketLocal::create(int _id)
 {
   struct sockaddr_un saddr;
 
-  unlink("server_socket");
+  _path = std::string("./soLoc") + std::to_string(_id);
+  unlink(_path.c_str());
   _sock = socket(AF_UNIX, SOCK_STREAM, 0);
   _erreur = 0;
   _recsize = sizeof(_sun);
@@ -30,10 +33,9 @@ int		ServeurSocketLocal::create(int)
   if (_sock != INVALID_SOCKET)
     {
       std::cout << "La socket " << _sock <<
-	" est maintenant ouverte en mode TCP/IP" << std::endl;
-      // struct sockaddr_un saddr = {AF_UNIX, };
+	" est maintenant ouverte en mode local" << std::endl;
       saddr.sun_family = AF_UNIX;
-      strcpy(saddr.sun_path, "server_socket");
+      strcpy(saddr.sun_path, _path.c_str());
       _sun = saddr;
       _sock_err = bind(_sock, (sockaddr*)&_sun, _recsize);
       if (_sock_err == SOCKET_ERROR)

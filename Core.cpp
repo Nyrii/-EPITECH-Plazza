@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Tue Apr 12 14:25:23 2016 Nyrandone Noboud-Inpeng
+// Last update Tue Apr 12 13:47:55 2016 Saursinet
 //
 
 #include <dirent.h>
@@ -77,7 +77,7 @@ int				Core::read() const
     {
       command = new std::vector<std::string>(0, "");
       takeCommandFromInput(input, command);
-      const_cast<Core *>(this)->parseCommandLine(command);
+      parseCommandLine(command);
       delete(command);
     }
   return (0);
@@ -122,39 +122,39 @@ void			Core::initConnection(void *) const
   //     execParse(fileName, _type);
 }
 
-// int			Core::checkOkay()
-// {}
-
-void			Core::runProcess(std::string fileName, type _type)
+void			Core::runProcess(std::string fileName, type _type) const
 {
   int			pid;
   static int		id = -1;
   t_processState	struc;
-  // ServeurSocketLocal	*serv = new ServeurSocketLocal();
+  ServeurSocketLocal	*serv = new ServeurSocketLocal();
   // Process		child;
 
-  // serv->create(id++);
   // child.create(&initConnection, NULL);
-  NamedPipe	*serv = new NamedPipe();
+  // if (_sonTab.size() == 0)
+  //   initConnection();
+  // namedPipe	*serv = new namedPipe();
 
-  std::cout << "go in funct" << std::endl;
   serv->create(++id);
   pid = fork();
   if (pid == 0)
     {
-      _sonTab.insert(std::pair<int, ICommunication *>(getpid(), serv));
-    struc = {getpid(), false, fileName};
-      serv->write(struc);
-      execParse(fileName, _type);
+      ClientSocketLocal	*client = new ClientSocketLocal();
+
+      client->create(id);
+      // _com.insert(std::pair<ICommunication *, int>(serv, getpid()));
       struc = {getpid(), true, fileName};
-      serv->write(struc);
-      exit(0);
+      // client->write(struc);
+      execParse(fileName, _type);
+      struc = {getpid(), false, fileName};
+      client->write(struc);
     }
   serv->read(struc);
-  std::cout << "id = " << struc.id << " et " << struc.free << std::endl;
+  std::cout << std::boolalpha << struc.free << std::endl;
+  serv->destroy();
 }
 
-int				Core::parseCommandLine(std::vector<std::string> *command)
+int				Core::parseCommandLine(std::vector<std::string> *command) const
 {
   DIR				*directory;
   std::vector<std::string>	*filesName;

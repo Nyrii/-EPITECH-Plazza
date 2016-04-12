@@ -17,6 +17,7 @@
 typedef struct			s_processState
 {
   int				id;
+  bool				free;
   std::string			fileName;
 }				t_processState;
 
