@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Sat Apr  9 20:16:33 2016 Saursinet
+// Last update Sat Apr  9 20:36:28 2016 Saursinet
 //
 
 #include <dirent.h>
@@ -18,6 +18,7 @@
 #include "../inc/CryptCaesar.hh"
 #include "../inc/ClientSocketLocal.hpp"
 #include "../inc/ServeurSocketLocal.hpp"
+#include "../inc/Process.hpp"
 
 Core::Core()
 {
@@ -112,9 +113,12 @@ void				Core::execParse(std::string fileName, type _type) const
   sleep(5);
 }
 
-void	Core::initConnection() const
+void			Core::initConnection(void *) const
 {
+  // ClientSocketLocal	*client = new ClientSocketLocal();
 
+  //     client->create(id - 1);
+  //     execParse(fileName, _type);
 }
 
 void			Core::runProcess(std::string fileName, type _type) const
@@ -122,8 +126,10 @@ void			Core::runProcess(std::string fileName, type _type) const
   int			pid;
   static int		id = 0;
   ServeurSocketLocal	*serv = new ServeurSocketLocal();
+  // Process		child;
 
   serv->create(id++);
+  // child.create(&initConnection, NULL);
   // if (_sonTab.size() == 0)
   //   initConnection();
   pid = fork();
