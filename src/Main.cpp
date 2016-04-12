@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Tue Apr 12 15:35:53 2016 Nyrandone Noboud-Inpeng
+// Last update Tue Apr 12 16:05:54 2016 Nyrandone Noboud-Inpeng
 //
 
 // #include <iostream>
@@ -26,34 +26,34 @@
 
 int		main()
 {
-  NamedPipe	*tmp = new NamedPipe;
-  pid_t		pid;
-  t_processState	mdr;
-
-  // core();
-  tmp->create(0);
-  mdr.id = 42;
-  mdr.fileName = "mdr";
-  std::cout << mdr.id << std::endl;
-  std::cout << mdr.fileName << std::endl;
-  if (!(pid = fork()))
-    {
-      tmp->write(mdr);
-      // std::string("OKEEEEEEEE") >> *tmp;
-      exit(0);
-    }
-  mdr.id = 2;
-  mdr.fileName = "lol";
-  tmp->read(mdr);
-  std::cout << mdr.id << std::endl;
-  std::cout << mdr.fileName << std::endl;
-
-  delete tmp;
-
-
-  // Core	core;
+  // NamedPipe	*tmp = new NamedPipe;
+  // pid_t		pid;
+  // t_processState	mdr;
   //
-  // core.read();
+  // // core();
+  // tmp->create(0);
+  // mdr.id = 42;
+  // mdr.fileName = "mdr";
+  // std::cout << mdr.id << std::endl;
+  // std::cout << mdr.fileName << std::endl;
+  // if (!(pid = fork()))
+  //   {
+  //     tmp->write(mdr);
+  //     // std::string("OKEEEEEEEE") >> *tmp;
+  //     exit(0);
+  //   }
+  // mdr.id = 2;
+  // mdr.fileName = "lol";
+  // tmp->read(mdr);
+  // std::cout << mdr.id << std::endl;
+  // std::cout << mdr.fileName << std::endl;
+  //
+  // delete tmp;
+
+
+  Core	core;
+
+  core.read();
 
 
   // core();

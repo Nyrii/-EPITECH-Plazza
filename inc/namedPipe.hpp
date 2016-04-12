@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:18:42 2016 Nyrandone Noboud-Inpeng
-// Last update Tue Apr 12 15:49:07 2016 Nyrandone Noboud-Inpeng
+// Last update Tue Apr 12 16:05:08 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef NAMEDPIPE_HH_
@@ -28,6 +28,8 @@ public:
   void					read(t_processState &) const;
   int					getId() const;
   std::string				getPath() const;
+  int					getReadFd() const;
+  int					getWriteFd() const;
   private:
   int					_id;
   int					_rfd;

@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 22:15:29 2016 Nyrandone Noboud-Inpeng
-// Last update Tue Apr 12 15:49:54 2016 Nyrandone Noboud-Inpeng
+// Last update Tue Apr 12 16:04:58 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <fcntl.h>
@@ -33,6 +33,8 @@ NamedPipe::NamedPipe(NamedPipe const &src)
 {
   _id = src.getId();
   _path = src.getPath();
+  _rfd = src.getReadFd();
+  _wfd = src.getWriteFd();
 }
 
 NamedPipe			&NamedPipe::operator=(NamedPipe const &src)
@@ -41,6 +43,8 @@ NamedPipe			&NamedPipe::operator=(NamedPipe const &src)
     {
       _id = src.getId();
       _path = src.getPath();
+      _rfd = src.getReadFd();
+      _wfd = src.getWriteFd();
     }
   return (*this);
 }
@@ -80,6 +84,8 @@ int				NamedPipe::destroy() const
       throw CommunicationError("Error: unlink of a named pipe failed.");
       return (-1);
     }
+  close(_rfd);
+  close(_wfd);
   return (0);
 }
 
@@ -113,4 +119,14 @@ int				NamedPipe::getId() const
 std::string			NamedPipe::getPath() const
 {
   return (_path);
+}
+
+int				NamedPipe::getReadFd() const
+{
+  return (_rfd);
+}
+
+int				NamedPipe::getWriteFd() const
+{
+  return (_wfd);
 }
