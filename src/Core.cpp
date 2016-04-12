@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Sat Apr  9 20:36:28 2016 Saursinet
+// Last update Tue Apr 12 13:47:55 2016 Saursinet
 //
 
 #include <dirent.h>
@@ -19,6 +19,7 @@
 #include "../inc/ClientSocketLocal.hpp"
 #include "../inc/ServeurSocketLocal.hpp"
 #include "../inc/Process.hpp"
+#include "../inc/namedPipe.hpp"
 
 Core::Core()
 {
@@ -124,22 +125,29 @@ void			Core::initConnection(void *) const
 void			Core::runProcess(std::string fileName, type _type) const
 {
   int			pid;
-  static int		id = 0;
-  ServeurSocketLocal	*serv = new ServeurSocketLocal();
+  static int		id = -1;
+  t_processState	struc;
+  // ServeurSocketLocal	*serv = new ServeurSocketLocal();
   // Process		child;
 
-  serv->create(id++);
+  // serv->create(id++);
   // child.create(&initConnection, NULL);
   // if (_sonTab.size() == 0)
   //   initConnection();
+  namedPipe	*serv = new namedPipe();
+
+  serv->create(++id);
   pid = fork();
   if (pid == 0)
     {
-      ClientSocketLocal	*client = new ClientSocketLocal();
-
-      client->create(id - 1);
+      struc.id = getpid();
+      struc.fileName = fileName;
       execParse(fileName, _type);
+      serv->write(struc);
     }
+  serv->read(struc);
+  std::cout << struc.id << std::endl;
+  serv->destroy();
 }
 
 int				Core::parseCommandLine(std::vector<std::string> *command) const

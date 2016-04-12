@@ -47,7 +47,7 @@ int				namedPipe::create(int id)
   if (mkfifo(_path.c_str(),
 	     S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) == -1)
     {
-    //   // unlink(_path.c_str());
+      unlink(_path.c_str());
       if (mkfifo(_path.c_str(),
            S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) == -1)
 	throw CommunicationError("Error: creation of a named pipe failed.");
