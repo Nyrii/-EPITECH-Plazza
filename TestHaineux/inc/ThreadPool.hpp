@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 00:29:53 2016 guillaume wilmot
-// Last update Fri Apr  8 17:04:01 2016 guillaume wilmot
+// Last update Mon Apr 11 09:00:05 2016 guillaume wilmot
 //
 
 #ifndef THREADPOOL_HPP_
@@ -24,8 +24,9 @@ public:
   ThreadPool(int);
   ~ThreadPool() {}
 
-  void			callback();
-  int			assign(bool);
+  int			callback(CondThread *);
+  int			assign(CondThread *, bool);
+  int			tryAssign();
   int			init(void *(*)(void *));
   int			queue(void *(*)(void *), Information, const std::string &);
 

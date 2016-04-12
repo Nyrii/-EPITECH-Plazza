@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 18:19:02 2016 guillaume wilmot
-// Last update Fri Apr  8 19:21:21 2016 guillaume wilmot
+// Last update Mon Apr 11 09:33:06 2016 guillaume wilmot
 //
 
 #include "ScopedLock.hpp"
@@ -15,20 +15,28 @@
 CondThread::CondThread() : _cond(_mutex)
 {
   _order.set(NULL);
+  _looping.set(false);
 }
 
 bool		CondThread::isWorking()
 {
-  return (_order.get() ? true : false);
+  if (_mutex.trylock() == 0)
+    {
+      _mutex.unlock();
+      return (_looping.get() ? _order.get() ? true : false : false);
+    }
+  return (true);
 }
 
-void		CondThread::assignOrder(t_queue *order)
+void		CondThread::assignOrder(t_queue *order, bool lock)
 {
-  ScopedLock	lock(_mutex);
-
+  if (lock)
+    _mutex.lock();
+  _looping.set(true);
   _order.set(order);
   _cond.signal();
-  std::cout << "Woke up" << std::endl;
+  if (lock)
+    _mutex.unlock();
 }
 
 void		*CondThread::listen()
@@ -39,7 +47,8 @@ void		*CondThread::listen()
 
   while (1)
     {
-      _cond.wait();
+      if (!_order.get())
+	_cond.wait();
       if (_order.get())
   	{
   	  ret = _order.get()->ptr(_order.get()->args);
@@ -50,10 +59,11 @@ void		*CondThread::listen()
 	      return (NULL);
 	    }
 	  del = _order.get();
-	  del->args->callback->callback();
+	  _order.set(NULL);
+	  if (del->args->callback->callback(this) == -1)
+	    _looping.set(false);
 	  delete del->args;
 	  delete del;
-	  _order.set(NULL); // PROBLEMATIC
   	}
     }
 }

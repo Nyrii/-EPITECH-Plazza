@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:55:40 2016 guillaume wilmot
-// Last update Fri Apr  8 18:25:27 2016 guillaume wilmot
+// Last update Mon Apr 11 09:00:12 2016 guillaume wilmot
 //
 
 #ifndef CONDTHREAD_HPP_
@@ -28,13 +28,14 @@ public:
   bool		isWorking();
   void		wake();
   void		sleep();
-  void		assignOrder(t_queue *);
+  void		assignOrder(t_queue *, bool);
   void		*listen();
   static void	*begin(void *);
 
 private:
   CondVar		_cond;
   Mutex			_mutex;
+  ProtectedVar<bool>	_looping;
   ProtectedVar<t_queue *> _order;
 };
 

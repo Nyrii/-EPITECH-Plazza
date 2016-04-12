@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Fri Apr  8 19:07:17 2016 guillaume wilmot
+// Last update Mon Apr 11 10:11:47 2016 guillaume wilmot
 //
 
 /**/
@@ -33,6 +33,7 @@ void            *toast(void *arg)
 
   args = reinterpret_cast<t_args *>(arg);
   std::cout << args->order << " " << args->file << std::endl;
+  usleep(rand() % 100000);
   return (NULL);
 }
 
@@ -42,9 +43,10 @@ void		*Listener::listen()
 
   threadPool.init(&CondThread::begin);
   sleep(1);
+  srand(time(NULL));
   for (unsigned int i = 0; i < _nbThread * 2; i++)
     {
-      /**/
+      /* Debug */
       std::string		Test = "EXEC xxxxxxx";
       Test[11] = i % 10 + '0';
       Test[10] = (i / 10) % 10 + '0';
@@ -55,6 +57,7 @@ void		*Listener::listen()
       Test[5] = (i / 1000000) % 10 + '0';
       /**/
       threadPool.queue(&toast, PHONE_NUMBER, "\033[01;32m" + Test + "\033[0m");
+      usleep(rand() % 10000);
     }
   while (1) sleep(1);
   return (NULL);
