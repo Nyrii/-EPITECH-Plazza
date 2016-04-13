@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
-// Last update Sat Apr  9 20:24:23 2016 Saursinet
+// Last update Wed Apr 13 13:52:55 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef CORE_HPP_
@@ -15,7 +15,7 @@
 # include <vector>
 # include <iostream>
 # include "ICommunication.hpp"
-# include "namedPipe.hpp"
+# include "NamedPipe.hh"
 
 enum	type {
   PHONE_NUMBER,

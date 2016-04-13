@@ -5,14 +5,14 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 22:15:29 2016 Nyrandone Noboud-Inpeng
-// Last update Wed Apr 13 13:50:10 2016 Nyrandone Noboud-Inpeng
+// Last update Wed Apr 13 13:53:18 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <fstream>
-#include "NamedPipe.hpp"
+#include "NamedPipe.hh"
 #include "Errors.hpp"
 
 NamedPipe::NamedPipe()

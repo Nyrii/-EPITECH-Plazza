@@ -1,11 +1,11 @@
 //
-// namedPipe.hh for namedPipe in /Users/noboud_n/rendu/cpp_plazza/nyrii/
+// NamedPipe.hh for namedPipe in /Users/noboud_n/rendu/cpp_plazza/nyrii/
 //
 // Made by Nyrandone Noboud-Inpeng
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:18:42 2016 Nyrandone Noboud-Inpeng
-// Last update Tue Apr 12 16:45:17 2016 Nyrandone Noboud-Inpeng
+// Last update Wed Apr 13 13:52:43 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef NAMEDPIPE_HH_
