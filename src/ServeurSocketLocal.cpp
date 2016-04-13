@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Tue Apr 12 16:57:27 2016 Saursinet
+// Last update Wed Apr 13 15:36:24 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -32,8 +32,6 @@ int		ServeurSocketLocal::create(int _id)
   _crecsize = sizeof(_csun);
   if (_sock != INVALID_SOCKET)
     {
-      std::cout << "La socket " << _sock <<
-	" est maintenant ouverte en mode local" << std::endl;
       saddr.sun_family = AF_UNIX;
       strcpy(saddr.sun_path, _path.c_str());
       _sun = saddr;

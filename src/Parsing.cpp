@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Sat Apr  9 00:01:51 2016 Florian Saurs
+// Last update Wed Apr 13 16:33:47 2016 Florian Saurs
 //
 
 #include <dirent.h>
@@ -82,7 +82,6 @@ int				Parsing::parseCommandLine(std::vector<std::string> *command, Core const *
   DIR				*directory;
   std::vector<std::string>	*filesName;
 
-
   for (std::vector<std::string>::iterator it = command->begin();
        it != command->end(); ++it)
     {
@@ -107,7 +106,6 @@ int				Parsing::parseCommandLine(std::vector<std::string> *command, Core const *
 	  else
 	    (const_cast<Core *>(core)->*(this->_communicationTab)[_com])(*itFiles, _compare.at(*it), _com);
 	}
-      delete(filesName);
     }
   return (0);
 }

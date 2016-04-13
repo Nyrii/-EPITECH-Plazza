@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
-// Last update Wed Apr 13 13:52:55 2016 Nyrandone Noboud-Inpeng
+// Last update Wed Apr 13 15:32:13 2016 Florian Saurs
 //
 
 #ifndef CORE_HPP_
@@ -44,7 +44,8 @@ public:
   void	execParse(std::string, type) const;
   int	checkAvailable() const;
   void	fillIt(int, std::string);
-  void	launchWork(std::string, NamedPipe *, type);
+  void	launchWorkNP(std::string, NamedPipe *, type);
+  void	launchWorkSocket(std::string, type, int);
   void	read() const;
 };
 

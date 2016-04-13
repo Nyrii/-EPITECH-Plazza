@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Wed Apr 13 14:29:52 2016 Nyrandone Noboud-Inpeng
+## Last update Apr 13 16:12:49 2016
 ##
 
 SRC	= ClientSocket.cpp		\
@@ -28,7 +28,7 @@ OBJ	= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))
 
 RM	= rm -f
 
-CC	= g++ -std=c++11
+CC	= g++ -std=c++11 -g
 
 NAME	= plazza
 

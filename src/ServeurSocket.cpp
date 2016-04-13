@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Tue Apr 12 16:57:48 2016 Saursinet
+// Last update Wed Apr 13 16:33:31 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -20,6 +20,7 @@ ServeurSocket::~ServeurSocket()
 
 int		ServeurSocket::create(int)
 {
+  _csock = -1;
   _sock = socket(AF_INET, SOCK_STREAM, 0);
   _erreur = 0;
   _recsize = sizeof(_sin);
@@ -27,23 +28,16 @@ int		ServeurSocket::create(int)
   if (_sock != INVALID_SOCKET)
     {
       std::cout << "The socket " << _sock << " is now opened in TCP/IP" << std::endl;
-      _sin.sin_addr.s_addr = inet_addr("127.0.0.1");  /* Adresse IP automatique */
-      _sin.sin_family = AF_INET;                 /* Protocole familial (IP) */
-      _sin.sin_port = 17030;               /* Listage du port */
+      _sin.sin_addr.s_addr = inet_addr("127.0.0.1");
+      _sin.sin_family = AF_INET;
+      _sin.sin_port = 17030;
       _sock_err = bind(_sock, (sockaddr*)&_sin, _recsize);
       if (_sock_err != SOCKET_ERROR)
 	{
 	  // 5 is the number max of connection
 	  _sock_err = listen(_sock, 5);
-	  std::cout << "Listing the port " << PORT << "..." << std::endl;
-	  if (_sock_err != SOCKET_ERROR)
-	    {
-	      std::cout << "Please wait during the client's connection to the port " << PORT << "..." << std::endl;
-	      _csock = accept(_sock, (sockaddr*)&_csin, &_crecsize);
-	      std::cout << "A client is connecting with the socket " << _csock << " of " <<
-		inet_ntoa(_csin.sin_addr) << ":" << htons(_csin.sin_port) << std::endl;
-	    }
-	  else
+	  std::cout << "Server listen" << std::endl;
+	  if (_sock_err == SOCKET_ERROR)
 	    throw CommunicationError("Error: listen error.");
 	}
       else
@@ -63,6 +57,13 @@ int		ServeurSocket::destroy() const
 
 int		ServeurSocket::read(t_processState &state) const
 {
+  if (_csock == -1)
+
+    {
+      const_cast<ServeurSocket *>(this)->_csock = accept(_sock, (sockaddr*)&_csin, const_cast<socklen_t *>(&_crecsize));
+      std::cout << "A client is connecting with the socket " << _csock << " of " <<
+      inet_ntoa(_csin.sin_addr) << ":" << htons(_csin.sin_port) << std::endl;
+    }
   if (::read(_csock, &state, sizeof(state)) == -1)
     return (-1);
   return (0);
