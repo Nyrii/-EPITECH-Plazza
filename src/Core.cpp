@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Tue Apr 12 17:00:10 2016 Saursinet
+// Last update Wed Apr 13 13:49:56 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <fstream>
@@ -17,7 +17,7 @@
 #include "ClientSocketLocal.hpp"
 #include "ServeurSocketLocal.hpp"
 #include "Process.hpp"
-#include "namedPipe.hpp"
+#include "NamedPipe.hpp"
 
 Core::Core(int nbThreads)
 {

@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Tue Apr 12 15:35:53 2016 Nyrandone Noboud-Inpeng
+// Last update Wed Apr 13 13:50:03 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
@@ -13,7 +13,6 @@
 #include <list>
 #include <fstream>
 #include "Core.hpp"
-#include "namedPipe.hpp"
 #include "CryptCaesar.hh"
 #include "Errors.hpp"
 
