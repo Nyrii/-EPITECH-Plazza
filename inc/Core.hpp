@@ -23,6 +23,12 @@ enum	type {
   IP_ADDRESS
 };
 
+enum	Communication {
+  LOCAL_SOCKET,
+  INTERNET_SOCKET,
+  NAMED_PIPE
+};
+
 class	Core
 {
   std::map<int, ICommunication *>	_sonTab;
@@ -33,7 +39,8 @@ public:
   Core(int);
   ~Core();
 
-  void	runProcess(std::string, type);
+  void	runProcessNP(std::string, type, Communication);
+  void	runProcessSocket(std::string, type, Communication);
   void	execParse(std::string, type) const;
   int	checkAvailable() const;
   void	fillIt(int, std::string);

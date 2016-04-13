@@ -26,18 +26,15 @@ Core::Core(int nbThreads)
 
 Core::~Core()
 {
-  t_processState	state;
-
-  state = {-1, false, ""};
-  for (std::map<int, ICommunication *>::iterator it = _sonTab.begin(); it != _sonTab.end(); ++it)
-    _sonTab[it->first]->write(state);
+  for (std::map<int, ICommunication *>::iterator it = _sonTab.begin(); it != _sonTab.end(); it++)
+    it->second->destroy();
 }
 
 void		Core::read() const
 {
   Parsing	pars;
 
-  pars.read(this);
+  pars.read(this, NAMED_PIPE);
 }
 
 void				Core::execParse(std::string fileName, type _type) const
@@ -66,8 +63,8 @@ void				Core::execParse(std::string fileName, type _type) const
     }
   for (std::vector<std::string>::iterator it = found.begin(); it != found.end(); ++it)
     std::cout << *it << std::endl;
-  file.close();
   sleep(5);
+  file.close();
 }
 
 int			Core::checkAvailable() const
@@ -109,7 +106,28 @@ void			Core::launchWork(std::string fileName, NamedPipe *serv, type _type)
     exit (0);
 }
 
-void			Core::runProcess(std::string fileName, type _type)
+void			Core::runProcessNP(std::string fileName, type _type, Communication)
+{
+    int			pid;
+    static int		id = -1;
+    t_processState	struc;
+
+    if (_sonTab.size() != 0 && (pid = checkAvailable()) != 0)
+      fillIt(pid, fileName);
+    else
+      {
+	NamedPipe	*serv = new NamedPipe();
+
+	serv->create(++id);
+	pid = fork();
+	if (pid == 0)
+	  launchWork(fileName, serv, _type);
+	serv->read(struc);
+        _sonTab.insert(std::pair<int, ICommunication *>(id, serv));
+      }
+}
+
+void			Core::runProcessSocket(std::string fileName, type _type, Communication)
 {
     int			pid;
     static int		id = -1;

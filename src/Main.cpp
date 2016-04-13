@@ -41,5 +41,6 @@ int		main(int ac, char **av)
     } catch (Error &e) {
       std::cerr << e.what() << std::endl;
     }
+  delete (core);
   return (0);
 }

@@ -16,15 +16,16 @@
 class	Parsing
 {
   std::map<std::string, type>	_compare;
+  std::map<Communication, void (Core:: *)(std::string, type, Communication)>	_communicationTab;
 
   public:
   Parsing();
   ~Parsing();
 
   int	commandIsFalse(std::string) const;
-  int	read(Core const *) const;
+  int	read(Core const *, Communication) const;
   void	takeCommandFromInput(std::string, std::vector<std::string> *) const;
-  int	parseCommandLine(std::vector<std::string> *, Core const *);
+  int	parseCommandLine(std::vector<std::string> *, Core const *, Communication);
 };
 
 #endif /* !PARSING_HPP_ */

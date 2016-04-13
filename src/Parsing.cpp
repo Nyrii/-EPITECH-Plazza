@@ -17,6 +17,9 @@ Parsing::Parsing()
   _compare.insert(std::pair<std::string, type>("PHONE_NUMBER", PHONE_NUMBER));
   _compare.insert(std::pair<std::string, type>("EMAIL_ADDRESS", EMAIL_ADDRESS));
   _compare.insert(std::pair<std::string, type>("IP_ADDRESS", IP_ADDRESS));
+  _communicationTab.insert(std::pair<Communication, void (Core:: *)(std::string, type, Communication)>(LOCAL_SOCKET, &Core::runProcessSocket));
+  _communicationTab.insert(std::pair<Communication, void (Core:: *)(std::string, type, Communication)>(INTERNET_SOCKET, &Core::runProcessSocket));
+  _communicationTab.insert(std::pair<Communication, void (Core:: *)(std::string, type, Communication)>(NAMED_PIPE, &Core::runProcessNP));
 }
 
 Parsing::~Parsing()
@@ -59,7 +62,7 @@ void		Parsing::takeCommandFromInput(std::string input, std::vector<std::string> 
     }
 }
 
-int				Parsing::read(Core const * core) const
+int				Parsing::read(Core const *core, Communication _com) const
 {
   std::string			input("");
   std::vector<std::string>	*command;
@@ -68,13 +71,13 @@ int				Parsing::read(Core const * core) const
     {
       command = new std::vector<std::string>(0, "");
       takeCommandFromInput(input, command);
-      const_cast<Parsing *>(this)->parseCommandLine(command, core);
+      const_cast<Parsing *>(this)->parseCommandLine(command, core, _com);
       delete(command);
     }
   return (0);
 }
 
-int				Parsing::parseCommandLine(std::vector<std::string> *command, Core const * core)
+int				Parsing::parseCommandLine(std::vector<std::string> *command, Core const *core, Communication _com)
 {
   DIR				*directory;
   std::vector<std::string>	*filesName;
@@ -102,7 +105,7 @@ int				Parsing::parseCommandLine(std::vector<std::string> *command, Core const *
 	      closedir(directory);
 	    }
 	  else
-	    const_cast<Core *>(core)->runProcess(*itFiles, _compare.at(*it));
+	    (const_cast<Core *>(core)->*(this->_communicationTab)[_com])(*itFiles, _compare.at(*it), _com);
 	}
       delete(filesName);
     }
