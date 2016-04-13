@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Apr 13 12:0:30 2016
+## Last update Wed Apr 13 14:29:52 2016 Nyrandone Noboud-Inpeng
 ##
 
 SRC	= ClientSocket.cpp		\
@@ -19,6 +19,7 @@ SRC	= ClientSocket.cpp		\
 	  NamedPipe.cpp			\
 	  Parsing.cpp			\
 	  Process.cpp			\
+	  ReadAndFind.cpp		\
 	  ServeurSocket.cpp		\
 	  ServeurSocketLocal.cpp	\
           Search.cpp

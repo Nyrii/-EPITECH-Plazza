@@ -5,19 +5,17 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Wed Apr 13 13:53:33 2016 Nyrandone Noboud-Inpeng
+// Last update Wed Apr 13 14:34:56 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <fstream>
 #include "Core.hpp"
 #include "Parsing.hpp"
-#include "Search.hpp"
-#include "CryptXor.hpp"
-#include "CryptCaesar.hh"
 #include "ClientSocketLocal.hpp"
 #include "ServeurSocketLocal.hpp"
 #include "Process.hpp"
 #include "NamedPipe.hh"
+#include "ReadAndFind.hh"
 
 Core::Core(int nbThreads)
 {
@@ -35,36 +33,6 @@ void		Core::read() const
   Parsing	pars;
 
   pars.read(this, NAMED_PIPE);
-}
-
-void				Core::execParse(std::string fileName, type _type) const
-{
-  Search			search;
-  std::vector<std::string>	found;
-  uint16_t			i = 0;
-  int				start = 0;
-  CryptXor			Xor;
-  CryptCaesar			Caesar;
-  std::ifstream			file(fileName.c_str(), std::ifstream::in);
-  std::string			content((std::istreambuf_iterator<char>(file) ),
-					(std::istreambuf_iterator<char>()    ) );
-
-  found = search.parseFile(content, _type);
-  while (found.size() == 0)
-    {
-      while ((i != 0 || start == 0) && found.size() == 0)
-	{
-	  start = 1;
-	  found = search.parseFile(Xor.Decrypt(content, 0, i++), _type);
-	}
-      start = 0;
-      while (start <= 25 && found.size() == 0)
-	found = search.parseFile(Caesar.Decrypt(content, start++, 0), _type);
-    }
-  for (std::vector<std::string>::iterator it = found.begin(); it != found.end(); ++it)
-    std::cout << *it << std::endl;
-  sleep(5);
-  file.close();
 }
 
 int			Core::checkAvailable() const
@@ -89,13 +57,14 @@ void			Core::launchWork(std::string fileName, NamedPipe *serv, type _type)
 {
     t_processState	struc;
     int			retRead;
+    ReadAndFind		raf;
 
     _isFinished = false;
     while (_isFinished == false)
       {
         struc = {getpid(), false, fileName};
 	serv->write(struc);
-	execParse(fileName, _type);
+	raf.execute(fileName, _type); // llllllllllllllllllllll
         struc = {getpid(), true, fileName};
 	serv->write(struc);
 	if ((retRead = serv->read(struc)) == 0 && struc.id == 0)
