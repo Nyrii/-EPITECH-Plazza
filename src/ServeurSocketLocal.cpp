@@ -40,6 +40,8 @@ int		ServeurSocketLocal::create(int _id)
       _sock_err = bind(_sock, (sockaddr*)&_sun, _recsize);
       if (_sock_err == SOCKET_ERROR)
 	throw CommunicationError("Error: bind error.");
+      else
+	_sock_err = listen(_sock, 5);
     }
   else
     throw CommunicationError("Error: socket error.");
@@ -48,41 +50,20 @@ int		ServeurSocketLocal::create(int _id)
 
 int		ServeurSocketLocal::destroy() const
 {
-  std::cout << "Close of the client socket" << std::endl;
-  closesocket(_csock);
-  std::cout << "Close of the server socket" << std::endl;
   closesocket(_sock);
   return (0);
 }
 
-int		ServeurSocketLocal::read(t_processState &) const
+int		ServeurSocketLocal::read(t_processState &state) const
 {
+  if (::read(_sock, &state, sizeof(state)) == -1)
+    return (-1);
   return (0);
 }
 
-int		ServeurSocketLocal::write(t_processState &) const
+int		ServeurSocketLocal::write(t_processState &state) const
 {
-  int		err;
-
-  if (_sock_err != SOCKET_ERROR)
-    {
-      // 5 is the number max of connection
-      err = listen(_sock, 5);
-      if (err != SOCKET_ERROR)
-	{
-	  while (1)
-	    {
-	      char ch;
-	      std::cout << "Server wait..." << std::endl;
-	      // _csock = accept(_sock, (sockaddr*)&_csun, &_crecsize);
-	      ::read(_csock, &ch, 1);
-	      ch++;
-	      ::write(_csock, &ch, 1);
-	      close(_csock);
-	    }
-	}
-      else
-	throw CommunicationError("Error: listen error");
-    }
+  if (::write(_sock, &state, sizeof(state)) == -1)
+    return (-1);
   return (0);
 }

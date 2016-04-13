@@ -40,16 +40,15 @@ int		ClientSocket::destroy() const
   return (0);
 }
 
-int		ClientSocket::read(t_processState &) const
+int		ClientSocket::read(t_processState &state) const
 {
-  char buffer[32];
-
-  if(recv(_sock, buffer, 32, 0) != SOCKET_ERROR)
-    std::cout << "Received : " << buffer << std::endl;
+  if (::read(_sock, &state, sizeof(state)) == -1)
+    return (-1);
   return (0);
 }
-
-int		ClientSocket::write(t_processState &) const
+int		ClientSocket::write(t_processState &state) const
 {
+  if (::write(_sock, &state, sizeof(state)) == -1)
+    return (-1);
   return (0);
 }

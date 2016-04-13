@@ -43,18 +43,16 @@ int		ClientSocketLocal::destroy() const
   return (0);
 }
 
-int		ClientSocketLocal::read(t_processState &) const
+int		ClientSocketLocal::read(t_processState &state) const
 {
-  char	ch = 'A';
-
-  ::write(_sock, &ch, 1);
-  ::read(_sock, &ch, 1);
-  std::cout << "Char received from server " << ch << std::endl;
-  close(_sock);
+  if (::read(_sock, &state, sizeof(state)) == -1)
+    return (-1);
   return (0);
 }
 
-int		ClientSocketLocal::write(t_processState &) const
+int		ClientSocketLocal::write(t_processState &state) const
 {
+  if (::write(_sock, &state, sizeof(state)) == -1)
+    return (-1);
   return (0);
 }

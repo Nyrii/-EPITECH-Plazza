@@ -8,52 +8,103 @@
 // Last update Sat Apr  9 00:01:51 2016 Florian Saurs
 //
 
-#include <iostream>
-#include <fstream>
-#include <cstdio>
 #include <dirent.h>
-#include "../inc/Parsing.hpp"
+#include <boost/regex.hpp>
+#include "Parsing.hpp"
 
 Parsing::Parsing()
 {
-  _reg = new boost::regex[3];
-  _reg[0] = boost::regex("0[1-9]([ ]?[0-9]{2}){4}");
-  _reg[1] = boost::regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\\.[a-z]{2,4}");
-  _reg[2] = boost::regex("(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])");
-  _nbReg = 3;
+  _compare.insert(std::pair<std::string, type>("PHONE_NUMBER", PHONE_NUMBER));
+  _compare.insert(std::pair<std::string, type>("EMAIL_ADDRESS", EMAIL_ADDRESS));
+  _compare.insert(std::pair<std::string, type>("IP_ADDRESS", IP_ADDRESS));
 }
 
 Parsing::~Parsing()
 {}
 
-std::string	Parsing::searchInCurrent(std::string current, type _type) const
+int				Parsing::commandIsFalse(std::string str) const
 {
   boost::smatch	matches;
+boost::regex	reg("[0-9a-zA-Z._-]+[ ]{1,}(PHONE_NUMBER|EMAIL_ADDRESS|IP_ADDRESS)");
 
-  if (boost::regex_search(current, matches, _reg[_type]))
-    return (matches[0]);
-  return ("");
+  if (boost::regex_search(str, matches, reg))
+    return (0);
+  return (1);
 }
 
-std::vector<std::string>	Parsing::parseFile(std::string content, type _type) const
+void		Parsing::takeCommandFromInput(std::string input, std::vector<std::string> *command) const
 {
-  std::string			result("");
-  std::string			current;
-  std::vector<std::string>	found;
+  int		i;
 
-  while (content != "")
+  while (input.find(";") != std::string::npos)
     {
-      result = searchInCurrent(content, _type);
-      if (result != "")
-	{
-	  found.push_back(result);
-	  if (content.find(result) == std::string::npos + result.length())
-	    content = "";
-	  else
-	    content = content.substr(content.find(result) + result.length());
-	}
-      else
-	content = "";
+      i = 1;
+      command->push_back(input.substr(0, input.find(";")));
+      while (input.c_str()[i + input.find(";")] == ' ' ||
+	     input.c_str()[i + input.find(";")] == '\t')
+	++i;
+      input = input.substr(input.find(";") + i);
     }
-  return (found);
+  command->push_back(input.substr(0, input.find(";")));
+  for (std::vector<std::string>::iterator it = command->begin();
+       it != command->end(); ++it)
+    {
+      if (*it == "" || (i = commandIsFalse(*it)) == 1)
+	{
+	  if (i == 1)
+	    std::cerr << "Wrong argument in line command." << std::endl;
+	  it = command->erase(it);
+	  --it;
+	}
+    }
+}
+
+int				Parsing::read(Core const * core) const
+{
+  std::string			input("");
+  std::vector<std::string>	*command;
+
+  while (getline(std::cin, input))
+    {
+      command = new std::vector<std::string>(0, "");
+      takeCommandFromInput(input, command);
+      const_cast<Parsing *>(this)->parseCommandLine(command, core);
+      delete(command);
+    }
+  return (0);
+}
+
+int				Parsing::parseCommandLine(std::vector<std::string> *command, Core const * core)
+{
+  DIR				*directory;
+  std::vector<std::string>	*filesName;
+
+
+  for (std::vector<std::string>::iterator it = command->begin();
+       it != command->end(); ++it)
+    {
+      filesName = new std::vector<std::string>(0, "");
+      while ((*it).find(" ") != std::string::npos)
+	{
+	  filesName->push_back((*it).substr(0, (*it).find(" ")));
+	  *it = (*it).substr((*it).find(" ") + 1);
+	}
+      for (std::vector<std::string>::iterator itFiles = filesName->begin();
+	   itFiles != filesName->end(); ++itFiles)
+	{
+	  if (access((*itFiles).c_str(), F_OK) == -1)
+	    std::cerr << *itFiles << ": file doesn't exist." << std::endl;
+	  else if (access((*itFiles).c_str(), R_OK) == -1)
+	    std::cerr << *itFiles << ": file cannot be read." << std::endl;
+	  else if ((directory = opendir((*itFiles).c_str())) != NULL)
+	    {
+	      std::cerr << *itFiles << ": is a directory." << std::endl;
+	      closedir(directory);
+	    }
+	  else
+	    const_cast<Core *>(core)->runProcess(*itFiles, _compare.at(*it));
+	}
+      delete(filesName);
+    }
+  return (0);
 }

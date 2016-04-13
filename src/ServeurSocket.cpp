@@ -56,27 +56,20 @@ int		ServeurSocket::create(int)
 
 int		ServeurSocket::destroy() const
 {
-  std::cout << "Close of the client socket" << std::endl;
   closesocket(_csock);
-  std::cout << "Close of the server socket" << std::endl;
   closesocket(_sock);
   return (0);
 }
 
-int		ServeurSocket::read(t_processState &) const
+int		ServeurSocket::read(t_processState &state) const
 {
+  if (::read(_csock, &state, sizeof(state)) == -1)
+    return (-1);
   return (0);
 }
-
-int		ServeurSocket::write(t_processState &tmp) const
+int		ServeurSocket::write(t_processState &state) const
 {
-  int		err;
-
-  err = send(_csock, &tmp, sizeof(tmp), 0);
-  if(err != SOCKET_ERROR)
-    std::cout << "String sent : " << std::endl;
-  else
-    std::cout << "Erreur de transmission" << std::endl;
-  shutdown(_csock, 2);
+  if (::write(_csock, &state, sizeof(state)) == -1)
+    return (-1);
   return (0);
 }

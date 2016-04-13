@@ -5,82 +5,41 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Tue Apr 12 16:05:54 2016 Nyrandone Noboud-Inpeng
+// Last update Tue Apr 12 15:35:53 2016 Nyrandone Noboud-Inpeng
 //
-
-// #include <iostream>
-// #include <unistd.h>
-// #include <list>
-// #include <fstream>
-#include "Core.hpp"
-// #include "namedPipe.hpp"
-// #include "CryptCaesar.hh"
 
 #include <iostream>
 #include <unistd.h>
 #include <list>
 #include <fstream>
+#include "Core.hpp"
 #include "namedPipe.hpp"
 #include "CryptCaesar.hh"
 #include "Errors.hpp"
 
-int		main()
+int		main(int ac, char **av)
 {
-  // NamedPipe	*tmp = new NamedPipe;
-  // pid_t		pid;
-  // t_processState	mdr;
-  //
-  // // core();
-  // tmp->create(0);
-  // mdr.id = 42;
-  // mdr.fileName = "mdr";
-  // std::cout << mdr.id << std::endl;
-  // std::cout << mdr.fileName << std::endl;
-  // if (!(pid = fork()))
-  //   {
-  //     tmp->write(mdr);
-  //     // std::string("OKEEEEEEEE") >> *tmp;
-  //     exit(0);
-  //   }
-  // mdr.id = 2;
-  // mdr.fileName = "lol";
-  // tmp->read(mdr);
-  // std::cout << mdr.id << std::endl;
-  // std::cout << mdr.fileName << std::endl;
-  //
-  // delete tmp;
+  int	nbThreads;
 
+  nbThreads = 2;
+  if (ac == 2)
+    try {
+      nbThreads = std::stoi(av[1]);
+    } catch (std::invalid_argument &e) {
+      std::cerr << e.what() << ": invalid argument, positive number expected."<< std::endl;
+      return (-1);
+    }
+  if (nbThreads <= 0)
+    {
+      std::cerr << "Usage: ./plazza [nbr of threads]" << std::endl << "Positive non-NULL number expected." << std::endl;
+      return (-1);
+    }
+  Core	*core = new Core(nbThreads);
 
-  Core	core;
-
-  core.read();
-
-
-  // core();
-  // try
-  //   {
-  //     tmp->create(0);
-  //     mdr.id = 42;
-  //     mdr.fileName = "mdr";
-  //     std::cout << mdr.id << std::endl;
-  //     std::cout << mdr.fileName << std::endl;
-  //     if (!(pid = fork()))
-  // 	{
-  // 	  tmp->write(mdr);
-  // 	  // std::string("OKEEEEEEEE") >> *tmp;
-  // 	  exit(0);
-  // 	}
-  //     mdr.id = 2;
-  //     mdr.fileName = "lol";
-  //     tmp->read(mdr);
-  //     std::cout << mdr.id << std::endl;
-  //     std::cout << mdr.fileName << std::endl;
-  //   }
-  // catch (Error &err)
-  //   {
-  //     std::cerr << err.what() << std::endl;
-  //     return (-1);
-  //   }
-  // delete tmp;
+    try {
+      core->read();
+    } catch (Error &e) {
+      std::cerr << e.what() << std::endl;
+    }
   return (0);
 }

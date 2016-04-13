@@ -8,24 +8,20 @@
 // Last update Tue Apr 12 17:00:10 2016 Saursinet
 //
 
-#include <dirent.h>
-#include <boost/regex.hpp>
 #include <fstream>
-#include <stdint.h>
-#include "../inc/Core.hpp"
-#include "../inc/Parsing.hpp"
-#include "../inc/CryptXor.hpp"
-#include "../inc/CryptCaesar.hh"
-#include "../inc/ClientSocketLocal.hpp"
-#include "../inc/ServeurSocketLocal.hpp"
-#include "../inc/Process.hpp"
-#include "../inc/namedPipe.hpp"
+#include "Core.hpp"
+#include "Parsing.hpp"
+#include "Search.hpp"
+#include "CryptXor.hpp"
+#include "CryptCaesar.hh"
+#include "ClientSocketLocal.hpp"
+#include "ServeurSocketLocal.hpp"
+#include "Process.hpp"
+#include "namedPipe.hpp"
 
-Core::Core()
+Core::Core(int nbThreads)
 {
-  _compare.insert(std::pair<std::string, type>("PHONE_NUMBER", PHONE_NUMBER));
-  _compare.insert(std::pair<std::string, type>("EMAIL_ADDRESS", EMAIL_ADDRESS));
-  _compare.insert(std::pair<std::string, type>("IP_ADDRESS", IP_ADDRESS));
+  _nbThreads = nbThreads;
 }
 
 Core::~Core()
@@ -37,61 +33,16 @@ Core::~Core()
     _sonTab[it->first]->write(state);
 }
 
-int				Core::commandIsFalse(std::string str) const
+void		Core::read() const
 {
-  boost::smatch	matches;
-  boost::regex	reg("[0-9a-zA-Z._-]+[ ]{1,}(PHONE_NUMBER|EMAIL_ADDRESS|IP_ADDRESS)");
+  Parsing	pars;
 
-  if (boost::regex_search(str, matches, reg))
-    return (0);
-  return (1);
-}
-
-void		Core::takeCommandFromInput(std::string input, std::vector<std::string> *command) const
-{
-  int		i;
-
-  while (input.find(";") != std::string::npos)
-    {
-      i = 1;
-      command->push_back(input.substr(0, input.find(";")));
-      while (input.c_str()[i + input.find(";")] == ' ' ||
-	     input.c_str()[i + input.find(";")] == '\t')
-	++i;
-      input = input.substr(input.find(";") + i);
-    }
-  command->push_back(input.substr(0, input.find(";")));
-  for (std::vector<std::string>::iterator it = command->begin();
-       it != command->end(); ++it)
-    {
-      if (*it == "" || (i = commandIsFalse(*it)) == 1)
-	{
-	  if (i == 1)
-	    std::cerr << "Wrong argument in line command." << std::endl;
-	  it = command->erase(it);
-	  --it;
-	}
-    }
-}
-
-int				Core::read() const
-{
-  std::string			input("");
-  std::vector<std::string>	*command;
-
-  while (getline(std::cin, input))
-    {
-      command = new std::vector<std::string>(0, "");
-      takeCommandFromInput(input, command);
-      const_cast<Core *>(this)->parseCommandLine(command);
-      delete(command);
-    }
-  return (0);
+  pars.read(this);
 }
 
 void				Core::execParse(std::string fileName, type _type) const
 {
-  Parsing			pars;
+  Search			search;
   std::vector<std::string>	found;
   uint16_t			i = 0;
   int				start = 0;
@@ -101,17 +52,17 @@ void				Core::execParse(std::string fileName, type _type) const
   std::string			content((std::istreambuf_iterator<char>(file) ),
 					(std::istreambuf_iterator<char>()    ) );
 
-  found = pars.parseFile(content, _type);
+  found = search.parseFile(content, _type);
   while (found.size() == 0)
     {
       while ((i != 0 || start == 0) && found.size() == 0)
 	{
 	  start = 1;
-	  found = pars.parseFile(Xor.Decrypt(content, 0, i++), _type);
+	  found = search.parseFile(Xor.Decrypt(content, 0, i++), _type);
 	}
       start = 0;
       while (start <= 25 && found.size() == 0)
-	found = pars.parseFile(Caesar.Decrypt(content, start++, 0), _type);
+	found = search.parseFile(Caesar.Decrypt(content, start++, 0), _type);
     }
   for (std::vector<std::string>::iterator it = found.begin(); it != found.end(); ++it)
     std::cout << *it << std::endl;
@@ -145,10 +96,10 @@ void			Core::launchWork(std::string fileName, NamedPipe *serv, type _type)
     _isFinished = false;
     while (_isFinished == false)
       {
-      struc = {getpid(), false, fileName};
+        struc = {getpid(), false, fileName};
 	serv->write(struc);
 	execParse(fileName, _type);
-      struc = {getpid(), true, fileName};
+        struc = {getpid(), true, fileName};
 	serv->write(struc);
 	if ((retRead = serv->read(struc)) == 0 && struc.id == 0)
 	  fileName = struc.fileName;
@@ -177,39 +128,4 @@ void			Core::runProcess(std::string fileName, type _type)
 	serv->read(struc);
         _sonTab.insert(std::pair<int, ICommunication *>(struc.id, serv));
       }
-}
-
-int				Core::parseCommandLine(std::vector<std::string> *command)
-{
-  DIR				*directory;
-  std::vector<std::string>	*filesName;
-
-
-  for (std::vector<std::string>::iterator it = command->begin();
-       it != command->end(); ++it)
-    {
-      filesName = new std::vector<std::string>(0, "");
-      while ((*it).find(" ") != std::string::npos)
-	{
-	  filesName->push_back((*it).substr(0, (*it).find(" ")));
-	  *it = (*it).substr((*it).find(" ") + 1);
-	}
-      for (std::vector<std::string>::iterator itFiles = filesName->begin();
-	   itFiles != filesName->end(); ++itFiles)
-	{
-	  if (access((*itFiles).c_str(), F_OK) == -1)
-	    std::cerr << *itFiles << ": file doesn't exist." << std::endl;
-	  else if (access((*itFiles).c_str(), R_OK) == -1)
-	    std::cerr << *itFiles << ": file cannot be read." << std::endl;
-	  else if ((directory = opendir((*itFiles).c_str())) != NULL)
-	    {
-	      std::cerr << *itFiles << ": is a directory." << std::endl;
-	      closedir(directory);
-	    }
-	  else
-	    runProcess(*itFiles, _compare.at(*it));
-	}
-      delete(filesName);
-    }
-  return (0);
 }

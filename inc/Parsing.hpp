@@ -11,23 +11,20 @@
 #ifndef PARSING_HPP_
 # define PARSING_HPP_
 
-# include <vector>
-# include <string>
-# include <boost/regex.hpp>
 # include "Core.hpp"
 
 class	Parsing
 {
-  boost::regex	*_reg;
-  int		_nbReg;
+  std::map<std::string, type>	_compare;
 
-public:
+  public:
   Parsing();
   ~Parsing();
 
-  std::vector<std::string>	parseFile(std::string, type) const;
-  std::string			searchInCurrent(std::string, type) const;
-  std::string			compareToReg(std::string) const;
+  int	commandIsFalse(std::string) const;
+  int	read(Core const *) const;
+  void	takeCommandFromInput(std::string, std::vector<std::string> *) const;
+  int	parseCommandLine(std::vector<std::string> *, Core const *);
 };
 
 #endif /* !PARSING_HPP_ */

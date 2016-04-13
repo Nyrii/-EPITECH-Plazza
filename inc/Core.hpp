@@ -25,23 +25,20 @@ enum	type {
 
 class	Core
 {
-  std::map<std::string, type>	_compare;
   std::map<int, ICommunication *>	_sonTab;
   bool				_isFinished;
+  int				_nbThreads;
 
 public:
-  Core();
+  Core(int);
   ~Core();
 
-  int	read() const;
-  int	parseCommandLine(std::vector<std::string> *);
-  int	commandIsFalse(std::string) const;
-  void	takeCommandFromInput(std::string, std::vector<std::string> *) const;
   void	runProcess(std::string, type);
   void	execParse(std::string, type) const;
   int	checkAvailable() const;
   void	fillIt(int, std::string);
   void	launchWork(std::string, NamedPipe *, type);
+  void	read() const;
 };
 
 #endif /* !CORE_HPP_ */
