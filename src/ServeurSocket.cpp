@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Wed Apr 13 16:33:31 2016 Florian Saurs
+// Last update Thu Apr 14 12:09:09 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -27,7 +27,6 @@ int		ServeurSocket::create(int)
   _crecsize = sizeof(_csin);
   if (_sock != INVALID_SOCKET)
     {
-      std::cout << "The socket " << _sock << " is now opened in TCP/IP" << std::endl;
       _sin.sin_addr.s_addr = inet_addr("127.0.0.1");
       _sin.sin_family = AF_INET;
       _sin.sin_port = 17030;
@@ -36,7 +35,6 @@ int		ServeurSocket::create(int)
 	{
 	  // 5 is the number max of connection
 	  _sock_err = listen(_sock, 5);
-	  std::cout << "Server listen" << std::endl;
 	  if (_sock_err == SOCKET_ERROR)
 	    throw CommunicationError("Error: listen error.");
 	}
@@ -58,19 +56,14 @@ int		ServeurSocket::destroy() const
 int		ServeurSocket::read(t_processState &state) const
 {
   if (_csock == -1)
-
-    {
-      const_cast<ServeurSocket *>(this)->_csock = accept(_sock, (sockaddr*)&_csin, const_cast<socklen_t *>(&_crecsize));
-      std::cout << "A client is connecting with the socket " << _csock << " of " <<
-      inet_ntoa(_csin.sin_addr) << ":" << htons(_csin.sin_port) << std::endl;
-    }
-  if (::read(_csock, &state, sizeof(state)) == -1)
+    const_cast<ServeurSocket *>(this)->_csock = accept(_sock, (sockaddr*)&_csin, const_cast<socklen_t *>(&_crecsize));
+  if (recv(_csock, &state, sizeof(state), 0) == -1)
     return (-1);
   return (0);
 }
 int		ServeurSocket::write(t_processState &state) const
 {
-  if (::write(_csock, &state, sizeof(state)) == -1)
+  if (send(_csock, &state, sizeof(state), 0) == -1)
     return (-1);
   return (0);
 }

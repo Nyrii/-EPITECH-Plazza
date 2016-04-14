@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Wed Apr 13 21:57:54 2016 Florian Saurs
+// Last update Thu Apr 14 12:08:42 2016 Florian Saurs
 //
 
 #include <fstream>
@@ -58,7 +58,6 @@ void			Core::fillIt(int pid, std::string fileName)
 {
     t_processState	*struc = new t_processState;
 
-    std::cout << "fill it " << std::endl;
     memset(struc, 0, sizeof(*struc));
     struc->id = 0;
     struc->free = false;

@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Tue Apr 12 16:59:28 2016 Saursinet
+// Last update Thu Apr 14 12:08:12 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -30,9 +30,7 @@ int		ClientSocketLocal::create(int _id)
   saddr.sun_family = AF_UNIX;
   strcpy(saddr.sun_path, _path.c_str());
   _sun = saddr;
-  if(connect(_sock, (sockaddr*)&_sun, sizeof(_sun)) != SOCKET_ERROR)
-    std::cout << "Connection to the socket via local" << std::endl;
-  else
+  if(connect(_sock, (sockaddr*)&_sun, sizeof(_sun)) == SOCKET_ERROR)
     throw CommunicationError("Error: local connection impossible.");
   return (0);
 }

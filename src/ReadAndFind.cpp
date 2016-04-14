@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr 13 14:27:40 2016 Nyrandone Noboud-Inpeng
-// Last update Wed Apr 13 14:35:29 2016 Nyrandone Noboud-Inpeng
+// Last update Thu Apr 14 12:04:09 2016 Florian Saurs
 //
 
 #include <fstream>
@@ -51,6 +51,5 @@ void				ReadAndFind::execute(std::string fileName, type _type) const
     }
   for (std::vector<std::string>::iterator it = found.begin(); it != found.end(); ++it)
     std::cout << *it << std::endl;
-  sleep(5);
   file.close();
 }
