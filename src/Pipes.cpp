@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 10:46:45 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 12:13:11 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr 15 12:46:51 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <unistd.h>
@@ -29,7 +29,7 @@ PipeOut		&PipeOut::operator=(PipeOut const &src)
   return (*this);
 }
 
-void		PipeOut::destroy()
+void		PipeOut::destroy() const
 {
   close(_readFd);
 }
@@ -41,9 +41,9 @@ int		PipeOut::write(t_processState &) const
 
 int		PipeOut::read(t_processState &state) const
 {
-  if (!::read(_readFd, &state, sizeof(t_processState)))
-    return (0);
-  return (-1);
+  if (::read(_readFd, &state, sizeof(t_processState)) == -1)
+    return (-1);
+  return (0);
 }
 
 int		PipeOut::getReadFd() const
@@ -75,16 +75,16 @@ PipeIn		&PipeIn::operator=(PipeIn const &src)
   return (*this);
 }
 
-void		PipeIn::destroy()
+void		PipeIn::destroy() const
 {
   close(_writeFd);
 }
 
 int		PipeIn::write(t_processState &state) const
 {
-  if (!::write(_writeFd, &state, sizeof(t_processState)))
-    return (0);
-  return (-1);
+  if (::write(_writeFd, &state, sizeof(t_processState)) == -1)
+    return (-1);
+  return (0);
 }
 
 int		PipeIn::read(t_processState &) const
@@ -126,14 +126,28 @@ Pipes::Pipes(int id) : _id(id)
 }
 
 Pipes::~Pipes()
-{}
+{
+  _out.destroy();
+  _in.destroy();
+  if (unlink(_path.c_str()) == -1)
+    throw CommunicationError("Error: unlink of a named pipe failed.");
+}
 
 int		Pipes::write(t_processState &state) const
 {
-  return (_out.write(state));
+  return (_in.write(state));
 }
 
 int		Pipes::read(t_processState &state) const
 {
-  return (_in.read(state));
+  return (_out.read(state));
+}
+
+int		Pipes::destroy() const
+{
+  _out.destroy();
+  _in.destroy();
+  if (unlink(_path.c_str()) == -1)
+    throw CommunicationError("Error: unlink of a named pipe failed.");
+  return (0);
 }

@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 10:54:41 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 12:12:33 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr 15 12:30:41 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef PIPES_HPP_
@@ -17,7 +17,7 @@ class		Pipe
 {
 public:
   virtual	~Pipe() {};
-  virtual void	destroy()= 0;
+  virtual void	destroy() const = 0;
   virtual int	write(t_processState &) const = 0;
   virtual int	read(t_processState &) const = 0;
 };
@@ -29,7 +29,7 @@ public:
   ~PipeOut() {};
   PipeOut(PipeOut const &);
   PipeOut	&operator=(PipeOut const &);
-  void		destroy();
+  void		destroy() const;
   int		write(t_processState &) const;
   int		read(t_processState &) const;
   int		getReadFd() const;
@@ -45,7 +45,7 @@ public:
   ~PipeIn() {};
   PipeIn(PipeIn const &);
   PipeIn	&operator=(PipeIn const &);
-  void		destroy();
+  void		destroy() const;
   int		write(t_processState &) const;
   int		read(t_processState &) const;
   int		getWriteFd() const;
@@ -61,8 +61,8 @@ public:
   ~Pipes();
   int		write(t_processState &) const;
   int		read(t_processState &) const;
-  int		create(int) { return (-1); };
-  int		destroy() const { return (-1); };
+  int		create(int) { return (0); };
+  int		destroy() const;
 private:
   PipeOut	_out;
   PipeIn	_in;
