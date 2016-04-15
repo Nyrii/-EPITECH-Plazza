@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Fri Apr 15 22:22:41 2016 Florian Saurs
+// Last update Fri Apr 15 23:01:52 2016 guillaume wilmot
 //
 
 /**/
@@ -21,6 +21,7 @@ Listener::Listener()
 {
   _com = NULL;
   _nbThread = 0;
+  _timer.setTime(5000);
 }
 
 void			Listener::init(int nbThread, ICommunication *com)
@@ -43,9 +44,11 @@ t_processState		*Listener::getTask()
   return (NULL);
 }
 
-bool			timeOut()
+bool			Listener::timeOut()
 {
-  return (true);
+  if (_timer.isElapsed())
+    return (true);
+  return (false);
 }
 
 void			*Listener::listen()
@@ -54,12 +57,14 @@ void			*Listener::listen()
   t_processState	*struc;
 
   threadPool.init(&CondThread::begin);
-  while ((struc = getTask()) && !timeOut())
+  while ((struc = getTask()) || !timeOut())
     {
+      _timer.setTime(5000);
       threadPool.queue(&ReadAndFind::execute, struc->info, struc->fileName);
       sleep(1);
     }
-  exit(0);
+  struc->state = DEAD;
+  _com->write(*struc);
   return (NULL);
 }
 
