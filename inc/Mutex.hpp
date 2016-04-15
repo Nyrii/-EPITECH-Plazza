@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:55:22 2016 guillaume wilmot
-// Last update Fri Apr  8 10:40:19 2016 guillaume wilmot
+// Last update Fri Apr 15 17:52:21 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef MUTEX_HPP_
@@ -25,7 +25,6 @@ public:
   pthread_mutex_t	*getMutex() {return (&_mutex);}
 private:
   pthread_mutex_t	_mutex;
-  bool			_locked;
 };
 
 #endif /* !MUTEX_HPP */
