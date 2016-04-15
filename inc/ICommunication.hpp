@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr  6 13:44:41 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 19:08:26 2016 guillaume wilmot
+// Last update Fri Apr 15 21:53:43 2016 Florian Saurs
 //
 
 #ifndef ICOMMUNICATION_HPP_
@@ -15,12 +15,19 @@
 # include <map>
 # include "Information.hh"
 
+enum	Packet {
+  DEAD,
+  ASSIGN,
+  FREE
+};
+
 typedef struct			s_processState
 {
   int				id;
   bool				free;
   Information			info;
   std::string			fileName;
+  Packet			state;
 }				t_processState;
 
 class				ICommunication
