@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Fri Apr 15 19:47:14 2016 guillaume wilmot
+// Last update Fri Apr 15 21:14:47 2016 guillaume wilmot
 //
 
 /**/
@@ -27,16 +27,6 @@ void			Listener::init(int nbThread, int id)
 {
   _nbThread = nbThread;
   _id = id;
-}
-
-void			*toast(void *arg)
-{
-  t_args	        *args;
-
-  args = reinterpret_cast<t_args *>(arg);
-  std::cout << args->order << " " << args->file << std::endl;
-  usleep(rand() % 100000);
-  return (NULL);
 }
 
 t_processState		*Listener::getTask()

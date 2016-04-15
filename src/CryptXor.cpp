@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Thu Apr  7 00:18:46 2016 Florian Saurs
-// Last update Fri Apr  8 17:23:03 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr 15 20:00:17 2016 guillaume wilmot
 //
 
 #include "CryptXor.hpp"

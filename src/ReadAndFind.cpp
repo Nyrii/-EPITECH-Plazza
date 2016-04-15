@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr 13 14:27:40 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 18:51:33 2016 guillaume wilmot
+// Last update Fri Apr 15 21:14:43 2016 guillaume wilmot
 //
 
 #include <fstream>
@@ -19,35 +19,38 @@ ReadAndFind::ReadAndFind() {}
 
 ReadAndFind::~ReadAndFind() {}
 
-void				*ReadAndFind::execute(void *// arg
-						      )
-// void				ReadAndFind::execute(std::string fileName, type _type) const
+void				*ReadAndFind::execute(void *arg)
 {
-  // Search			search;
-  // CryptXor			Xor;
-  // CryptCaesar			Caesar;
-  // std::vector<std::string>	found;
-  // uint16_t			i = 0;
-  // int				start = 0;
-  // std::ifstream			file(fileName.c_str(), std::ifstream::in);
-  // std::string			content((std::istreambuf_iterator<char>(file)),
-  // 					(std::istreambuf_iterator<char>()));
+  t_args			*args;
+  args = reinterpret_cast<t_args *>(arg);
 
-  // found = search.parseFile(content, _type);
-  // while (found.size() == 0)
-  //   {
-  //     while ((i != 0 || start == 0) && found.size() == 0)
-  // 	{
-  // 	  start = 1;
-  // 	  found = search.parseFile(Xor.Decrypt(content, 0, i++), _type);
-  // 	}
-  //     start = 0;
-  //     while (start <= 255 && found.size() == 0)
-  // 	found = search.parseFile(Caesar.Decrypt(content, start++, 0), _type);
-  //   }
-  // for (std::vector<std::string>::iterator it = found.begin(); it != found.end(); ++it)
-  //   std::cout << *it << std::endl;
-  // file.close();
-  std::cout << "Struct a creer dans Readandfind" << std::endl;
+  Search			search;
+  CryptXor			Xor;
+  CryptCaesar			Caesar;
+  std::vector<std::string>	found;
+  uint16_t			i = 0;
+  int				start = 0;
+  std::ifstream			file(args->file.c_str(), std::ifstream::in);
+  std::string			content((std::istreambuf_iterator<char>(file)),
+  					(std::istreambuf_iterator<char>()));
+
+  /**/
+  std::cout << args->order << " " << args->file << std::endl;
+  /**/
+  found = search.parseFile(content, args->order);
+  while (found.size() == 0 && start != 256)
+    {
+      while ((i != 0 || start == 0) && found.size() == 0)
+  	{
+  	  start = 1;
+  	  found = search.parseFile(Xor.Decrypt(content, 0, i++), args->order);
+  	}
+      start = 0;
+      while (start <= 255 && found.size() == 0)
+  	found = search.parseFile(Caesar.Decrypt(content, start++, 0), args->order);
+    }
+  for (std::vector<std::string>::iterator it = found.begin(); it != found.end(); ++it)
+    std::cout << *it << std::endl;
+  file.close();
   return (NULL);
 }
