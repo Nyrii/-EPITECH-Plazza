@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Fri Apr 15 23:08:40 2016 Florian Saurs
+// Last update Fri Apr 15 23:56:29 2016 guillaume wilmot
 //
 
 #include <fstream>
@@ -60,13 +60,14 @@ void		Core::read() const
 
 void			Core::runProcessNP(std::string fileName, Information info, Communication)
 {
-  Process		*process;
-  ICommunication	*com = new NamedPipe;
-  t_processArgs		args;
-
   for (unsigned int i = 0; i < _sonTab.size(); i++)
     if (_sonTab[i]->checkAvailable())
       return (_sonTab[i]->assign(fileName, info));
+
+  ICommunication	*com = new NamedPipe;
+  Process		*process;
+  t_processArgs		args;
+
   process = new Process(com);
   args.com = com;
   args.nbThread = _nbThreads;
