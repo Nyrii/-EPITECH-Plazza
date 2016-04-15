@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 10:54:41 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 12:30:41 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr 15 18:03:30 2016 guillaume wilmot
 //
 
 #ifndef PIPES_HPP_

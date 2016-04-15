@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr 13 14:03:09 2016 Nyrandone Noboud-Inpeng
-// Last update Thu Apr 14 15:50:35 2016 guillaume wilmot
+// Last update Fri Apr 15 18:51:13 2016 guillaume wilmot
 //
 
 #ifndef READANDFIND_HH_
@@ -17,9 +17,7 @@ public:
   ReadAndFind();
   ~ReadAndFind();
 
-  void			*execute(void *) const;
+  static void		*execute(void *);
 };
-
-// std::string, type
 
 #endif /* READANDFIND_HH_ */

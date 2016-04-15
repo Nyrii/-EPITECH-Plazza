@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr 13 14:27:40 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 16:30:38 2016 guillaume wilmot
+// Last update Fri Apr 15 18:51:33 2016 guillaume wilmot
 //
 
 #include <fstream>
@@ -20,7 +20,7 @@ ReadAndFind::ReadAndFind() {}
 ReadAndFind::~ReadAndFind() {}
 
 void				*ReadAndFind::execute(void *// arg
-						      ) const
+						      )
 // void				ReadAndFind::execute(std::string fileName, type _type) const
 {
   // Search			search;

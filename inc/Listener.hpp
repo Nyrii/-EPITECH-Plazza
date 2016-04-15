@@ -5,13 +5,14 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:54:31 2016 guillaume wilmot
-// Last update Thu Apr  7 01:06:15 2016 guillaume wilmot
+// Last update Fri Apr 15 19:04:38 2016 guillaume wilmot
 //
 
 #ifndef LISTENER_HPP_
 # define LISTENER_HPP_
 
 # include "Thread.hpp"
+# include "ICommunication.hpp"
 
 class		Listener {
 public:
@@ -21,6 +22,8 @@ public:
   void		init(int, int);
   void		*listen();
   static void	*start(void *);
+
+  t_processState	*getTask();
 
 private:
   unsigned int  _id;

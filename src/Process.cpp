@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Tue Apr  5 16:31:06 2016 guillaume wilmot
-// Last update Thu Apr  7 00:19:03 2016 guillaume wilmot
+// Last update Fri Apr 15 18:29:52 2016 guillaume wilmot
 //
 
 #include <iostream>
@@ -13,9 +13,10 @@
 #include <cstdlib>
 #include "Process.hpp"
 
-Process::Process()
+Process::Process(ICommunication *com)
 {
   _pid = 0;
+  _com = com;
 }
 
 int		Process::create(void *(*ptr)(void *), void *arg)

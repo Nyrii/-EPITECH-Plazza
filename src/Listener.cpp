@@ -5,15 +5,17 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Fri Apr 15 16:27:09 2016 guillaume wilmot
+// Last update Fri Apr 15 19:47:14 2016 guillaume wilmot
 //
 
 /**/
 #include <unistd.h>
 /**/
+#include <cstring>
 #include <iostream>
 #include "Listener.hpp"
 #include "ThreadPool.hpp"
+#include "ReadAndFind.hh"
 
 Listener::Listener()
 {
@@ -21,15 +23,15 @@ Listener::Listener()
   _nbThread = 0;
 }
 
-void		Listener::init(int nbThread, int id)
+void			Listener::init(int nbThread, int id)
 {
   _nbThread = nbThread;
   _id = id;
 }
 
-void            *toast(void *arg)
+void			*toast(void *arg)
 {
-  t_args        *args;
+  t_args	        *args;
 
   args = reinterpret_cast<t_args *>(arg);
   std::cout << args->order << " " << args->file << std::endl;
@@ -37,56 +39,37 @@ void            *toast(void *arg)
   return (NULL);
 }
 
-void		*Listener::listen()
+t_processState		*Listener::getTask()
 {
-  // ThreadPool	threadPool(_nbThread);
-  // t_processState      *struc = new t_processState;
-  // int                 retRead;
+  t_processState	*struc;
 
-  // threadPool.init(&CondThread::begin);
-  // _isFinished = false;
-  // while (!_isFinished)
-  //   {
-  //     memset(struc, 0, sizeof(*struc));
-  //     struc->id = 0;
-  //     struc->free = false;
-  //     struc->fileName = new std::string("");
-  //     serv->write(*struc);
-  //     execParse(fileName, _type);
-  //     struc->free = true;
-  //     serv->write(*struc);
-  //     if ((retRead = serv->read(*struc)) == 0 && struc->id == 0)
-  // 	fileName = *(struc->fileName);
-  //     else if ((retRead == 0 && struc->id == -1) || retRead == -1)
-  // 	_isFinished = true;
-  //   }
-  // exit(0);
+  struc = new t_processState;
+  /**/
+  struc->fileName = std::string("\033[01;32m") + std::string("Fernand") + std::string("\033[0m");
+  struc->info = PHONE_NUMBER;
+  /**/
+  return (struc);
+}
 
-  // sleep(1);
-  // srand(time(NULL));
-  // for (unsigned int i = 0; i < _nbThread * 2; i++)
-  //   {
-  //     /* Debug */
-  //     std::string		Test = "EXEC xxxxxxx";
-  //     Test[11] = i % 10 + '0';
-  //     Test[10] = (i / 10) % 10 + '0';
-  //     Test[9] = (i / 100) % 10 + '0';
-  //     Test[8] = (i / 1000) % 10 + '0';
-  //     Test[7] = (i / 10000) % 10 + '0';
-  //     Test[6] = (i / 100000) % 10 + '0';
-  //     Test[5] = (i / 1000000) % 10 + '0';
-  //     /**/
-  //     threadPool.queue(&toast, PHONE_NUMBER, "\033[01;32m" + Test + "\033[0m");
-  //     usleep(rand() % 10000);
-  //   }
-  // while (1) sleep(1);
+void			*Listener::listen()
+{
+  ThreadPool		threadPool(_nbThread);
+  t_processState	*struc;
+
+  threadPool.init(&CondThread::begin);
+  while ((struc = getTask()))
+    {
+      threadPool.queue(&ReadAndFind::execute, struc->info, struc->fileName);
+      sleep(1);
+    }
+  exit(0);
   return (NULL);
 }
 
-void		*Listener::start(void *args)
+void			*Listener::start(void *args)
 {
-  Listener	_this;
-  int		*tab;
+  Listener		_this;
+  int			*tab;
 
   tab = reinterpret_cast<int *>(args);
   _this.init(tab[0], tab[1]);
