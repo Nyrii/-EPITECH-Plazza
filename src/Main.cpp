@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 18:32:15 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr 15 22:37:19 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
@@ -16,8 +16,22 @@
 #include "CryptCaesar.hh"
 #include "Error.hpp"
 
+#include "Pipes.hpp"
+
 int		main(int ac, char **av)
 {
+  // Pipes		tmp(1);
+  // t_processState mdr;
+  //
+  // mdr.id = 1;
+  // if (fork() == 0)
+  //   {
+  //     tmp.write(mdr);
+  //     exit(0);
+  //   }
+  // mdr.id = 9999;
+  // tmp.read(mdr);
+  // std::cout << mdr.id << std::endl;
   int	nbThreads;
 
   nbThreads = 2;
@@ -43,5 +57,3 @@ int		main(int ac, char **av)
   delete core;
   return (0);
 }
-
-//Saurs le sorcier de la norme
