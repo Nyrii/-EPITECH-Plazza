@@ -5,15 +5,19 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 18:05:28 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 18:26:02 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr 15 22:21:46 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <unistd.h>
+#include <fcntl.h>
 #include "PipeOut.hh"
+#include "CommunicationError.hh"
 
-PipeOut::PipeOut()
+PipeOut::PipeOut(std::string path) : _path(path)
 {
-
+  _readFd = (open(_path.c_str(), O_RDONLY | O_NONBLOCK));
+  if (_readFd == -1)
+    throw CommunicationError("Error: opening of a named pipe to read in it failed.");
 }
 
 PipeOut::~PipeOut()
@@ -45,11 +49,30 @@ int		PipeOut::write(t_processState &) const
   return (-1);
 }
 
-int		PipeOut::read(t_processState &state) const
+int		PipeOut::read(t_processState &state)
 {
-  if (::read(_readFd, &state, sizeof(t_processState)) == -1)
-    return (-1);
-  return (0);
+  int		return_value;
+
+  FD_ZERO(&_readSelect);
+  FD_SET(_readFd, &_readSelect);
+  while ((return_value = select(_readFd + 1, &_readSelect, NULL, NULL, NULL)) == -1
+	 && errno == EINTR)
+    {
+      FD_ZERO(&_readSelect);
+      FD_SET(_readFd, &_readSelect);
+    }
+  if (return_value > 0)
+    {
+      if (FD_ISSET(_readFd, &_readSelect))
+	{
+	  if (::read(_readFd, &state, sizeof(t_processState)) == -1)
+	    return (-1);
+	  if (return_value == 0)
+	    destroy();
+	  return (0);
+	}
+    }
+  return (-1);
 }
 
 int		PipeOut::getReadFd() const

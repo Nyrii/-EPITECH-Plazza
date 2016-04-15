@@ -5,15 +5,19 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 18:13:08 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 18:23:50 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr 15 22:17:31 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <unistd.h>
+#include <fcntl.h>
 #include "PipeIn.hh"
+#include "CommunicationError.hh"
 
-PipeIn::PipeIn()
+PipeIn::PipeIn(std::string path) : _path(path)
 {
-
+  _writeFd = (open(_path.c_str(), O_WRONLY | O_NONBLOCK));
+  if (_writeFd == -1)
+    throw CommunicationError("Error: opening of a named pipe to write in it failed.");
 }
 
 PipeIn::~PipeIn()
@@ -47,7 +51,7 @@ int		PipeIn::write(t_processState &state) const
   return (0);
 }
 
-int		PipeIn::read(t_processState &) const
+int		PipeIn::read(t_processState &)
 {
   return (-1);
 }

@@ -5,31 +5,33 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 18:13:57 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 18:25:32 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr 15 22:18:22 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef PIPEIN_HH_
 # define PIPEIN_HH_
 
+# include <sys/select.h>
 # include "ICommunication.hpp"
 # include "IPipe.hpp"
 
 class		PipeIn : public IPipe
 {
 public:
-  PipeIn();
+  PipeIn(std::string);
   ~PipeIn();
   PipeIn(PipeIn const &);
   PipeIn	&operator=(PipeIn const &);
   void		destroy() const;
   int		write(t_processState &) const;
-  int		read(t_processState &) const;
+  int		read(t_processState &);
   int		getWriteFd() const;
   int		getReadFd() const;
   void		setWriteFd(int const &);
   void		setReadFd(int const &);
 private:
   int		_writeFd;
+  std::string	_path;
 };
 
 #endif /* !PIPEIN_HH_ */

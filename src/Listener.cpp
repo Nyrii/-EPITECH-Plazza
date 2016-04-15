@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Fri Apr 15 23:01:52 2016 guillaume wilmot
+// Last update Fri Apr 15 23:03:28 2016 guillaume wilmot
 //
 
 /**/
@@ -14,7 +14,6 @@
 #include <cstring>
 #include <iostream>
 #include "Listener.hpp"
-#include "ThreadPool.hpp"
 #include "ReadAndFind.hh"
 
 Listener::Listener()
@@ -30,7 +29,7 @@ void			Listener::init(int nbThread, ICommunication *com)
   _com = com;
 }
 
-t_processState		*Listener::getTask()
+t_processState		*Listener::getTask(ThreadPool &threadPool)
 {
   t_processState	*struc;
 
@@ -39,8 +38,14 @@ t_processState		*Listener::getTask()
   _com->read(*struc);
   if (struc->state == ASSIGN)
     return (struc);
-//  if (struc->state == FREE)
-    // method qui check
+  if (struc->state == FREE)
+    {
+      if (threadPool.getQueueSize() < _nbThread * 2)
+	struc->free = true;
+      else
+	struc->free = false;
+      _com->write(*struc);
+    }
   return (NULL);
 }
 
@@ -57,7 +62,7 @@ void			*Listener::listen()
   t_processState	*struc;
 
   threadPool.init(&CondThread::begin);
-  while ((struc = getTask()) || !timeOut())
+  while ((struc = getTask(threadPool)) || !timeOut())
     {
       _timer.setTime(5000);
       threadPool.queue(&ReadAndFind::execute, struc->info, struc->fileName);
