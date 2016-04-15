@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 00:29:53 2016 guillaume wilmot
-// Last update Fri Apr 15 22:28:23 2016 Florian Saurs
+// Last update Fri Apr 15 22:51:56 2016 Florian Saurs
 //
 
 #ifndef THREADPOOL_HPP_
@@ -29,7 +29,7 @@ public:
   int			tryAssign();
   int			init(void *(*)(void *));
   int			queue(void *(*)(void *), Information, const std::string &);
-  int			getQueueSize();
+  unsigned int		getQueueSize();
 
 
 private:

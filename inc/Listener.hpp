@@ -5,12 +5,13 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:54:31 2016 guillaume wilmot
-// Last update Fri Apr 15 22:15:49 2016 guillaume wilmot
+// Last update Fri Apr 15 22:49:37 2016 Florian Saurs
 //
 
 #ifndef LISTENER_HPP_
 # define LISTENER_HPP_
 
+# include "ThreadPool.hpp"
 # include "Thread.hpp"
 # include "ICommunication.hpp"
 # include "Process.hpp"
@@ -24,7 +25,7 @@ public:
   void		*listen();
   static void	*start(void *);
 
-  t_processState	*getTask();
+  t_processState	*getTask(ThreadPool &);
 
 private:
   ICommunication	*_com;
