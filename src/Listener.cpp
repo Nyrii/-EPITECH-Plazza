@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Fri Apr 15 22:17:46 2016 guillaume wilmot
+// Last update Fri Apr 15 22:22:41 2016 Florian Saurs
 //
 
 /**/
@@ -35,11 +35,12 @@ t_processState		*Listener::getTask()
 
   struc = new t_processState;
 
-  /**/
-  struc->fileName = std::string("\033[01;32m") + std::string("Fernand") + std::string("\033[0m");
-  struc->info = PHONE_NUMBER;
-  /**/
-  return (struc);
+  _com->read(*struc);
+  if (struc->state == ASSIGN)
+    return (struc);
+//  if (struc->state == FREE)
+    // method qui check
+  return (NULL);
 }
 
 bool			timeOut()
