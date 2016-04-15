@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Fri Apr 15 23:45:18 2016 Florian Saurs
+// Last update Sat Apr 16 00:20:41 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <fstream>
@@ -66,7 +66,8 @@ void			Core::runProcessNP(std::string fileName, Information info, Communication)
 
   for (unsigned int i = 0; i < _sonTab.size(); i++)
     if (_sonTab[i]->checkAvailable())
-      return (_sonTab[i]->assign(fileName, info));
+      if (_sonTab[i]->assign(fileName, info) == true)
+	return;
   process = new Process(com);
   args.com = com;
   args.nbThread = _nbThreads;
