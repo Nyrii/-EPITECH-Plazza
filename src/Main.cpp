@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Wed Apr 13 13:50:03 2016 Nyrandone Noboud-Inpeng
+// Last update Thu Apr 14 15:41:43 2016 guillaume wilmot
 //
 
 #include <iostream>
@@ -40,6 +40,8 @@ int		main(int ac, char **av)
     } catch (Error &e) {
       std::cerr << e.what() << std::endl;
     }
-  delete (core);
+  delete core;
   return (0);
 }
+
+//Saurs le sorcier de la norme

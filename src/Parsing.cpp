@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Wed Apr 13 16:33:47 2016 Florian Saurs
+// Last update Thu Apr 14 18:40:43 2016 guillaume wilmot
 //
 
 #include <dirent.h>
@@ -14,12 +14,12 @@
 
 Parsing::Parsing()
 {
-  _compare.insert(std::pair<std::string, type>("PHONE_NUMBER", PHONE_NUMBER));
-  _compare.insert(std::pair<std::string, type>("EMAIL_ADDRESS", EMAIL_ADDRESS));
-  _compare.insert(std::pair<std::string, type>("IP_ADDRESS", IP_ADDRESS));
-  _communicationTab.insert(std::pair<Communication, void (Core:: *)(std::string, type, Communication)>(LOCAL_SOCKET, &Core::runProcessSocket));
-  _communicationTab.insert(std::pair<Communication, void (Core:: *)(std::string, type, Communication)>(INTERNET_SOCKET, &Core::runProcessSocket));
-  _communicationTab.insert(std::pair<Communication, void (Core:: *)(std::string, type, Communication)>(NAMED_PIPE, &Core::runProcessNP));
+  _compare.insert(std::pair<std::string, Information>("PHONE_NUMBER", PHONE_NUMBER));
+  _compare.insert(std::pair<std::string, Information>("EMAIL_ADDRESS", EMAIL_ADDRESS));
+  _compare.insert(std::pair<std::string, Information>("IP_ADDRESS", IP_ADDRESS));
+  _communicationTab.insert(std::pair<Communication, void (Core:: *)(std::string, Information, Communication)>(LOCAL_SOCKET, &Core::runProcessSocket));
+  _communicationTab.insert(std::pair<Communication, void (Core:: *)(std::string, Information, Communication)>(INTERNET_SOCKET, &Core::runProcessSocket));
+  _communicationTab.insert(std::pair<Communication, void (Core:: *)(std::string, Information, Communication)>(NAMED_PIPE, &Core::runProcessNP));
 }
 
 Parsing::~Parsing()

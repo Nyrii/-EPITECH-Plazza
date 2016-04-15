@@ -5,22 +5,15 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 23:32:47 2016 guillaume wilmot
-// Last update Thu Apr  7 23:48:53 2016 guillaume wilmot
+// Last update Thu Apr 14 17:43:40 2016 guillaume wilmot
 //
 
 #ifndef QUEUE_HPP_
 # define QUEUE_HPP_
 
-# include "ThreadPool.hpp"
+# include "Information.hh"
 
 class	ThreadPool;
-
-enum Information
-  {
-    PHONE_NUMBER,
-    EMAIL_ADDRESS,
-    IP_ADDRESS
-  };
 
 typedef struct s_queue  t_queue;
 

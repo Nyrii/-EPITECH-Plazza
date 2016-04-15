@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Sat Apr  9 00:01:51 2016 Florian Saurs
+// Last update Fri Apr 15 16:28:49 2016 guillaume wilmot
 //
 
 #include <iostream>
@@ -26,16 +26,16 @@ Search::Search()
 Search::~Search()
 {}
 
-std::string	Search::searchInCurrent(std::string current, type _type) const
+std::string	Search::searchInCurrent(std::string current, Information type) const
 {
   boost::smatch	matches;
 
-  if (boost::regex_search(current, matches, _reg[_type]))
+  if (boost::regex_search(current, matches, _reg[type]))
     return (matches[0]);
   return ("");
 }
 
-std::vector<std::string>	Search::parseFile(std::string content, type _type) const
+std::vector<std::string>	Search::parseFile(std::string content, Information type) const
 {
   std::string			result("");
   std::string			current;
@@ -43,7 +43,7 @@ std::vector<std::string>	Search::parseFile(std::string content, type _type) cons
 
   while (content != "")
     {
-      result = searchInCurrent(content, _type);
+      result = searchInCurrent(content, type);
       if (result != "")
 	{
 	  found.push_back(result);

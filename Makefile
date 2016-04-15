@@ -5,30 +5,35 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Apr 13 16:12:49 2016
+## Last update Fri Apr 15 16:34:32 2016 guillaume wilmot
 ##
 
 SRC	= ClientSocket.cpp		\
 	  ClientSocketLocal.cpp		\
-	  Core.cpp			\
 	  CommunicationError.cpp	\
+	  CondThread.cpp		\
+	  CondVar.cpp			\
+	  Core.cpp			\
 	  CryptCaesar.cpp		\
 	  CryptXor.cpp			\
 	  Errors.cpp			\
+	  Listener.cpp			\
 	  Main.cpp			\
 	  NamedPipe.cpp			\
 	  Parsing.cpp			\
 	  Process.cpp			\
 	  ReadAndFind.cpp		\
+          Search.cpp			\
 	  ServeurSocket.cpp		\
 	  ServeurSocketLocal.cpp	\
-          Search.cpp
+	  Thread.cpp			\
+	  ThreadPool.cpp
 
 OBJ	= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))
 
 RM	= rm -f
 
-CC	= g++ -std=c++11 -g
+CXX	= g++ -g -std=c++11
 
 NAME	= plazza
 
@@ -38,14 +43,15 @@ INCDIR	= -I inc/
 
 MAKEOBJ	= obj
 
-CFLAGS	= -W -Wall -Wextra -Werror
+LDFLAGS 	= -lpthread -lboost_regex
+CXXFLAGS	= -W -Wall -Wextra -Werror
 
 $(OBJDIR)%.o: $(SRCDIR)%.cpp
 	@mkdir -p $(MAKEOBJ)
-	$(CC) $(CFLAGS) $(INCDIR) -o $@ -c $<
+	$(CXX) $(CXXFLAGS) $(INCDIR) -o $@ -c $<
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) -lboost_regex
+	$(CXX) -o $(NAME) $(OBJ) $(LDFLAGS)
 
 all: $(NAME)
 

@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:35 2016 Florian Saurs
-// Last update Fri Apr  8 23:57:24 2016 Florian Saurs
+// Last update Thu Apr 14 17:21:52 2016 guillaume wilmot
 //
 
 #ifndef PARSING_HPP_
@@ -15,8 +15,8 @@
 
 class	Parsing
 {
-  std::map<std::string, type>	_compare;
-  std::map<Communication, void (Core:: *)(std::string, type, Communication)>	_communicationTab;
+  std::map<std::string, Information>	_compare;
+  std::map<Communication, void (Core:: *)(std::string, Information, Communication)>	_communicationTab;
 
   public:
   Parsing();

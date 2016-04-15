@@ -5,23 +5,18 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
-// Last update Wed Apr 13 15:32:13 2016 Florian Saurs
+// Last update Fri Apr 15 16:38:53 2016 guillaume wilmot
 //
 
 #ifndef CORE_HPP_
 # define CORE_HPP_
 
-# include <map>
 # include <vector>
 # include <iostream>
 # include "ICommunication.hpp"
 # include "NamedPipe.hh"
-
-enum	type {
-  PHONE_NUMBER,
-  EMAIL_ADDRESS,
-  IP_ADDRESS
-};
+# include "Process.hpp"
+# include "Queue.hpp"
 
 enum	Communication {
   LOCAL_SOCKET,
@@ -31,7 +26,7 @@ enum	Communication {
 
 class	Core
 {
-  std::map<int, ICommunication *>	_sonTab;
+  std::vector<Process *>	_sonTab;
   bool				_isFinished;
   int				_nbThreads;
 
@@ -39,13 +34,13 @@ public:
   Core(int);
   ~Core();
 
-  void	runProcessNP(std::string, type, Communication);
-  void	runProcessSocket(std::string, type, Communication);
-  void	execParse(std::string, type) const;
+  void	runProcessNP(std::string, Information, Communication);
+  void	runProcessSocket(std::string, Information, Communication);
+  // void	execParse(std::string, Information) const;
   int	checkAvailable() const;
   void	fillIt(int, std::string);
-  void	launchWorkNP(std::string, NamedPipe *, type);
-  void	launchWorkSocket(std::string, type, int);
+  void	launchWorkNP(std::string, NamedPipe *, Information);
+  void	launchWorkSocket(std::string, Information, int);
   void	read() const;
 };
 
