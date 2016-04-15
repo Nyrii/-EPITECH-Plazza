@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Fri Apr 15 17:47:30 2016 guillaume wilmot
+// Last update Fri Apr 15 17:50:31 2016 Florian Saurs
 //
 
 #include <fstream>
@@ -95,7 +95,8 @@ void			Core::fillIt(int // pid
 //     exit(0);
 // }
 
-void			Core::runProcessNP(std::string fileName, Information // _type
+void			Core::runProcessNP(std::string //fileName
+					   , Information // _type
 					   , Communication)
 {
     // int			pid;
