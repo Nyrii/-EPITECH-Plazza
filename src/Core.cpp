@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Fri Apr 15 23:08:40 2016 Florian Saurs
+// Last update Fri Apr 15 23:45:18 2016 Florian Saurs
 //
 
 #include <fstream>
@@ -72,6 +72,7 @@ void			Core::runProcessNP(std::string fileName, Information info, Communication)
   args.nbThread = _nbThreads;
   process->create(&Listener::start, &args);
   _sonTab.push_back(process);
+    std::cout << "the filename is " << fileName << " and info is " << info << std::endl;
   process->assign(fileName, info);
   // serv->read(struc);
 }
@@ -135,7 +136,7 @@ void			Core::launchWorkSocket(std::string fileName, Information // _type
 	memset(struc, 0, sizeof(*struc));
         struc->id = 0;
 	struc->free = false;
-	struc->fileName = std::string("");
+        memset(struc->fileName, 0, sizeof(struc->fileName));
 	client->write(*struc);
 	raf.execute(NULL// fileName, _type
 		    );
