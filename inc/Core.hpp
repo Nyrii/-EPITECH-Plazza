@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
-// Last update Fri Apr 15 16:38:53 2016 guillaume wilmot
+// Last update Fri Apr 15 23:07:19 2016 Florian Saurs
 //
 
 #ifndef CORE_HPP_
@@ -38,7 +38,6 @@ public:
   void	runProcessSocket(std::string, Information, Communication);
   // void	execParse(std::string, Information) const;
   int	checkAvailable() const;
-  void	fillIt(int, std::string);
   void	launchWorkNP(std::string, NamedPipe *, Information);
   void	launchWorkSocket(std::string, Information, int);
   void	read() const;

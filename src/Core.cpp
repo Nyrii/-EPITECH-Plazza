@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Fri Apr 15 19:09:19 2016 guillaume wilmot
+// Last update Fri Apr 15 23:08:40 2016 Florian Saurs
 //
 
 #include <fstream>
@@ -25,50 +25,13 @@ Core::Core(int nbThreads)
 }
 
 Core::~Core()
-{
-  // for (std::map<int, ICommunication *>::iterator it = _sonTab.begin(); it != _sonTab.end(); it++)
-  //   it->second->destroy();
-}
+{}
 
 void		Core::read() const
 {
   Parsing	parser;
 
   parser.read(this, NAMED_PIPE);
-}
-
-// void				Core::execParse(std::string fileName, Information _type) const
-// {
-//   ReadAndFind			raf;
-//   t_queue			args;
-
-//   args.args->file = fileName;
-//   args.args->order = _type;
-//   args.args->callback = NULL;
-//   args.ptr = &execute;
-//   raf.execute(NULL);
-// }
-
-int			Core::checkAvailable() const
-{
-  // t_processState	state;
-
-  // for (std::map<int, ICommunication *>::const_iterator it = _sonTab.begin(); it != _sonTab.end(); ++it)
-  //   if ((it->second)->read(state) == 0 || state.free == true)
-  //     return (it->first);
-    return (0);
-}
-
-void			Core::fillIt(int // pid
-				     , std::string fileName)
-{
-    t_processState	*struc = new t_processState;
-
-    memset(struc, 0, sizeof(*struc));
-    struc->id = 0;
-    struc->free = false;
-    struc->fileName = std::string(fileName);
-    // _sonTab[pid]->write(*struc);
 }
 
 // void			Core::launchWorkNP(std::string fileName, NamedPipe *serv, Information _type)
@@ -199,5 +162,4 @@ void			Core::launchWorkSocket(std::string fileName, Information // _type
 
 
 void			Core::runProcessSocket(std::string, Information, Communication)
-{
-}
+{}
