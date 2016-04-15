@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Thu Apr 14 18:40:43 2016 guillaume wilmot
+// Last update Fri Apr 15 21:54:24 2016 Florian Saurs
 //
 
 #include <dirent.h>
@@ -28,7 +28,8 @@ Parsing::~Parsing()
 int				Parsing::commandIsFalse(std::string str) const
 {
   boost::smatch	matches;
-boost::regex	reg("[0-9a-zA-Z._-]+[ ]{1,}(PHONE_NUMBER|EMAIL_ADDRESS|IP_ADDRESS)");
+  // check maybe there is no ; to delimitate command line
+  boost::regex	reg("[0-9a-zA-Z._-]+[ ]{1,}(PHONE_NUMBER|EMAIL_ADDRESS|IP_ADDRESS)");
 
   if (boost::regex_search(str, matches, reg))
     return (0);

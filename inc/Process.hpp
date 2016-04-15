@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:56:05 2016 guillaume wilmot
-// Last update Fri Apr 15 18:34:43 2016 guillaume wilmot
+// Last update Fri Apr 15 21:48:47 2016 Florian Saurs
 //
 
 #ifndef PROCESS_HPP_
@@ -24,8 +24,8 @@ public:
   ~Process() {}
 
   int			create(void *(*)(void *), void *);
-  bool			checkAvailable() {return (true);}
-  void			assign(const std::string &, Information) {}
+  bool			checkAvailable();
+  void			assign(const std::string &, Information);
 };
 
 typedef struct		s_processArgs {

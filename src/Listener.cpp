@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Fri Apr 15 21:14:47 2016 guillaume wilmot
+// Last update Fri Apr 15 22:04:54 2016 Florian Saurs
 //
 
 /**/
@@ -34,6 +34,7 @@ t_processState		*Listener::getTask()
   t_processState	*struc;
 
   struc = new t_processState;
+
   /**/
   struc->fileName = std::string("\033[01;32m") + std::string("Fernand") + std::string("\033[0m");
   struc->info = PHONE_NUMBER;
