@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Fri Apr 15 16:34:32 2016 guillaume wilmot
+## Last update Fri Apr 15 17:48:33 2016 guillaume wilmot
 ##
 
 SRC	= ClientSocket.cpp		\
@@ -21,13 +21,15 @@ SRC	= ClientSocket.cpp		\
 	  Main.cpp			\
 	  NamedPipe.cpp			\
 	  Parsing.cpp			\
+	  Pipes.cpp			\
 	  Process.cpp			\
 	  ReadAndFind.cpp		\
           Search.cpp			\
 	  ServeurSocket.cpp		\
 	  ServeurSocketLocal.cpp	\
 	  Thread.cpp			\
-	  ThreadPool.cpp
+	  ThreadPool.cpp		\
+          Search.cpp
 
 OBJ	= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))
 

@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr  6 13:44:41 2016 Nyrandone Noboud-Inpeng
-// Last update Wed Apr 13 21:51:12 2016 Florian Saurs
+// Last update Fri Apr 15 11:30:40 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef ICOMMUNICATION_HPP_
@@ -25,7 +25,7 @@ class				ICommunication
 {
 public:
   virtual			~ICommunication() {};
-  virtual int			create(int) = 0;
+  // virtual int			create(int) = 0;
   virtual int			destroy() const = 0;
   virtual int			read(t_processState &) const = 0;
   virtual int			write(t_processState &) const = 0;

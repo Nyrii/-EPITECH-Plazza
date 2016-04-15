@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Thu Apr  7 10:29:44 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr  8 10:42:38 2016 Florian Saurs
+// Last update Wed Apr 13 15:33:39 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef ICRYPT_HPP_
@@ -18,7 +18,7 @@ class			ICrypt
 {
 public:
   virtual		~ICrypt() {};
-virtual std::string	Decrypt(std::string, int, uint16_t) = 0;
+  virtual std::string	Decrypt(std::string, int, uint16_t) = 0;
 };
 
 #endif /* !ICRYPT_HPP_ */
