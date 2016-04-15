@@ -5,10 +5,10 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr  8 17:59:48 2016 Nyrandone Noboud-Inpeng
-// Last update Wed Apr 13 15:26:42 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr 15 18:31:24 2016 Nyrandone Noboud-Inpeng
 //
 
-#include "Errors.hpp"
+#include "CommunicationError.hh"
 
 CommunicationError::CommunicationError(std::string const &message)
 {

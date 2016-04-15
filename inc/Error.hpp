@@ -5,11 +5,11 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr  8 10:56:46 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr  8 18:36:15 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr 15 18:29:21 2016 Nyrandone Noboud-Inpeng
 //
 
-#ifndef ERRORS_HPP_
-# define ERRORS_HPP_
+#ifndef ERROR_HPP_
+# define ERROR_HPP_
 
 # include <iostream>
 # include <stdexcept>
@@ -24,11 +24,4 @@ protected:
   std::string		_message;
 };
 
-class			CommunicationError : public Error
-{
-public:
-  CommunicationError(std::string const &message = "An error occured.");
-  virtual		~CommunicationError() throw();
-};
-
-#endif /* ERRORS_HPP_ */
+#endif /* ERROR_HPP_ */

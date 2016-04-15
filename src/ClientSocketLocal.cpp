@@ -5,12 +5,12 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Thu Apr 14 12:08:12 2016 Florian Saurs
+// Last update Fri Apr 15 18:31:12 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
 #include "ClientSocketLocal.hpp"
-#include "Errors.hpp"
+#include "CommunicationError.hh"
 
 ClientSocketLocal::ClientSocketLocal()
 {}

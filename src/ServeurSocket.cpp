@@ -5,12 +5,12 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Thu Apr 14 12:09:09 2016 Florian Saurs
+// Last update Fri Apr 15 19:48:53 2016 guillaume wilmot
 //
 
 #include <iostream>
 #include "ServeurSocket.hpp"
-#include "Errors.hpp"
+#include "CommunicationError.hh"
 
 ServeurSocket::ServeurSocket()
 {}

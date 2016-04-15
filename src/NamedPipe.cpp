@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 22:15:29 2016 Nyrandone Noboud-Inpeng
-// Last update Wed Apr 13 13:53:18 2016 Nyrandone Noboud-Inpeng
+// Last update Fri Apr 15 18:31:42 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <fcntl.h>
@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include <fstream>
 #include "NamedPipe.hh"
-#include "Errors.hpp"
+#include "CommunicationError.hh"
 
 NamedPipe::NamedPipe()
 {

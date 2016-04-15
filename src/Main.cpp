@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Thu Apr 14 15:41:43 2016 guillaume wilmot
+// Last update Fri Apr 15 18:32:15 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
@@ -14,7 +14,7 @@
 #include <fstream>
 #include "Core.hpp"
 #include "CryptCaesar.hh"
-#include "Errors.hpp"
+#include "Error.hpp"
 
 int		main(int ac, char **av)
 {
