@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Fri Apr 15 21:14:47 2016 guillaume wilmot
+// Last update Fri Apr 15 22:16:59 2016 guillaume wilmot
 //
 
 /**/
@@ -19,14 +19,14 @@
 
 Listener::Listener()
 {
-  _id = 0;
+  _com = NULL;
   _nbThread = 0;
 }
 
-void			Listener::init(int nbThread, int id)
+void			Listener::init(int nbThread, ICommunication *com)
 {
   _nbThread = nbThread;
-  _id = id;
+  _com = com;
 }
 
 t_processState		*Listener::getTask()
@@ -41,13 +41,18 @@ t_processState		*Listener::getTask()
   return (struc);
 }
 
+bool			timeOut()
+{
+  return (true);
+}
+
 void			*Listener::listen()
 {
   ThreadPool		threadPool(_nbThread);
   t_processState	*struc;
 
   threadPool.init(&CondThread::begin);
-  while ((struc = getTask()))
+  while ((struc = getTask()) && !timeOut())
     {
       threadPool.queue(&ReadAndFind::execute, struc->info, struc->fileName);
       sleep(1);
@@ -59,9 +64,9 @@ void			*Listener::listen()
 void			*Listener::start(void *args)
 {
   Listener		_this;
-  int			*tab;
+  t_processArgs		*tab;
 
-  tab = reinterpret_cast<int *>(args);
-  _this.init(tab[0], tab[1]);
+  tab = reinterpret_cast<t_processArgs *>(args);
+  _this.init(tab->nbThread, tab->com);
   return (_this.listen());
 }
