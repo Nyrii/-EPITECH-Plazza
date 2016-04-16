@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 18:13:08 2016 Nyrandone Noboud-Inpeng
-// Last update Sat Apr 16 18:25:18 2016 guillaume wilmot
+// Last update Sat Apr 16 22:53:26 2016 guillaume wilmot
 //
 
 #include <unistd.h>
@@ -13,14 +13,9 @@
 #include "PipeIn.hh"
 #include "CommunicationError.hh"
 
-PipeIn::PipeIn(std::string path) : _path(path)
-{
-}
+PipeIn::PipeIn(std::string path) : _path(path) {}
 
-PipeIn::~PipeIn()
-{
-  this->destroy();
-}
+PipeIn::~PipeIn() {}
 
 PipeIn::PipeIn(PipeIn const &src)
 {
@@ -30,9 +25,7 @@ PipeIn::PipeIn(PipeIn const &src)
 PipeIn		&PipeIn::operator=(PipeIn const &src)
 {
   if (this != &src)
-    {
-      _writeFd = src.getWriteFd();
-    }
+    _writeFd = src.getWriteFd();
   return (*this);
 }
 
@@ -46,9 +39,13 @@ int		PipeIn::write(t_processState &state)
   _writeFd = (open(_path.c_str(), O_WRONLY));
   if (_writeFd == -1)
     throw CommunicationError("Error: opening of a named pipe to write in it failed.");
-
   if (::write(_writeFd, &state, sizeof(t_processState)) == -1)
-    return (-1);
+    {
+      destroy();
+      std::cerr << "Error: Could not write in Pipe" << std::endl;
+      return (-1);
+    }
+  destroy();
   return (0);
 }
 

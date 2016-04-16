@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Sat Apr 16 17:03:01 2016 guillaume wilmot
+// Last update Sat Apr 16 23:04:11 2016 guillaume wilmot
 //
 
 #include <fstream>
@@ -25,7 +25,10 @@ Core::Core(int nbThreads)
 }
 
 Core::~Core()
-{}
+{
+  for (unsigned int i = 0; i < _sonTab.size(); i++)
+    delete _sonTab[i];
+}
 
 void		Core::read() const
 {
@@ -60,6 +63,8 @@ void		Core::read() const
 
 void			Core::runProcessNP(std::string fileName, Information info, Communication)
 {
+  // std::cout << "Coucou" << std::endl;
+
   for (unsigned int i = 0; i < _sonTab.size(); i++)
     if (_sonTab[i]->checkAvailable())
       if (_sonTab[i]->assign(fileName, info) == true)

@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 18:05:28 2016 Nyrandone Noboud-Inpeng
-// Last update Sat Apr 16 18:25:25 2016 guillaume wilmot
+// Last update Sat Apr 16 22:56:31 2016 guillaume wilmot
 //
 
 #include <unistd.h>
@@ -17,10 +17,7 @@ PipeOut::PipeOut(std::string path) : _path(path)
 {
 }
 
-PipeOut::~PipeOut()
-{
-  this->destroy();
-}
+PipeOut::~PipeOut() {}
 
 PipeOut::PipeOut(PipeOut const &src)
 {
@@ -48,18 +45,15 @@ int		PipeOut::write(t_processState &)
 
 int			PipeOut::read(t_processState &state)
 {
-  int			return_value;
+  int			ret;
+
   _readFd = (open(_path.c_str(), O_RDONLY));
   if (_readFd == -1)
     throw CommunicationError("Error: opening of a named pipe to read in it failed.");
-
-  FD_ZERO(&_readSelect);
-  FD_SET(_readFd, &_readSelect);
-  return_value = select(_readFd + 1, &_readSelect, NULL, NULL, NULL);
-  if (return_value > 0)
-    if (FD_ISSET(_readFd, &_readSelect))
-      return (::read(_readFd, &state, sizeof(t_processState)));
-  return (return_value);
+  if ((ret = ::read(_readFd, &state, sizeof(t_processState))) == -1)
+    std::cerr << "Error: Could not read in Pipe" << std::endl;
+  destroy();
+  return (ret);
 }
 
 int		PipeOut::getReadFd() const

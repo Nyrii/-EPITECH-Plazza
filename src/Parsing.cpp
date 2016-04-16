@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Fri Apr 15 21:54:24 2016 Florian Saurs
+// Last update Sat Apr 16 23:09:14 2016 guillaume wilmot
 //
 
 #include <dirent.h>
@@ -73,7 +73,7 @@ int				Parsing::read(Core const *core, Communication _com) const
       command = new std::vector<std::string>(0, "");
       takeCommandFromInput(input, command);
       const_cast<Parsing *>(this)->parseCommandLine(command, core, _com);
-      delete(command);
+      delete command;
     }
   return (0);
 }
@@ -107,6 +107,7 @@ int				Parsing::parseCommandLine(std::vector<std::string> *command, Core const *
 	  else
 	    (const_cast<Core *>(core)->*(this->_communicationTab)[_com])(*itFiles, _compare.at(*it), _com);
 	}
+      delete filesName;
     }
   return (0);
 }

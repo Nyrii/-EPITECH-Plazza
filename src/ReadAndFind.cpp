@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr 13 14:27:40 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 21:14:43 2016 guillaume wilmot
+// Last update Sat Apr 16 22:27:45 2016 guillaume wilmot
 //
 
 #include <fstream>
@@ -34,9 +34,6 @@ void				*ReadAndFind::execute(void *arg)
   std::string			content((std::istreambuf_iterator<char>(file)),
   					(std::istreambuf_iterator<char>()));
 
-  /**/
-  std::cout << args->order << " " << args->file << std::endl;
-  /**/
   found = search.parseFile(content, args->order);
   while (found.size() == 0 && start != 256)
     {

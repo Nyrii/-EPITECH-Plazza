@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:56:05 2016 guillaume wilmot
-// Last update Sat Apr 16 00:14:23 2016 Nyrandone Noboud-Inpeng
+// Last update Sat Apr 16 23:02:42 2016 guillaume wilmot
 //
 
 #ifndef PROCESS_HPP_
@@ -21,7 +21,7 @@ private:
 
 public:
   Process(ICommunication *);
-  ~Process() {}
+  ~Process();
 
   int			create(void *(*)(void *), void *);
   bool			checkAvailable();

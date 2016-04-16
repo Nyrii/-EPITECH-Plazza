@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Sat Apr 16 16:57:26 2016 guillaume wilmot
+// Last update Sun Apr 17 00:24:29 2016 guillaume wilmot
 //
 
 /**/
@@ -15,6 +15,7 @@
 #include <iostream>
 #include "Listener.hpp"
 #include "ReadAndFind.hh"
+#include "CommunicationError.hh"
 
 Listener::Listener()
 {
@@ -35,19 +36,24 @@ t_processState		*Listener::getTask(ThreadPool &threadPool)
 
   struc = new t_processState;
   memset(struc, 0, sizeof(*struc));
+  std::cout << "Before Read" << std::endl;
   if (_com->read(*struc) == -1)
-    return (NULL);
+    {
+      delete struc;
+      return (NULL);
+    }
   if (struc->state == ASSIGN)
     return (struc);
   if (struc->state == FREE)
     {
-      if (threadPool.getQueueSize() < _nbThread * 2)
+      if (threadPool.getTotalOrders() < _nbThread * 2)
 	struc->free = true;
       else
 	struc->free = false;
       _com->write(*struc);
     }
-  return (NULL);
+  delete struc;
+  return (getTask(threadPool));
 }
 
 bool			Listener::timeOut()
@@ -63,19 +69,19 @@ void			*Listener::listen()
   t_processState	*struc;
 
   threadPool.init(&CondThread::begin);
-  while (!timeOut())
-    if ((struc = getTask(threadPool)))
-      {
-	std::cout << "Got task" << std::endl;
-	_timer.setTime(5);
-	threadPool.queue(&ReadAndFind::execute, struc->info, struc->fileName);
-	sleep(1);
+  threadPool.setTimer(&_timer);
+  while (1)
+    {
+      try {
+	if ((struc = getTask(threadPool)))
+	  {
+	    threadPool.queue(&ReadAndFind::execute, struc->info, struc->fileName);
+	    delete struc;
+	  }
+      } catch (CommunicationError &e) {
+	pause();
       }
-  struc = new t_processState;
-  memset(struc, 0, sizeof(*struc));
-  struc->state = DEAD;
-  _com->write(*struc);
-  delete struc;
+    }
   return (NULL);
 }
 

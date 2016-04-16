@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 00:29:53 2016 guillaume wilmot
-// Last update Sat Apr 16 15:47:13 2016 guillaume wilmot
+// Last update Sun Apr 17 00:24:44 2016 guillaume wilmot
 //
 
 #ifndef THREADPOOL_HPP_
@@ -16,6 +16,7 @@
 # include "Mutex.hpp"
 # include "CondThread.hpp"
 # include "Queue.hpp"
+# include "Timer.hh"
 
 class			CondThread;
 
@@ -30,12 +31,15 @@ public:
   int			init(void *(*)(void *));
   int			queue(void *(*)(void *), Information, const std::string &);
   unsigned int		getQueueSize();
-  int			getWorking();
+  unsigned int		getWorking();
+  unsigned int		getTotalOrders();
+  void			setTimer(Timer *);
 
 private:
   int				_nbThread;
   int				_working;
   Mutex				_mutex;
+  Timer				*_timer;
   std::vector<CondThread *>	_threads;
   std::vector<t_queue *>	_stack;
 };

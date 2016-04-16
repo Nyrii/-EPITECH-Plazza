@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 00:30:45 2016 guillaume wilmot
-// Last update Sat Apr 16 15:46:26 2016 guillaume wilmot
+// Last update Sun Apr 17 00:24:53 2016 guillaume wilmot
 //
 
 #include "ScopedLock.hpp"
@@ -15,6 +15,12 @@ ThreadPool::ThreadPool(int nbThread)
 {
   _nbThread = nbThread;
   _working = 0;
+  _timer = NULL;
+}
+
+void		ThreadPool::setTimer(Timer *timer)
+{
+  _timer = timer;
 }
 
 int		ThreadPool::init(void *(*ptr)(void *))
@@ -43,11 +49,9 @@ int		ThreadPool::callback(CondThread *ref)
 int		ThreadPool::queue(void *(*ptr)(void *), Information order, const std::string &file)
 {
   ScopedLock	lock(_mutex);
-
   t_queue	*elem = new t_queue;
 
-  if (_working >= _nbThread * 2)
-    return (-1);
+  _timer->setTime(0);
   elem->args = new t_args;
   elem->args->callback = this;
   elem->args->order = order;
@@ -61,7 +65,10 @@ int		ThreadPool::queue(void *(*ptr)(void *), Information order, const std::strin
 int		ThreadPool::assign(CondThread *ref, bool lock)
 {
   if (_stack.size() == 0)
-    return (-1);
+    {
+      _timer->setTime(5);
+      return (-1);
+    }
   ref->assignOrder(_stack.front(), lock);
   _working++;
   _stack.erase(_stack.begin());
@@ -85,9 +92,16 @@ unsigned int	ThreadPool::getQueueSize()
   return (_stack.size());
 }
 
-int		ThreadPool::getWorking()
+unsigned int	ThreadPool::getWorking()
 {
   ScopedLock	lock(_mutex);
 
   return (_working);
+}
+
+unsigned int	ThreadPool::getTotalOrders()
+{
+  ScopedLock	lock(_mutex);
+
+  return (_working + _stack.size());
 }

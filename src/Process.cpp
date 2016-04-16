@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Tue Apr  5 16:31:06 2016 guillaume wilmot
-// Last update Sat Apr 16 17:16:54 2016 guillaume wilmot
+// Last update Sat Apr 16 23:06:25 2016 guillaume wilmot
 //
 
 #include <iostream>
@@ -18,6 +18,11 @@ Process::Process(ICommunication *com)
 {
   _pid = 0;
   _com = com;
+}
+
+Process::~Process()
+{
+  delete _com;
 }
 
 int		Process::create(void *(*ptr)(void *), void *arg)
@@ -35,26 +40,27 @@ int		Process::create(void *(*ptr)(void *), void *arg)
 bool			Process::checkAvailable()
 {
   t_processState	*state;
+  bool			ret;
 
   state = new t_processState;
   memset(state, 0, sizeof(*state));
-  state->id = 0;
-  state->free = 0;
-  state->info = PHONE_NUMBER;
-  memset(state->fileName, 0, sizeof(state->fileName));
   state->state = FREE;
-  _com->write(*state);
-  _com->read(*state);
-  return (state->free);
+  if (_com->write(*state) == -1 ||
+      _com->read(*state) == -1)
+    {
+      std::cout << "Read fail ..." << std::endl;
+      delete state;
+      return (false);
+    }
+  ret = state->free;
+  delete state;
+  return (ret);
 }
 
 bool			Process::assign(const std::string &fileName, Information info)
 {
   t_processState	*state;
-  // t_processState	tmp;
 
-  // if (_com->read(tmp) > 0)
-  //   return (false);
   state = new t_processState;
   memset(state, 0, sizeof(*state));
   state->id = 20;
@@ -63,7 +69,11 @@ bool			Process::assign(const std::string &fileName, Information info)
   memset(state->fileName, 0, sizeof(state->fileName));
   std::strncpy(state->fileName, fileName.c_str(), std::strlen(fileName.c_str()));
   state->state = ASSIGN;
-  std::cout << "Assigned" << std::endl;
-  _com->write(*state);
+  if (_com->write(*state) == -1)
+    {
+      delete state;
+      return (false);
+    }
+  delete state;
   return (true);
 }
