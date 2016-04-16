@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 18:07:10 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 22:17:59 2016 Nyrandone Noboud-Inpeng
+// Last update Sat Apr 16 18:24:27 2016 guillaume wilmot
 //
 
 #ifndef PIPEOUT_HH_
@@ -23,7 +23,7 @@ public:
   PipeOut(PipeOut const &);
   PipeOut	&operator=(PipeOut const &);
   void		destroy() const;
-  int		write(t_processState &) const;
+  int		write(t_processState &);
   int		read(t_processState &);
   int		getReadFd() const;
   int		getWriteFd() const;

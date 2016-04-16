@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 18:05:28 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 22:21:46 2016 Nyrandone Noboud-Inpeng
+// Last update Sat Apr 16 18:25:25 2016 guillaume wilmot
 //
 
 #include <unistd.h>
@@ -15,9 +15,6 @@
 
 PipeOut::PipeOut(std::string path) : _path(path)
 {
-  _readFd = (open(_path.c_str(), O_RDONLY | O_NONBLOCK));
-  if (_readFd == -1)
-    throw CommunicationError("Error: opening of a named pipe to read in it failed.");
 }
 
 PipeOut::~PipeOut()
@@ -44,35 +41,25 @@ void		PipeOut::destroy() const
   close(_readFd);
 }
 
-int		PipeOut::write(t_processState &) const
+int		PipeOut::write(t_processState &)
 {
   return (-1);
 }
 
-int		PipeOut::read(t_processState &state)
+int			PipeOut::read(t_processState &state)
 {
-  int		return_value;
+  int			return_value;
+  _readFd = (open(_path.c_str(), O_RDONLY));
+  if (_readFd == -1)
+    throw CommunicationError("Error: opening of a named pipe to read in it failed.");
 
   FD_ZERO(&_readSelect);
   FD_SET(_readFd, &_readSelect);
-  while ((return_value = select(_readFd + 1, &_readSelect, NULL, NULL, NULL)) == -1
-	 && errno == EINTR)
-    {
-      FD_ZERO(&_readSelect);
-      FD_SET(_readFd, &_readSelect);
-    }
+  return_value = select(_readFd + 1, &_readSelect, NULL, NULL, NULL);
   if (return_value > 0)
-    {
-      if (FD_ISSET(_readFd, &_readSelect))
-	{
-	  if (::read(_readFd, &state, sizeof(t_processState)) == -1)
-	    return (-1);
-	  if (return_value == 0)
-	    destroy();
-	  return (0);
-	}
-    }
-  return (-1);
+    if (FD_ISSET(_readFd, &_readSelect))
+      return (::read(_readFd, &state, sizeof(t_processState)));
+  return (return_value);
 }
 
 int		PipeOut::getReadFd() const

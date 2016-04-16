@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Sat Apr 16 15:03:44 2016 guillaume wilmot
+// Last update Sat Apr 16 16:57:26 2016 guillaume wilmot
 //
 
 /**/
@@ -36,7 +36,7 @@ t_processState		*Listener::getTask(ThreadPool &threadPool)
   struc = new t_processState;
   memset(struc, 0, sizeof(*struc));
   if (_com->read(*struc) == -1)
-    std::cout << "Read Fail" << std::endl;
+    return (NULL);
   if (struc->state == ASSIGN)
     return (struc);
   if (struc->state == FREE)
@@ -66,6 +66,7 @@ void			*Listener::listen()
   while (!timeOut())
     if ((struc = getTask(threadPool)))
       {
+	std::cout << "Got task" << std::endl;
 	_timer.setTime(5);
 	threadPool.queue(&ReadAndFind::execute, struc->info, struc->fileName);
 	sleep(1);

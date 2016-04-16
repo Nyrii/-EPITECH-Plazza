@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 22:37:19 2016 Nyrandone Noboud-Inpeng
+// Last update Sat Apr 16 15:30:08 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
@@ -24,6 +24,7 @@ int		main(int ac, char **av)
   // t_processState mdr;
   //
   // mdr.id = 1;
+  // tmp.read(mdr);
   // if (fork() == 0)
   //   {
   //     tmp.write(mdr);

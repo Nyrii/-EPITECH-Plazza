@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Tue Apr  5 16:31:06 2016 guillaume wilmot
-// Last update Sat Apr 16 02:11:47 2016 guillaume wilmot
+// Last update Sat Apr 16 17:16:54 2016 guillaume wilmot
 //
 
 #include <iostream>
@@ -48,10 +48,13 @@ bool			Process::checkAvailable()
   return (state->free);
 }
 
-void			Process::assign(const std::string &fileName, Information info)
+bool			Process::assign(const std::string &fileName, Information info)
 {
   t_processState	*state;
+  // t_processState	tmp;
 
+  // if (_com->read(tmp) > 0)
+  //   return (false);
   state = new t_processState;
   memset(state, 0, sizeof(*state));
   state->id = 20;
@@ -60,6 +63,7 @@ void			Process::assign(const std::string &fileName, Information info)
   memset(state->fileName, 0, sizeof(state->fileName));
   std::strncpy(state->fileName, fileName.c_str(), std::strlen(fileName.c_str()));
   state->state = ASSIGN;
-  std::cout << "Assgined" << std::endl;
+  std::cout << "Assigned" << std::endl;
   _com->write(*state);
+  return (true);
 }

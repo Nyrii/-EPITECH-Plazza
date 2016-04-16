@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 00:30:45 2016 guillaume wilmot
-// Last update Fri Apr 15 22:51:33 2016 Florian Saurs
+// Last update Sat Apr 16 15:46:26 2016 guillaume wilmot
 //
 
 #include "ScopedLock.hpp"
@@ -83,4 +83,11 @@ unsigned int	ThreadPool::getQueueSize()
   ScopedLock	lock(_mutex);
 
   return (_stack.size());
+}
+
+int		ThreadPool::getWorking()
+{
+  ScopedLock	lock(_mutex);
+
+  return (_working);
 }

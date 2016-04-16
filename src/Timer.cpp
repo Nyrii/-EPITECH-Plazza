@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Fri Apr 15 22:52:38 2016 guillaume wilmot
-// Last update Sat Apr 16 15:03:41 2016 guillaume wilmot
+// Last update Sat Apr 16 16:25:10 2016 guillaume wilmot
 //
 
 #include <time.h>
@@ -18,7 +18,8 @@
 
 static void handler(int, siginfo_t *, void *)
 {
-  std::cout << "Timed Out" << std::endl;
+  std::cout << "Timer Timed Out" << std::endl;
+  exit(-1);
 }
 
 Timer::Timer()
@@ -49,7 +50,6 @@ void			Timer::setTime(int val)
   memset(&value, 0, sizeof(value));
   value.it_value.tv_sec = val;
   value.it_value.tv_nsec = val * 1000000000;
-  std::cout << _id << std::endl;
   if (timer_settime(_id, 0, &value, NULL) == -1)
     {
       std::cerr << "ErrorSettime" << std::endl;
@@ -59,6 +59,7 @@ void			Timer::setTime(int val)
 
 bool			Timer::isElapsed()
 {
+  return (false);
   struct itimerspec	value;
 
   if (timer_gettime(_id, &value) == -1)

@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Sat Apr 16 01:34:08 2016 guillaume wilmot
+// Last update Sat Apr 16 16:52:29 2016 guillaume wilmot
 //
 
 /**/
@@ -20,7 +20,7 @@ Listener::Listener()
 {
   _com = NULL;
   _nbThread = 0;
-  _timer.setTime(5);m
+  _timer.setTime(5);
 }
 
 void			Listener::init(int nbThread, ICommunication *com)
@@ -32,12 +32,16 @@ void			Listener::init(int nbThread, ICommunication *com)
 t_processState		*Listener::getTask(ThreadPool &threadPool)
 {
   t_processState	*struc;
+  int			ret;
 
   struc = new t_processState;
-
   memset(struc, 0, sizeof(*struc));
-  if (_com->read(*struc) == -1)
-    std::cout << "Read Fail" << std::endl;
+  ret = 0;
+  while (ret == 0)
+    {
+      if ((ret = _com->read(*struc) == -1))
+	return (NULL);
+    }
   if (struc->state == ASSIGN)
     return (struc);
   if (struc->state == FREE)
@@ -67,11 +71,11 @@ void			*Listener::listen()
   while (!timeOut())
     if ((struc = getTask(threadPool)))
       {
+	std::cout << "Got task" << std::endl;
 	_timer.setTime(5);
 	threadPool.queue(&ReadAndFind::execute, struc->info, struc->fileName);
 	sleep(1);
       }
-  std::cout << "Timed out" << std::endl;
   struc = new t_processState;
   memset(struc, 0, sizeof(*struc));
   struc->state = DEAD;

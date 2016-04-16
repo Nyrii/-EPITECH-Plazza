@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 10:54:41 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 21:57:32 2016 Nyrandone Noboud-Inpeng
+// Last update Sat Apr 16 17:51:36 2016 guillaume wilmot
 //
 
 #ifndef PIPES_HPP_
@@ -19,6 +19,7 @@ class		Pipes : public ICommunication
 public:
   Pipes(int);
   ~Pipes();
+
   int		write(t_processState &) const;
   int		read(t_processState &) const;
   int		create(int) { return (0); };

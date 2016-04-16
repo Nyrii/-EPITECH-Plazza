@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 00:29:53 2016 guillaume wilmot
-// Last update Fri Apr 15 22:51:56 2016 Florian Saurs
+// Last update Sat Apr 16 15:47:13 2016 guillaume wilmot
 //
 
 #ifndef THREADPOOL_HPP_
@@ -30,7 +30,7 @@ public:
   int			init(void *(*)(void *));
   int			queue(void *(*)(void *), Information, const std::string &);
   unsigned int		getQueueSize();
-
+  int			getWorking();
 
 private:
   int				_nbThread;

@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Sat Apr 16 01:36:07 2016 guillaume wilmot
+// Last update Sat Apr 16 17:03:01 2016 guillaume wilmot
 //
 
 #include <fstream>
@@ -62,7 +62,8 @@ void			Core::runProcessNP(std::string fileName, Information info, Communication)
 {
   for (unsigned int i = 0; i < _sonTab.size(); i++)
     if (_sonTab[i]->checkAvailable())
-      return (_sonTab[i]->assign(fileName, info));
+      if (_sonTab[i]->assign(fileName, info) == true)
+	return;
 
   // ATTENTION A L'ID
   ICommunication	*com = new Pipes(_sonTab.size() + 1);
@@ -142,9 +143,9 @@ void			Core::launchWorkSocket(std::string fileName, Information // _type
 	struc->free = true;
 	client->write(*struc);
 	std::cout << "read in son just now" << std::endl;
-	if ((retRead = client->read(*struc)) == 0 && struc->id == 0)
+	if ((retRead = client->read(*struc)) > 0 && struc->id == 0)
 	  fileName = struc->fileName;
-	else if ((retRead == 0 && struc->id == -1) || retRead == -1)
+	else if ((retRead > 0 && struc->id == -1) || retRead == -1)
 	  _isFinished = true;
       }
     exit (0);
