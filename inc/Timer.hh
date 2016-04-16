@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Fri Apr 15 22:43:51 2016 guillaume wilmot
-// Last update Sat Apr 16 01:05:18 2016 guillaume wilmot
+// Last update Sat Apr 16 20:07:19 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef TIMER_HH_
