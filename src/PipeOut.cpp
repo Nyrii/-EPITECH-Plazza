@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 18:05:28 2016 Nyrandone Noboud-Inpeng
-// Last update Sat Apr 16 15:26:08 2016 Nyrandone Noboud-Inpeng
+// Last update Sat Apr 16 15:29:47 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <unistd.h>
@@ -52,7 +52,7 @@ int		PipeOut::write(t_processState &) const
 int			PipeOut::read(t_processState &state)
 {
   int			return_value;
-  struct timeval	tv;
+  struct timeval	timeout;
   // if ((return_value = ::read(_readFd, &state, sizeof(t_processState))) <= 0)
   //   {
   //     std::cout << return_value << std::endl;
@@ -61,9 +61,9 @@ int			PipeOut::read(t_processState &state)
   // return (0);
   FD_ZERO(&_readSelect);
   FD_SET(_readFd, &_readSelect);
-  tv.tv_sec = 5;
-  tv.tv_usec = 0;
-  return_value = select(_readFd + 1, &_readSelect, NULL, NULL, &tv);
+  timeout.tv_sec = 5;
+  timeout.tv_usec = 0;
+  return_value = select(_readFd + 1, &_readSelect, NULL, NULL, &timeout);
   if (return_value > 0)
     {
       if (FD_ISSET(_readFd, &_readSelect))
