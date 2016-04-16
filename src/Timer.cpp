@@ -5,22 +5,68 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Fri Apr 15 22:52:38 2016 guillaume wilmot
-// Last update Fri Apr 15 22:56:56 2016 guillaume wilmot
+// Last update Sat Apr 16 15:03:41 2016 guillaume wilmot
 //
 
 #include <time.h>
+#include <signal.h>
+#include <unistd.h>
+#include <exception>
+#include <iostream>
+#include <cstring>
 #include "Timer.hh"
 
-void		Timer::setTime(int time)
+static void handler(int, siginfo_t *, void *)
 {
-  _time = time;
-  _tick = clock();
+  std::cout << "Timed Out" << std::endl;
 }
 
-bool		Timer::isElapsed()
+Timer::Timer()
 {
-  _time -= clock() - _tick;
-  if (_time <= 0)
+    struct sigevent sev;
+    struct sigaction sa;
+
+    sa.sa_flags = SA_SIGINFO;
+    sa.sa_sigaction = handler;
+    sigemptyset(&sa.sa_mask);
+    sigaction(SIGUSR1, &sa, NULL);
+
+    sev.sigev_notify = SIGEV_SIGNAL;
+    sev.sigev_signo = SIGUSR1;
+    sev.sigev_value.sival_ptr = &_id;
+
+    if (timer_create(CLOCK_REALTIME, &sev, &_id) == -1)
+      {
+	std::cerr << "CreateTimer error" << std::endl;
+	throw new std::exception;
+      }
+}
+
+void			Timer::setTime(int val)
+{
+  struct itimerspec	value;
+
+  memset(&value, 0, sizeof(value));
+  value.it_value.tv_sec = val;
+  value.it_value.tv_nsec = val * 1000000000;
+  std::cout << _id << std::endl;
+  if (timer_settime(_id, 0, &value, NULL) == -1)
+    {
+      std::cerr << "ErrorSettime" << std::endl;
+      throw new std::exception;
+    }
+}
+
+bool			Timer::isElapsed()
+{
+  struct itimerspec	value;
+
+  if (timer_gettime(_id, &value) == -1)
+    {
+      std::cerr << "ErrorGettime" << std::endl;
+      throw new std::exception;
+    }
+  if (value.it_value.tv_nsec == 0)
     return (true);
   return (false);
 }

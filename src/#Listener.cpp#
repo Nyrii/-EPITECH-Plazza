@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Sat Apr 16 15:03:44 2016 guillaume wilmot
+// Last update Sat Apr 16 01:34:08 2016 guillaume wilmot
 //
 
 /**/
@@ -20,7 +20,7 @@ Listener::Listener()
 {
   _com = NULL;
   _nbThread = 0;
-  _timer.setTime(5);
+  _timer.setTime(5);m
 }
 
 void			Listener::init(int nbThread, ICommunication *com)
@@ -34,6 +34,7 @@ t_processState		*Listener::getTask(ThreadPool &threadPool)
   t_processState	*struc;
 
   struc = new t_processState;
+
   memset(struc, 0, sizeof(*struc));
   if (_com->read(*struc) == -1)
     std::cout << "Read Fail" << std::endl;
@@ -70,6 +71,7 @@ void			*Listener::listen()
 	threadPool.queue(&ReadAndFind::execute, struc->info, struc->fileName);
 	sleep(1);
       }
+  std::cout << "Timed out" << std::endl;
   struc = new t_processState;
   memset(struc, 0, sizeof(*struc));
   struc->state = DEAD;

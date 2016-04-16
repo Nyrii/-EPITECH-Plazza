@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Fri Apr 15 23:56:29 2016 guillaume wilmot
+// Last update Sat Apr 16 01:36:07 2016 guillaume wilmot
 //
 
 #include <fstream>
@@ -16,8 +16,8 @@
 #include "ClientSocket.hpp"
 #include "ServeurSocket.hpp"
 #include "Listener.hpp"
-#include "NamedPipe.hh"
 #include "ReadAndFind.hh"
+#include "Pipes.hpp"
 
 Core::Core(int nbThreads)
 {
@@ -64,17 +64,16 @@ void			Core::runProcessNP(std::string fileName, Information info, Communication)
     if (_sonTab[i]->checkAvailable())
       return (_sonTab[i]->assign(fileName, info));
 
-  ICommunication	*com = new NamedPipe;
-  Process		*process;
+  // ATTENTION A L'ID
+  ICommunication	*com = new Pipes(_sonTab.size() + 1);
+  Process		*process = new Process(com);
   t_processArgs		args;
 
-  process = new Process(com);
   args.com = com;
   args.nbThread = _nbThreads;
   process->create(&Listener::start, &args);
   _sonTab.push_back(process);
   process->assign(fileName, info);
-  // serv->read(struc);
 }
 
 // void			Core::launchWorkSocket(std::string fileName, Information _type, int id)
@@ -136,7 +135,7 @@ void			Core::launchWorkSocket(std::string fileName, Information // _type
 	memset(struc, 0, sizeof(*struc));
         struc->id = 0;
 	struc->free = false;
-	struc->fileName = std::string("");
+        memset(struc->fileName, 0, sizeof(struc->fileName));
 	client->write(*struc);
 	raf.execute(NULL// fileName, _type
 		    );
