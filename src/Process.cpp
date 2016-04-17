@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Tue Apr  5 16:31:06 2016 guillaume wilmot
-// Last update Sun Apr 17 17:13:21 2016 Nyrandone Noboud-Inpeng
+// Last update Sun Apr 17 17:53:59 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
@@ -14,7 +14,7 @@
 #include <cstring>
 #include "Process.hpp"
 
-Process::Process(ICommunication *com)
+Process::Process(Com *com)
 {
   _pid = 0;
   _com = com;
@@ -45,16 +45,18 @@ bool			Process::checkAvailable()
   state = new t_processState;
   memset(state, 0, sizeof(*state));
   state->state = FREE;
-  if (_com->write(*state) == -1)
-    {
-      delete state;
-      return (false);
-    }
-  if (_com->read(*state) == -1)
-    {
-      delete state;
-      return (false);
-    }
+  *_com << *state;
+  *_com >> *state;
+  // if (_com->write(*state) == -1)
+  //   {
+  //     delete state;
+  //     return (false);
+  //   }
+  // if (_com->read(*state) == -1)
+  //   {
+  //     delete state;
+  //     return (false);
+  //   }
   ret = state->free;
   delete state;
   return (ret);
@@ -72,8 +74,8 @@ bool			Process::assign(const std::string &fileName, Information info)
   memset(state->fileName, 0, sizeof(state->fileName));
   std::strncpy(state->fileName, fileName.c_str(), std::strlen(fileName.c_str()));
   state->state = ASSIGN;
-  _com << *state;
-  _com >> *state;
+  *_com << *state;
+  *_com >> *state;
   // if (_com->write(*state) == -1)
   //   {
   //     delete state;

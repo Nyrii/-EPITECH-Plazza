@@ -5,22 +5,22 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:56:05 2016 guillaume wilmot
-// Last update Sat Apr 16 23:02:42 2016 guillaume wilmot
+// Last update Sun Apr 17 17:50:45 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef PROCESS_HPP_
 # define PROCESS_HPP_
 
-# include "ICommunication.hpp"
+# include "Communication.hpp"
 # include "Information.hh"
 
 class		Process {
 private:
   int			_pid;
-  ICommunication	*_com;
+  Com			*_com;
 
 public:
-  Process(ICommunication *);
+  Process(Com *);
   ~Process();
 
   int			create(void *(*)(void *), void *);
@@ -30,7 +30,7 @@ public:
 
 typedef struct		s_processArgs {
   int			nbThread;
-  ICommunication	*com;
+  Com			*com;
 }			t_processArgs;
 
 #endif /* !PROCESS_HPP_ */

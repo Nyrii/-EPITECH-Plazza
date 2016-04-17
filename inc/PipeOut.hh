@@ -5,14 +5,13 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 18:07:10 2016 Nyrandone Noboud-Inpeng
-// Last update Sat Apr 16 18:24:27 2016 guillaume wilmot
+// Last update Sun Apr 17 17:50:13 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef PIPEOUT_HH_
 # define PIPEOUT_HH_
 
 # include <sys/select.h>
-# include "ICommunication.hpp"
 # include "IPipe.hpp"
 
 class		PipeOut : public IPipe

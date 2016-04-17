@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Sun Apr 17 02:22:01 2016 guillaume wilmot
+// Last update Sun Apr 17 17:48:15 2016 Nyrandone Noboud-Inpeng
 //
 
 /**/
@@ -24,7 +24,7 @@ Listener::Listener()
   _timer.setTime(5);
 }
 
-void			Listener::init(int nbThread, ICommunication *com)
+void			Listener::init(int nbThread, Com *com)
 {
   _nbThread = nbThread;
   _com = com;

@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Sun Apr 17 02:21:58 2016 guillaume wilmot
+// Last update Sun Apr 17 17:47:51 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <fstream>
@@ -80,7 +80,7 @@ void			Core::runProcessNP(std::string fileName, Information info, Communication)
 
   // ATTENTION A L'ID
   static int		id = 0;
-  ICommunication	*com = new Pipes(id++);
+  Com			*com = new Pipes(id++);
   Process		*process = new Process(com);
   t_processArgs		args;
 
