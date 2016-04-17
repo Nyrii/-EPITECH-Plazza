@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Sun Apr 17 17:32:19 2016 Nyrandone Noboud-Inpeng
-// Last update Sun Apr 17 18:07:24 2016 guillaume wilmot
+// Last update Sun Apr 17 21:33:09 2016 guillaume wilmot
 //
 
 #ifndef COM_HPP_
@@ -24,13 +24,13 @@ public:
   Com				&operator<<(t_processState &ps)
     {
       if (write(ps) == -1)
-	throw (new CommunicationError(""));
+	throw CommunicationError("");
       return (*this);
     }
   Com				&operator>>(t_processState &ps)
     {
       if (read(ps) == -1)
-	throw (new CommunicationError(""));
+	throw CommunicationError("");
       return (*this);
     }
 };

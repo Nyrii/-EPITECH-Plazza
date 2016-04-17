@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 10:46:45 2016 Nyrandone Noboud-Inpeng
-// Last update Sun Apr 17 17:45:21 2016 Nyrandone Noboud-Inpeng
+// Last update Sun Apr 17 21:32:35 2016 guillaume wilmot
 //
 
 #include <unistd.h>
@@ -33,10 +33,7 @@ Pipes::Pipes(int id) : _id(id)
 
 Pipes::~Pipes()
 {
-  delete _out;
-  delete _in;
-  if (unlink(_path.c_str()) == -1)
-    throw CommunicationError("Error: unlink of a named pipe failed.");
+  destroy();
 }
 
 int		Pipes::write(t_processState &state) const

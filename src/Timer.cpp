@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Fri Apr 15 22:52:38 2016 guillaume wilmot
-// Last update Sun Apr 17 01:24:05 2016 guillaume wilmot
+// Last update Sun Apr 17 20:57:24 2016 guillaume wilmot
 //
 
 #include <time.h>
@@ -17,21 +17,9 @@
 #include "Timer.hh"
 #include "TimerError.hh"
 
-static void handler(int, siginfo_t *, void *)
-{
-  std::cout << "Timer Timed Out" << std::endl;
-  exit(-1);
-}
-
 Timer::Timer()
 {
   struct sigevent sev;
-  struct sigaction sa;
-
-  sa.sa_flags = SA_SIGINFO;
-  sa.sa_sigaction = handler;
-  sigemptyset(&sa.sa_mask);
-  sigaction(SIGUSR1, &sa, NULL);
 
   sev.sigev_notify = SIGEV_SIGNAL;
   sev.sigev_signo = SIGUSR1;

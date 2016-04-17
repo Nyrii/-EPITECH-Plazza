@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Sun Apr 17 18:34:39 2016 guillaume wilmot
+## Last update Sun Apr 17 20:05:31 2016 guillaume wilmot
 ##
 
 SRC	= ClientSocket.cpp		\
@@ -33,11 +33,18 @@ SRC	= ClientSocket.cpp		\
 	  Timer.cpp			\
 	  TimerError.cpp
 
+ifeq ($(ui), yes)
+SRC	+= Gui.cpp
+else
+SRC	+= NoGui.cpp
+endif
+
+
 OBJ	= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))
 
 RM	= rm -f
 
-CXX	= g++ -g -std=c++11
+CXX	= g++ -std=c++11 -g
 
 NAME	= plazza
 

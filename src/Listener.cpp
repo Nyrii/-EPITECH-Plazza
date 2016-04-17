@@ -5,13 +5,14 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Sun Apr 17 18:00:37 2016 guillaume wilmot
+// Last update Sun Apr 17 22:07:07 2016 guillaume wilmot
 //
 
 /**/
 #include <unistd.h>
 /**/
 #include <cstring>
+#include <signal.h>
 #include <iostream>
 #include "Listener.hpp"
 #include "ReadAndFind.hh"
@@ -22,12 +23,43 @@ Listener::Listener()
   _com = NULL;
   _nbThread = 0;
   _timer.setTime(5);
+  signal(SIGUSR1, &handler);
+}
+
+void			Listener::handler(int)
+{
+  Com			*com = NULL;
+
+  std::cerr << "Timer Timed Out" << std::endl;
+  com = getCom(NULL);
+  std::cerr << "Before Try" << std::endl;
+  try {
+    delete com;
+  } catch (const CommunicationError &e) {
+    std::cerr << e.what() << std::endl;
+  }
+  std::cerr << "After Try" << std::endl;
+  _exit(EXIT_SUCCESS);
+}
+
+void			Listener::setCom(Com *com)
+{
+  getCom(com);
+}
+
+Com			*Listener::getCom(Com *com)
+{
+  static Com		*_com = NULL;
+
+  _com = com ? com : _com;
+  return (_com);
 }
 
 void			Listener::init(int nbThread, Com *com)
 {
   _nbThread = nbThread;
   _com = com;
+  setCom(_com);
 }
 
 t_processState		*Listener::getTask(ThreadPool &threadPool)
@@ -38,7 +70,7 @@ t_processState		*Listener::getTask(ThreadPool &threadPool)
   memset(struc, 0, sizeof(*struc));
   try {
     *_com >> *struc;
-  } catch (CommunicationError) {
+  } catch (const CommunicationError &e) {
     delete struc;
     return (NULL);
   }
@@ -46,7 +78,7 @@ t_processState		*Listener::getTask(ThreadPool &threadPool)
     struc->free = threadPool.getTotalOrders() < _nbThread * 2 ? true : false;
   try {
     *_com << *struc;
-  } catch (CommunicationError) {
+  } catch  (const CommunicationError &e) {
     return (NULL);
   }
   if (struc->state == ASSIGN)
@@ -75,7 +107,7 @@ void			*Listener::listen()
 	    threadPool.queue(&ReadAndFind::execute, struc->info, struc->fileName);
 	    delete struc;
 	  }
-      } catch (CommunicationError &e) {
+      } catch (const CommunicationError &e) {
 	std::cerr << "Pausing" << std::endl;
 	pause();
       }
@@ -90,5 +122,10 @@ void			*Listener::start(void *args)
 
   tab = reinterpret_cast<t_processArgs *>(args);
   _this.init(tab->nbThread, tab->com);
-  return (_this.listen());
+  try {
+    return (_this.listen());
+  } catch (const CommunicationError &e) {
+    std::cerr << e.what() << std::endl;
+  }
+  return (NULL);
 }

@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Tue Apr  5 16:31:06 2016 guillaume wilmot
-// Last update Sun Apr 17 17:58:34 2016 guillaume wilmot
+// Last update Sun Apr 17 21:44:11 2016 guillaume wilmot
 //
 
 #include <iostream>
@@ -48,7 +48,7 @@ bool			Process::checkAvailable()
   try {
     *_com << *state;
     *_com >> *state;
-  } catch (CommunicationError)
+  } catch (const CommunicationError &e)
     {
       delete state;
       return (false);
@@ -73,7 +73,7 @@ bool			Process::assign(const std::string &fileName, Information info)
   try {
     *_com << *state;
     *_com >> *state;
-  } catch (CommunicationError)
+  } catch (const CommunicationError &e)
     {
       delete state;
       return (false);

@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr  8 10:56:46 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 18:33:48 2016 Nyrandone Noboud-Inpeng
+// Last update Sun Apr 17 21:53:42 2016 guillaume wilmot
 //
 
 #ifndef ERROR_HPP_
@@ -19,6 +19,7 @@ class			Error : public std::exception
 public:
   Error() {};
   ~Error() {};
+
   virtual char const	*what() const throw();
 protected:
   std::string		_message;

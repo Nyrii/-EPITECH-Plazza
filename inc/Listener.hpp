@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:54:31 2016 guillaume wilmot
-// Last update Sun Apr 17 18:08:01 2016 guillaume wilmot
+// Last update Sun Apr 17 21:08:06 2016 guillaume wilmot
 //
 
 #ifndef LISTENER_HPP_
@@ -25,7 +25,11 @@ public:
   void		init(int, Com *);
   void		*listen();
   bool		timeOut();
+
   static void	*start(void *);
+  static void	handler(int);
+  static void	setCom(Com *);
+  static Com	*getCom(Com *);
 
   t_processState	*getTask(ThreadPool &);
 

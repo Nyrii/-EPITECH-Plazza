@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Sun Apr 17 19:12:40 2016 guillaume wilmot
+// Last update Sun Apr 17 22:05:05 2016 guillaume wilmot
 //
 
 #include <fstream>
@@ -31,7 +31,13 @@ Core::Core(int nbThreads)
 Core::~Core()
 {
   for (unsigned int i = 0; i < _sonTab.size(); i++)
-    delete _sonTab[i];
+    {
+      try {
+	delete _sonTab[i];
+      } catch (const CommunicationError &e) {
+	std::cerr << e.what() << std::endl;
+      }
+    }
 }
 
 void		Core::read() const
@@ -48,11 +54,11 @@ void			Core::runProcessNP(std::string fileName, Information info, Communication)
       if (_sonTab[i]->checkAvailable())
 	if (_sonTab[i]->assign(fileName, info) == true)
 	  return;
-    } catch (CommunicationError &e) {
+    } catch (const CommunicationError &e) {
       std::cerr << e.what() << std::endl;
       try {
 	_sonTab.erase(_sonTab.begin() + i);
-      } catch (CommunicationError &e) {
+      } catch (const CommunicationError &e) {
 	std::cerr << e.what() << std::endl;
       }
     }
@@ -64,8 +70,8 @@ void			Core::runProcessNP(std::string fileName, Information info, Communication)
 
   args.com = com;
   args.nbThread = _nbThreads;
-  process->create(&Listener::start, &args);
   _sonTab.push_back(process);
+  process->create(&Listener::start, &args);
   process->assign(fileName, info);
 }
 
@@ -167,18 +173,7 @@ void			Core::launchWorkSocket(std::string fileName, Information // _type
     exit (0);
 }
 
-
-//   ReadAndFind			raf;
-//   t_queue			args;
-
-//   args.args->file = fileName;
-//   args.args->order = _type;
-//   args.args->callback = NULL;
-//   args.ptr = &execute;
-//   raf.execute(NULL);
-
-void			Core::runProcessSocket(std::string, Information, Communication)
-{}
+void			Core::runProcessSocket(std::string, Information, Communication) {}
 
 void					Core::setSonTab(std::vector<Process *> *sonTab)
 {
@@ -199,12 +194,18 @@ void					Core::sigHandler(int)
 
   signal(SIGINT, SIG_IGN);
   if ((_sonTab = getSonTab(NULL)))
-    while (_sonTab->size())
+    for (unsigned int i; i < _sonTab->size(); i++)
       {
-	std::cout << _sonTab->size();
-	kill((*_sonTab)[0]->getPid(), SIGUSR1);
-	delete (*_sonTab)[0];
-	_sonTab->erase(_sonTab->begin());
+	std::cout << _sonTab->size() << std::endl;
+	std::cerr << "Before Try core" << std::endl;
+	if ((*_sonTab)[i]->getPid() > 0)
+	  kill((*_sonTab)[i]->getPid(), SIGUSR1);
+	try {
+	  delete (*_sonTab)[i];
+	} catch (const CommunicationError &e) {
+	  std::cerr << e.what() << std::endl;
+	}
+	std::cerr << "After Try core" << std::endl;
       }
   _exit(EXIT_SUCCESS);
 }
