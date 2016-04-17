@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Thu Apr  7 00:18:46 2016 Florian Saurs
-// Last update Fri Apr 15 20:00:17 2016 guillaume wilmot
+// Last update Sun Apr 17 16:18:05 2016 guillaume wilmot
 //
 
 #include "CryptXor.hpp"
@@ -22,16 +22,14 @@ std::string	CryptXor::Decrypt(std::string msg, int, uint16_t key)
   char		keyFirst;
 
   pos = 0;
+  keyFirst = key >> 8;
   while (msg[pos])
     {
-      keyFirst = key >> 8;
-      msg[pos] = msg[pos] ^ keyFirst;
-      ++pos;
-      if (msg[pos])
-	{
-	  msg[pos] = msg[pos] ^ key;
-	  ++pos;
-	}
+      if (pos % 2)
+	msg[pos] = msg[pos] ^ key;
+      else
+	msg[pos] = msg[pos] ^ keyFirst;
+      pos++;
     }
   return (msg);
 }

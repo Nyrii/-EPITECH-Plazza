@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Sun Apr 17 02:22:01 2016 guillaume wilmot
+// Last update Sun Apr 17 17:39:29 2016 guillaume wilmot
 //
 
 /**/
@@ -41,25 +41,18 @@ t_processState		*Listener::getTask(ThreadPool &threadPool)
       delete struc;
       return (NULL);
     }
-  if (struc->state == ASSIGN)
-    {
-      _com->write(*struc);
-      return (struc);
-    }
   if (struc->state == FREE)
-    {
-      struc->free = threadPool.getTotalOrders() < _nbThread * 2 ? true : false;
-      _com->write(*struc);
-    }
+    struc->free = threadPool.getTotalOrders() < _nbThread * 2 ? true : false;
+  _com->write(*struc);
+  if (struc->state == ASSIGN)
+    return (struc);
   delete struc;
   return (NULL);
 }
 
 bool			Listener::timeOut()
 {
-  if (_timer.isElapsed())
-    return (true);
-  return (false);
+  return (_timer.isElapsed() ? true : false);
 }
 
 void			*Listener::listen()
