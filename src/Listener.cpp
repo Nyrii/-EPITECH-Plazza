@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Sun Apr 17 22:07:07 2016 guillaume wilmot
+// Last update Sun Apr 17 22:36:03 2016 Nyrandone Noboud-Inpeng
 //
 
 /**/
@@ -32,13 +32,7 @@ void			Listener::handler(int)
 
   std::cerr << "Timer Timed Out" << std::endl;
   com = getCom(NULL);
-  std::cerr << "Before Try" << std::endl;
-  try {
-    delete com;
-  } catch (const CommunicationError &e) {
-    std::cerr << e.what() << std::endl;
-  }
-  std::cerr << "After Try" << std::endl;
+  delete com;
   _exit(EXIT_SUCCESS);
 }
 

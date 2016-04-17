@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 10:46:45 2016 Nyrandone Noboud-Inpeng
-// Last update Sun Apr 17 21:32:35 2016 guillaume wilmot
+// Last update Sun Apr 17 22:43:11 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <unistd.h>
@@ -50,7 +50,6 @@ int		Pipes::destroy() const
 {
   delete _out;
   delete _in;
-  if (unlink(_path.c_str()) == -1)
-    throw CommunicationError("Error: unlink of a named pipe failed.");
+  unlink(_path.c_str());
   return (0);
 }
