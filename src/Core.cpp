@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Sun Apr 17 18:53:32 2016 guillaume wilmot
+// Last update Sun Apr 17 19:12:40 2016 guillaume wilmot
 //
 
 #include <fstream>
@@ -197,6 +197,7 @@ void					Core::sigHandler(int)
 {
   std::vector<Process *>		*_sonTab;
 
+  signal(SIGINT, SIG_IGN);
   if ((_sonTab = getSonTab(NULL)))
     while (_sonTab->size())
       {
