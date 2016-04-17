@@ -5,10 +5,11 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Sun Apr 17 18:02:09 2016 guillaume wilmot
+// Last update Sun Apr 17 18:53:32 2016 guillaume wilmot
 //
 
 #include <fstream>
+#include <signal.h>
 #include "Core.hpp"
 #include "Parsing.hpp"
 #include "ClientSocketLocal.hpp"
@@ -22,7 +23,9 @@
 
 Core::Core(int nbThreads)
 {
+  signal(SIGINT, &sigHandler);
   _nbThreads = nbThreads;
+  setSonTab(&_sonTab);
 }
 
 Core::~Core()
@@ -36,6 +39,34 @@ void		Core::read() const
   Parsing	parser;
 
   parser.read(this, NAMED_PIPE);
+}
+
+void			Core::runProcessNP(std::string fileName, Information info, Communication)
+{
+  for (unsigned int i = 0; i < _sonTab.size(); i++)
+    try {
+      if (_sonTab[i]->checkAvailable())
+	if (_sonTab[i]->assign(fileName, info) == true)
+	  return;
+    } catch (CommunicationError &e) {
+      std::cerr << e.what() << std::endl;
+      try {
+	_sonTab.erase(_sonTab.begin() + i);
+      } catch (CommunicationError &e) {
+	std::cerr << e.what() << std::endl;
+      }
+    }
+
+  static int		id = 0;
+  Com			*com = new Pipes(id++);
+  Process		*process = new Process(com);
+  t_processArgs		args;
+
+  args.com = com;
+  args.nbThread = _nbThreads;
+  process->create(&Listener::start, &args);
+  _sonTab.push_back(process);
+  process->assign(fileName, info);
 }
 
 // void			Core::launchWorkNP(std::string fileName, NamedPipe *serv, Information _type)
@@ -61,35 +92,6 @@ void		Core::read() const
 //       }
 //     exit(0);
 // }
-
-void			Core::runProcessNP(std::string fileName, Information info, Communication)
-{
-  for (unsigned int i = 0; i < _sonTab.size(); i++)
-    try {
-      if (_sonTab[i]->checkAvailable())
-	if (_sonTab[i]->assign(fileName, info) == true)
-	  return;
-    } catch (CommunicationError &e) {
-      std::cerr << e.what() << std::endl;
-      try {
-	_sonTab.erase(_sonTab.begin() + i);
-      } catch (CommunicationError &e) {
-	std::cerr << e.what() << std::endl;
-      }
-    }
-
-  // ATTENTION A L'ID
-  static int		id = 0;
-  Com			*com = new Pipes(id++);
-  Process		*process = new Process(com);
-  t_processArgs		args;
-
-  args.com = com;
-  args.nbThread = _nbThreads;
-  process->create(&Listener::start, &args);
-  _sonTab.push_back(process);
-  process->assign(fileName, info);
-}
 
 // void			Core::launchWorkSocket(std::string fileName, Information _type, int id)
 // {
@@ -175,6 +177,33 @@ void			Core::launchWorkSocket(std::string fileName, Information // _type
 //   args.ptr = &execute;
 //   raf.execute(NULL);
 
-
 void			Core::runProcessSocket(std::string, Information, Communication)
 {}
+
+void					Core::setSonTab(std::vector<Process *> *sonTab)
+{
+  getSonTab(sonTab);
+}
+
+std::vector<Process *>			*Core::getSonTab(std::vector<Process *> *sonTab)
+{
+  static std::vector<Process *>		*_sonTab = NULL;
+
+  _sonTab = sonTab ? sonTab : _sonTab;
+  return (_sonTab);
+}
+
+void					Core::sigHandler(int)
+{
+  std::vector<Process *>		*_sonTab;
+
+  if ((_sonTab = getSonTab(NULL)))
+    while (_sonTab->size())
+      {
+	std::cout << _sonTab->size();
+	kill((*_sonTab)[0]->getPid(), SIGUSR1);
+	delete (*_sonTab)[0];
+	_sonTab->erase(_sonTab->begin());
+      }
+  _exit(EXIT_SUCCESS);
+}

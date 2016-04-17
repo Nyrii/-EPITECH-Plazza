@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Sun Apr 17 18:05:08 2016 guillaume wilmot
+## Last update Sun Apr 17 18:34:39 2016 guillaume wilmot
 ##
 
 SRC	= ClientSocket.cpp		\
@@ -58,7 +58,7 @@ $(NAME): $(OBJ)
 	$(CXX) -o $(NAME) $(OBJ) $(LDFLAGS)
 
 all:
-	@make --no-print-directory $(NAME) -k && [ $$? -eq 0 ] || aplay .lol.wav
+	@make --no-print-directory $(NAME) && [ $$? -eq 0 ] || aplay .lol.wav
 
 clean:
 	$(RM) $(OBJ)
