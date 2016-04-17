@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:54:31 2016 guillaume wilmot
-// Last update Fri Apr 15 23:03:36 2016 guillaume wilmot
+// Last update Sun Apr 17 18:08:01 2016 guillaume wilmot
 //
 
 #ifndef LISTENER_HPP_
@@ -13,7 +13,7 @@
 
 # include "ThreadPool.hpp"
 # include "Thread.hpp"
-# include "ICommunication.hpp"
+# include "Com.hpp"
 # include "Process.hpp"
 # include "Timer.hh"
 
@@ -22,7 +22,7 @@ public:
   Listener();
   ~Listener() {}
 
-  void		init(int, ICommunication *);
+  void		init(int, Com *);
   void		*listen();
   bool		timeOut();
   static void	*start(void *);
@@ -30,7 +30,7 @@ public:
   t_processState	*getTask(ThreadPool &);
 
 private:
-  ICommunication	*_com;
+  Com			*_com;
   unsigned int		_nbThread;
   Timer			_timer;
 };

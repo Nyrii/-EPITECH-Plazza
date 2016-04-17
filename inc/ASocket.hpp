@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Wed Apr  6 13:33:00 2016 Florian Saurs
-// Last update Tue Apr 12 16:58:43 2016 Saursinet
+// Last update Sun Apr 17 18:04:53 2016 guillaume wilmot
 //
 
 #ifndef SOCKET_HPP_
@@ -16,14 +16,14 @@
 # include <unistd.h>
 # include <sys/un.h>
 
-# include "ICommunication.hpp"
+# include "Com.hpp"
 
 # define INVALID_SOCKET -1
 # define SOCKET_ERROR -1
 # define closesocket(s) close (s)
 # define PORT 8080
 
-class	ASocket : public ICommunication
+class	ASocket : public Com
 {
 protected:
   int			_erreur;
