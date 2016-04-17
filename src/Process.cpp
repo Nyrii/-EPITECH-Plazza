@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Tue Apr  5 16:31:06 2016 guillaume wilmot
-// Last update Sun Apr 17 02:21:30 2016 guillaume wilmot
+// Last update Sun Apr 17 17:13:21 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <iostream>
@@ -72,16 +72,18 @@ bool			Process::assign(const std::string &fileName, Information info)
   memset(state->fileName, 0, sizeof(state->fileName));
   std::strncpy(state->fileName, fileName.c_str(), std::strlen(fileName.c_str()));
   state->state = ASSIGN;
-  if (_com->write(*state) == -1)
-    {
-      delete state;
-      return (false);
-    }
-  if (_com->read(*state) == -1)
-    {
-      delete state;
-      return (false);
-    }
+  _com << *state;
+  _com >> *state;
+  // if (_com->write(*state) == -1)
+  //   {
+  //     delete state;
+  //     return (false);
+  //   }
+  // if (_com->read(*state) == -1)
+  //   {
+  //     delete state;
+  //     return (false);
+  //   }
   delete state;
   return (true);
 }
