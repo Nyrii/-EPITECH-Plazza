@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Sat Apr 16 23:09:14 2016 guillaume wilmot
+// Last update Sun Apr 17 15:12:01 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <dirent.h>
@@ -105,7 +105,10 @@ int				Parsing::parseCommandLine(std::vector<std::string> *command, Core const *
 	      closedir(directory);
 	    }
 	  else
-	    (const_cast<Core *>(core)->*(this->_communicationTab)[_com])(*itFiles, _compare.at(*it), _com);
+	    {
+	      std::cout << (*itFiles).c_str() << " : ";
+	      (const_cast<Core *>(core)->*(this->_communicationTab)[_com])(*itFiles, _compare.at(*it), _com);
+	  }
 	}
       delete filesName;
     }
