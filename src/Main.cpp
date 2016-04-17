@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Sun Apr 17 13:57:01 2016 guillaume wilmot
+// Last update Sun Apr 17 15:05:46 2016 guillaume wilmot
 //
 
 #include <iostream>
@@ -45,4 +45,3 @@ int		main(int ac, char **av)
   delete core;
   return (0);
 }
- de
