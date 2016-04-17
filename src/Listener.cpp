@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Sun Apr 17 00:24:29 2016 guillaume wilmot
+// Last update Sun Apr 17 02:22:01 2016 guillaume wilmot
 //
 
 /**/
@@ -36,24 +36,23 @@ t_processState		*Listener::getTask(ThreadPool &threadPool)
 
   struc = new t_processState;
   memset(struc, 0, sizeof(*struc));
-  std::cout << "Before Read" << std::endl;
   if (_com->read(*struc) == -1)
     {
       delete struc;
       return (NULL);
     }
   if (struc->state == ASSIGN)
-    return (struc);
+    {
+      _com->write(*struc);
+      return (struc);
+    }
   if (struc->state == FREE)
     {
-      if (threadPool.getTotalOrders() < _nbThread * 2)
-	struc->free = true;
-      else
-	struc->free = false;
+      struc->free = threadPool.getTotalOrders() < _nbThread * 2 ? true : false;
       _com->write(*struc);
     }
   delete struc;
-  return (getTask(threadPool));
+  return (NULL);
 }
 
 bool			Listener::timeOut()
@@ -79,6 +78,7 @@ void			*Listener::listen()
 	    delete struc;
 	  }
       } catch (CommunicationError &e) {
+	std::cerr << "Pausing" << std::endl;
 	pause();
       }
     }

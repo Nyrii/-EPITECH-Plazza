@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Sat Apr 16 23:04:11 2016 guillaume wilmot
+// Last update Sun Apr 17 02:21:58 2016 guillaume wilmot
 //
 
 #include <fstream>
@@ -18,6 +18,7 @@
 #include "Listener.hpp"
 #include "ReadAndFind.hh"
 #include "Pipes.hpp"
+#include "CommunicationError.hh"
 
 Core::Core(int nbThreads)
 {
@@ -63,15 +64,23 @@ void		Core::read() const
 
 void			Core::runProcessNP(std::string fileName, Information info, Communication)
 {
-  // std::cout << "Coucou" << std::endl;
-
   for (unsigned int i = 0; i < _sonTab.size(); i++)
-    if (_sonTab[i]->checkAvailable())
-      if (_sonTab[i]->assign(fileName, info) == true)
-	return;
+    try {
+      if (_sonTab[i]->checkAvailable())
+	if (_sonTab[i]->assign(fileName, info) == true)
+	  return;
+    } catch (CommunicationError &e) {
+      std::cerr << e.what() << std::endl;
+      try {
+	_sonTab.erase(_sonTab.begin() + i);
+      } catch (CommunicationError &e) {
+	std::cerr << e.what() << std::endl;
+      }
+    }
 
   // ATTENTION A L'ID
-  ICommunication	*com = new Pipes(_sonTab.size() + 1);
+  static int		id = 0;
+  ICommunication	*com = new Pipes(id++);
   Process		*process = new Process(com);
   t_processArgs		args;
 
