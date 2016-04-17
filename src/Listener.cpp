@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Sun Apr 17 22:36:03 2016 Nyrandone Noboud-Inpeng
+// Last update Mon Apr 18 00:16:28 2016 guillaume wilmot
 //
 
 /**/
@@ -24,15 +24,21 @@ Listener::Listener()
   _nbThread = 0;
   _timer.setTime(5);
   signal(SIGUSR1, &handler);
+  signal(SIGINT, SIG_IGN);
 }
 
 void			Listener::handler(int)
 {
   Com			*com = NULL;
 
+  signal(SIGUSR1, SIG_IGN);
   std::cerr << "Timer Timed Out" << std::endl;
   com = getCom(NULL);
-  delete com;
+  try {
+    delete com;
+  } catch (const CommunicationError &e) {
+    std::cerr << e.what() << std::endl;
+  }
   _exit(EXIT_SUCCESS);
 }
 

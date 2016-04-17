@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Sun Apr 17 22:05:05 2016 guillaume wilmot
+// Last update Mon Apr 18 00:17:11 2016 guillaume wilmot
 //
 
 #include <fstream>
@@ -24,6 +24,7 @@
 Core::Core(int nbThreads)
 {
   signal(SIGINT, &sigHandler);
+  signal(SIGCHLD, SIG_IGN);
   _nbThreads = nbThreads;
   setSonTab(&_sonTab);
 }
@@ -196,8 +197,6 @@ void					Core::sigHandler(int)
   if ((_sonTab = getSonTab(NULL)))
     for (unsigned int i; i < _sonTab->size(); i++)
       {
-	std::cout << _sonTab->size() << std::endl;
-	std::cerr << "Before Try core" << std::endl;
 	if ((*_sonTab)[i]->getPid() > 0)
 	  kill((*_sonTab)[i]->getPid(), SIGUSR1);
 	try {
@@ -205,7 +204,6 @@ void					Core::sigHandler(int)
 	} catch (const CommunicationError &e) {
 	  std::cerr << e.what() << std::endl;
 	}
-	std::cerr << "After Try core" << std::endl;
       }
   _exit(EXIT_SUCCESS);
 }
