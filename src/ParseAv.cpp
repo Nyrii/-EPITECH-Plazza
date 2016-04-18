@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Mon Apr 18 21:16:51 2016 Florian Saurs
-// Last update Mon Apr 18 22:19:24 2016 Florian Saurs
+// Last update Mon Apr 18 22:23:27 2016 Florian Saurs
 //
 
 #include <cstring>
@@ -32,10 +32,12 @@ void	ParseAv::takeNbThread(int i)
     _nbThreads = std::stoi(_av[i]);
     ++_arg;
   } catch (const std::invalid_argument &e) {
+    //throw because nbthread is not a number
     throw CommunicationError("Error: invalid argument, positive number expected as nbThread.");
   }
   if (_nbThreads <= 0)
     {
+      //throw because nbthread is not a positive number
       throw CommunicationError("Error: invalid argument, positive number expected as nbThread.");
     }
 }
@@ -61,6 +63,7 @@ void	ParseAv::takeComWay()
   if (found != 1 && _av[1] && ((i == 1 && _arg == 0) || (i == 2 && _arg == 1)))
     {
       usage(1);
+      // throw because there is a wrong way of communication
       throw CommunicationError("Error: exptected good argument as way of communication.");
     }
 }
@@ -70,6 +73,7 @@ int	ParseAv::pars()
   int	i;
   int	fullNb;
 
+  //throw peut etre plutot que return -1
   if (usage(0) == true)
     return (-1);
   i = 1;
