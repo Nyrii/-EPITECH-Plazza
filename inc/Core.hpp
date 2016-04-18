@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
-// Last update Mon Apr 18 17:50:18 2016 Florian Saurs
+// Last update Mon Apr 18 21:58:11 2016 Florian Saurs
 //
 
 #ifndef CORE_HPP_
@@ -39,11 +39,8 @@ public:
   void	createPipes(int &);
   void	createSockets(int &);
   void	createSocketsLocal(int &);
-  // void	execParse(std::string, Information) const;
   int	checkAvailable() const;
-  // void	launchWorkNP(std::string, NamedPipe *, Information);
-  void	launchWorkSocket(std::string, Information, int);
-  void	read() const;
+  void	read(Communication) const;
 
   void				setSonTab(std::vector<Process *> *);
   static std::vector<Process *>	*getSonTab(std::vector<Process *> *);

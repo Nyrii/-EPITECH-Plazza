@@ -5,43 +5,37 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Sun Apr 17 22:18:22 2016 guillaume wilmot
+// Last update Mon Apr 18 22:18:31 2016 Florian Saurs
 //
 
 #include <iostream>
 #include <unistd.h>
 #include <list>
 #include <fstream>
-#include "Core.hpp"
+#include <map>
+#include "ParseAv.hpp"
 #include "CryptCaesar.hh"
 #include "Error.hpp"
 #include "Thread.hpp"
 #include "NoGUI.hpp"
 
-int		main(int ac, char **av)
+int					main(int, char **av)
 {
-  int		nbThreads;
+  ParseAv	*pars = new ParseAv(av);
 
-  nbThreads = 2;
-  if (ac == 2)
-    try {
-      nbThreads = std::stoi(av[1]);
-    } catch (const std::invalid_argument &e) {
-      std::cerr << e.what() << ": invalid argument, positive number expected."<< std::endl;
-      return (-1);
-    }
-  if (nbThreads <= 0)
-    {
-      std::cerr << "Usage: ./plazza [nbr of threads]" << std::endl << "Positive non-NULL number expected." << std::endl;
-      return (-1);
-    }
-
+  try {
+    if (pars->pars() == -1)
+      return (0);
+  } catch (const Error &e) {
+    std::cerr << e.what() << std::endl;
+    return (-1);
+  }
   Thread	Gui;
-  Core		*core = new Core(nbThreads);
+  Core		*core = new Core(pars->getNbThread());
 
   Gui.start(&launchGui, core);
   try {
-    core->read();
+    core->read(pars->getComWay());
   } catch (const Error &e) {
     std::cerr << e.what() << std::endl;
   }

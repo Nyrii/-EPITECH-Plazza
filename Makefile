@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Mon Apr 18 20:57:33 2016 Florian Saurs
+## Last update Mon Apr 18 21:47:10 2016 Florian Saurs
 ##
 
 SRC	= ClientSocket.cpp		\
@@ -19,6 +19,7 @@ SRC	= ClientSocket.cpp		\
 	  Errors.cpp			\
 	  Listener.cpp			\
 	  Main.cpp			\
+	  ParseAv.cpp			\
 	  Parsing.cpp			\
 	  Pipes.cpp			\
 	  PipeOut.cpp			\

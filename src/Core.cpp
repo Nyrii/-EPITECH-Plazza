@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Mon Apr 18 20:54:04 2016 Florian Saurs
+// Last update Mon Apr 18 21:57:42 2016 Florian Saurs
 //
 
 #include <fstream>
@@ -42,11 +42,11 @@ Core::~Core()
     }
 }
 
-void		Core::read() const
+void		Core::read(Communication com) const
 {
   Parsing	parser;
 
-  parser.read(this, INTERNET_SOCKET);
+  parser.read(this, com);
 }
 
 void			Core::runProcess(std::string fileName, Information info, Communication com)
