@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Fri Apr 15 19:48:53 2016 guillaume wilmot
+// Last update Mon Apr 18 11:57:25 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -20,22 +20,20 @@ ServeurSocket::~ServeurSocket()
 
 int		ServeurSocket::create(int)
 {
-  _csock = -1;
-  _sock = socket(AF_INET, SOCK_STREAM, 0);
-  _erreur = 0;
-  _recsize = sizeof(_sin);
-  _crecsize = sizeof(_csin);
-  if (_sock != INVALID_SOCKET)
+  _clientSocket = -1;
+  _socket = socket(AF_INET, SOCK_STREAM, 0);
+  _clientReceiveSize = sizeof(_clientInternetSocket);
+  if (_socket != INVALID_SOCKET)
     {
-      _sin.sin_addr.s_addr = inet_addr("127.0.0.1");
-      _sin.sin_family = AF_INET;
-      _sin.sin_port = 17030;
-      _sock_err = bind(_sock, (sockaddr*)&_sin, _recsize);
-      if (_sock_err != SOCKET_ERROR)
+      _internetSocket.sin_addr.s_addr = inet_addr("127.0.0.1");
+      _internetSocket.sin_family = AF_INET;
+      _internetSocket.sin_port = 17030;
+      _socketError = bind(_socket, (sockaddr*)&_internetSocket, sizeof(_internetSocket));
+      if (_socketError != SOCKET_ERROR)
 	{
 	  // 5 is the number max of connection
-	  _sock_err = listen(_sock, 5);
-	  if (_sock_err == SOCKET_ERROR)
+	  _socketError = listen(_socket, 5);
+	  if (_socketError == SOCKET_ERROR)
 	    throw CommunicationError("Error: listen error.");
 	}
       else
@@ -48,22 +46,22 @@ int		ServeurSocket::create(int)
 
 int		ServeurSocket::destroy() const
 {
-  closesocket(_csock);
-  closesocket(_sock);
+  closesocket(_clientSocket);
+  closesocket(_socket);
   return (0);
 }
 
 int		ServeurSocket::read(t_processState &state) const
 {
-  if (_csock == -1)
-    const_cast<ServeurSocket *>(this)->_csock = accept(_sock, (sockaddr*)&_csin, const_cast<socklen_t *>(&_crecsize));
-  if (recv(_csock, &state, sizeof(state), 0) == -1)
+  if (_clientSocket == -1)
+    const_cast<ServeurSocket *>(this)->_clientSocket = accept(_socket, (sockaddr*)&_clientInternetSocket, const_cast<socklen_t *>(&_clientReceiveSize));
+  if (recv(_clientSocket, &state, sizeof(state), 0) == -1)
     return (-1);
   return (0);
 }
 int		ServeurSocket::write(t_processState &state) const
 {
-  if (send(_csock, &state, sizeof(state), 0) == -1)
+  if (send(_clientSocket, &state, sizeof(state), 0) == -1)
     return (-1);
   return (0);
 }
