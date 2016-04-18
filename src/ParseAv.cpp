@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Mon Apr 18 21:16:51 2016 Florian Saurs
-// Last update Mon Apr 18 06:35:59 2016 Nyrandone Noboud-Inpeng
+// Last update Mon Apr 18 22:50:44 2016 Florian Saurs
 //
 
 #include <cstring>
@@ -50,11 +50,21 @@ void	ParseAv::takeComWay()
   i = 1;
   while (_av[i])
     {
-      for (it = _optionTab.begin(); it != _optionTab.end() && it->first != _av[i]; ++it);
-      if (it != _optionTab.end())
+      if (isNumber(_av[i]) == true)
+	takeNbThread(i);
+      else
 	{
-	  _comWay = it->second;
-	  found = 1;
+	  for (it = _optionTab.begin(); it != _optionTab.end() && it->first != _av[i]; ++it);
+	  if (it != _optionTab.end())
+	    {
+	      _comWay = it->second;
+	      found = 1;
+	    }
+	  else
+	    {
+	      usage(1);
+	      throw UsageError("Error: expected good argument as way of communication.");
+	    }
 	}
       ++i;
     }
@@ -86,10 +96,6 @@ int	ParseAv::pars()
       return (0);
     }
   i = 1;
-  while (_av[i] && isNumber(_av[i]) == false)
-    ++i;
-  if (_av[i])
-    takeNbThread(i);
   takeComWay();
   return (0);
 }
