@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.eu>
 //
 // Started on  Mon Apr 18 12:10:31 2016 Florian Saurs
-// Last update Mon Apr 18 12:50:03 2016 Florian Saurs
+// Last update Mon Apr 18 17:57:38 2016 Florian Saurs
 //
 
 #include "Sockets.hpp"
@@ -14,8 +14,8 @@
 
 Sockets::Sockets(int)
 {
-  _client = new ClientSocket();
   _serv = new ServeurSocket();
+  _client = new ClientSocket();
 }
 
 Sockets::~Sockets()

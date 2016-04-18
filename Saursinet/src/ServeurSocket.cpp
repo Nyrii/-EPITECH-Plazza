@@ -1,79 +1,61 @@
-//
+
 // Socket.cpp for  in /home/saurs_f/cpp_plazza/Saursinet
 //
 // Made by Florian Saurs
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Thu Apr 14 12:02:35 2016 Florian Saurs
+// Last update Mon Apr 18 18:14:19 2016 Florian Saurs
 //
 
 #include <iostream>
-#include "../inc/ServeurSocket.hpp"
+#include "ServeurSocket.hpp"
 
 ServeurSocket::ServeurSocket()
-{}
+{
+  _clientSocket = -1;
+  _socket = socket(AF_INET, SOCK_STREAM, 0);
+  _clientReceiveSize = sizeof(_clientInternetSocket);
+  if (_socket != INVALID_SOCKET)
+    {
+      _internetSocket.sin_addr.s_addr = inet_addr("127.0.0.1");
+      _internetSocket.sin_family = AF_INET;
+      _internetSocket.sin_port = 17030;
+      _socketError = bind(_socket, (sockaddr*)&_internetSocket, sizeof(_internetSocket));
+      if (_socketError != SOCKET_ERROR)
+	{
+	  _socketError = listen(_socket, 1000000);
+	  if (_socketError == SOCKET_ERROR)
+	    std::cerr << "listen error" << std::endl;
+	}
+      else
+      std::cerr << "bind error" << std::endl;
+    }
+  else
+    std::cerr << "socket error" << std::endl;
+}
 
 ServeurSocket::~ServeurSocket()
 {}
 
-int		ServeurSocket::create()
+int		ServeurSocket::destroy() const
 {
-  _sock = socket(AF_INET, SOCK_STREAM, 0);
-  _erreur = 0;
-  _recsize = sizeof(_sin);
-  _crecsize = sizeof(_csin);
-  if (_sock != INVALID_SOCKET)
-    {
-      std::cout << "La socket " << _sock << " est maintenant ouverte en mode TCP/IP" << std::endl;
-      _sin.sin_addr.s_addr = inet_addr("127.0.0.1");  /* Adresse IP automatique */
-      _sin.sin_family = AF_INET;                 /* Protocole familial (IP) */
-      _sin.sin_port = 17030;               /* Listage du port */
-      _sock_err = bind(_sock, (sockaddr*)&_sin, _recsize);
-      if (_sock_err != SOCKET_ERROR)
-	{
-	  // 5 is the number max of connection
-	  _sock_err = listen(_sock, 5);
-	  std::cout << "Listage du port " << PORT << "..." << std::endl;
-	  if (_sock_err != SOCKET_ERROR)
-	    {
-	      std::cout << "Patientez pendant que le client se connecte sur le port " << PORT << "..." << std::endl;
-	      _csock = accept(_sock, (sockaddr*)&_csin, &_crecsize);
-	      std::cout << "Un client se connecte avec la socket " << _csock << " de " <<
-		inet_ntoa(_csin.sin_addr) << ":" << htons(_csin.sin_port) << std::endl;
-	    }
-	  else
-	    std::cerr << "Listen" << std::endl;
-	}
-      else
-	std::cerr << "Bind" << std::endl;
-    }
-  else
-    std::cerr << "Socket" << std::endl;
+  closesocket(_clientSocket);
+  closesocket(_socket);
   return (0);
 }
 
-int		ServeurSocket::destroy()
+int		ServeurSocket::read(char &state) const
 {
-  std::cout << "Fermeture de la socket client" << std::endl;
-  closesocket(_csock);
-  std::cout << "Fermeture de la socket serveur" << std::endl;
-  closesocket(_sock);
+  if (_clientSocket == -1)
+    const_cast<ServeurSocket *>(this)->_clientSocket = accept(_socket, (sockaddr*)&_clientInternetSocket, const_cast<socklen_t *>(&_clientReceiveSize));
+  if (recv(_clientSocket, &state, sizeof(state), 0) == -1)
+    return (-1);
   return (0);
 }
-
-std::string	ServeurSocket::read()
+int		ServeurSocket::write(char &state) const
 {
-  return ("");
-}
-
-int		ServeurSocket::write(std::string const &buffer)
-{
-  _sock_err = send(_csock, buffer.c_str(), 32, 0);
-  if(_sock_err != SOCKET_ERROR)
-    std::cout << "Chaine envoyée : " << buffer << std::endl;
-  else
-    std::cout << "Erreur de transmission" << std::endl;
-  shutdown(_csock, 2);
+  if (send(_clientSocket, &state, sizeof(state), 0) == -1)
+    return (-1);
   return (0);
 }

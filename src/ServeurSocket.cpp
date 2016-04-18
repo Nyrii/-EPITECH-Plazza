@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Mon Apr 18 12:32:17 2016 Florian Saurs
+// Last update Mon Apr 18 17:38:33 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -25,8 +25,7 @@ ServeurSocket::ServeurSocket()
       _socketError = bind(_socket, (sockaddr*)&_internetSocket, sizeof(_internetSocket));
       if (_socketError != SOCKET_ERROR)
 	{
-	  // 5 is the number max of connection
-	  _socketError = listen(_socket, 5);
+	  _socketError = listen(_socket, 1000000);
 	  if (_socketError == SOCKET_ERROR)
 	    throw CommunicationError("Error: listen error.");
 	}

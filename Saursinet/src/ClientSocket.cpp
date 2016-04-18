@@ -5,50 +5,40 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Wed Apr  6 17:39:45 2016 Florian Saurs
+// Last update Mon Apr 18 18:14:01 2016 Florian Saurs
 //
 
 #include <iostream>
-#include "../inc/ClientSocket.hpp"
+#include "ClientSocket.hpp"
 
 ClientSocket::ClientSocket()
-{}
+{
+  _socket = socket(AF_INET, SOCK_STREAM, 0);
+  _internetSocket.sin_addr.s_addr = inet_addr("127.0.0.1");
+  _internetSocket.sin_family = AF_INET;
+  _internetSocket.sin_port = 17030;
+  if(connect(_socket, (sockaddr*)&_internetSocket, sizeof(_internetSocket)) == SOCKET_ERROR)
+    std::cerr << "connection impossible" << std::endl;
+}
 
 ClientSocket::~ClientSocket()
 {}
 
-int		ClientSocket::create()
+int		ClientSocket::destroy() const
 {
-  _sock = socket(AF_INET, SOCK_STREAM, 0);
-  _erreur = 0;
-  _recsize = sizeof(_sin);
-  _crecsize = sizeof(_csin);
-  _sin.sin_addr.s_addr = inet_addr("127.0.0.1");
-  _sin.sin_family = AF_INET;
-  _sin.sin_port = 17030;
-  if(connect(_sock, (sockaddr*)&_sin, sizeof(_sin)) != SOCKET_ERROR)
-    std::cout << "Connexion à " << inet_ntoa(_sin.sin_addr) << " sur le port " << htons(_sin.sin_port) << std::endl;
-  else
-    std::cout << "Impossible de se connecter" << std::endl;
+  closesocket(_socket);
   return (0);
 }
 
-int		ClientSocket::destroy()
+int		ClientSocket::read(char &state) const
 {
-  closesocket(_sock);
+  if (recv(_socket, &state, sizeof(state), 0) == -1)
+    return (-1);
   return (0);
 }
-
-std::string	ClientSocket::read()
+int		ClientSocket::write(char &state) const
 {
-  char buffer[32];
-
-  if(recv(_sock, buffer, 32, 0) != SOCKET_ERROR)
-    std::cout << "Recu : " << buffer << std::endl;
-  return (buffer);
-}
-
-int		ClientSocket::write(std::string const &)
-{
+  if (send(_socket, &state, sizeof(state), 0) == -1)
+    return (-1);
   return (0);
 }

@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Mon Feb 29 13:25:56 2016 Nyrandone Noboud-Inpeng
-## Last update Apr 18 16:34:39 2016
+## Last update Mon Apr 18 18:31:20 2016 Saursinet
 ##
 
 #
@@ -49,9 +49,9 @@ SRCXOR		= CryptXor.cpp	\
 # SRCCLIENT	= ClientSocket.cpp	\
 # 		  MainClient.cpp
 
-SRCSLOC	= ServeurSocketLocal.cpp	\
-	  ClientSocketLocal.cpp		\
-	  SocketsLocal.cpp		\
+SRCSLOC	= ServeurSocket.cpp	\
+	  ClientSocket.cpp	\
+	  Sockets.cpp		\
 	  MainClientLocal.cpp
 
 #
@@ -107,8 +107,6 @@ all:
 		@make --no-print-directory $(NAME)
 		@make --no-print-directory $(NAMEPARS)
 		@make --no-print-directory $(NAMEXOR)
-		# @make --no-print-directory $(NAMESERVEUR)
-		# @make --no-print-directory $(NAMECLIENT)
 		@make --no-print-directory $(NAMELOC)
 
 $(OBJDIR)%.o:	$(SRCDIR)%.cpp
@@ -124,12 +122,6 @@ $(NAMEPARS): 	$(OBJPARS)
 $(NAMEXOR): 	$(OBJXOR)
 		$(CCX) -o $(NAMEXOR) $(OBJXOR)
 
-# $(NAMESERVEUR): $(OBJSERVEUR)
-# 		$(CCX) -o $(NAMESERVEUR) $(OBJSERVEUR)
-#
-# $(NAMECLIENT): $(OBJCLIENT)
-# 		$(CCX) -o $(NAMECLIENT) $(OBJCLIENT)
-
 $(NAMELOC): $(OBJSLOC)
 		$(CCX) -o $(NAMELOC) $(OBJSLOC)
 
@@ -137,18 +129,11 @@ clean:
 		$(RM) $(OBJ)
 		$(RM) $(OBJPARS)
 		$(RM) $(OBJXOR)
-		$(RM) $(OBJSERVEUR)
-		$(RM) $(OBJCLIENT)
-		$(RM) $(OBJSERVEURLOC)
-		$(RM) $(OBJCLIENTLOC)
 
 fclean: 	clean
 		$(RM) $(NAME)
 		$(RM) $(NAMEXOR)
 		$(RM) $(NAMEPARS)
-		$(RM) $(NAMESERVEUR)
-		$(RM) $(NAMECLIENT)
-		$(RM) $(NAMESERVEURLOC)
-		$(RM) $(NAMECLIENTLOC)
+		$(RM) $(NAMELOC)
 
 re:		fclean all

@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Mon Apr 18 14:19:26 2016 Florian Saurs
+// Last update Mon Apr 18 17:50:05 2016 Florian Saurs
 //
 
 #include <dirent.h>
@@ -102,7 +102,7 @@ int				Parsing::parseCommandLine(std::vector<std::string> *command, Core const *
 	      closedir(directory);
 	    }
 	  else
-	    const_cast<Core *>(core)->runProcessSocket(*itFiles, _compare.at(*it), _com);
+	    const_cast<Core *>(core)->runProcess(*itFiles, _compare.at(*it), _com);
 	}
       delete filesName;
     }

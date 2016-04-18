@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
-// Last update Mon Apr 18 14:10:48 2016 Florian Saurs
+// Last update Mon Apr 18 17:50:18 2016 Florian Saurs
 //
 
 #ifndef CORE_HPP_
@@ -35,8 +35,7 @@ public:
   Core(int);
   ~Core();
 
-  void	runProcessNP(std::string, Information, Communication);
-  void	runProcessSocket(std::string, Information, Communication);
+  void	runProcess(std::string, Information, Communication);
   void	createPipes(int &);
   void	createSockets(int &);
   void	createSocketsLocal(int &);

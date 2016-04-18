@@ -5,15 +5,15 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 23:31:50 2016 Florian Saurs
-// Last update Mon Apr 18 16:49:36 2016 Florian Saurs
+// Last update Mon Apr 18 18:11:44 2016 Florian Saurs
 //
 
-#include "../inc/SocketsLocal.hpp"
+#include "../inc/Sockets.hpp"
 
 int	main()
 {
   int	pid = 0;
-  Com *toto = new SocketsLocal(pid);
+  Com *toto = new Sockets(pid);
   char c;
 
   pid = fork();

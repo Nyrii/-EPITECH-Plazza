@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:24:35 2016 Florian Saurs
-// Last update Wed Apr  6 14:20:53 2016 Florian Saurs
+// Last update Mon Apr 18 18:14:48 2016 Florian Saurs
 //
 
 #ifndef SERVEURSOCKET_HPP_
@@ -17,12 +17,11 @@ class	ServeurSocket : public ASocket
 {
 public:
   ServeurSocket();
-  virtual	~ServeurSocket();
+  ~ServeurSocket();
 
-  int		create();
-  int		destroy();
-  std::string	read();
-  int		write(std::string const &);
+  int		destroy() const;
+  int		read(char &) const;
+  int		write(char &) const;
 };
 
 #endif /* !SERVEURSOCKET_HPP_ */

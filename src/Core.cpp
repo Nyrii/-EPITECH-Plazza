@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Mon Apr 18 14:37:34 2016 Florian Saurs
+// Last update Mon Apr 18 17:55:59 2016 Florian Saurs
 //
 
 #include <fstream>
@@ -46,10 +46,10 @@ void		Core::read() const
 {
   Parsing	parser;
 
-  parser.read(this, LOCAL_SOCKET);
+  parser.read(this, INTERNET_SOCKET);
 }
 
-void			Core::runProcessNP(std::string fileName, Information info, Communication com)
+void			Core::runProcess(std::string fileName, Information info, Communication com)
 {
   for (unsigned int i = 0; i < _sonTab.size(); i++)
     try {
@@ -167,36 +167,6 @@ void		Core::createSocketsLocal(int &id)
 {
     _com = new SocketsLocal(id++);
 }
-
-void			Core::runProcessSocket(std::string fileName, Information info, Communication com)
-{
-    for (unsigned int i = 0; i < _sonTab.size(); i++)
-      try {
-	if (_sonTab[i]->checkAvailable())
-	  if (_sonTab[i]->assign(fileName, info) == true)
-	    return;
-	} catch (const CommunicationError &e) {
-	  std::cerr << e.what() << std::endl;
-	    try {
-	      _sonTab.erase(_sonTab.begin() + i);
-	    } catch (const CommunicationError &e) {
-	      std::cerr << e.what() << std::endl;
-	    }
-	}
-
-      static int		id = 0;
-
-      (this->*this->_communicationTab[com])(id);
-
-      Process		*process = new Process(_com);
-      t_processArgs		args;
-
-      args.com = _com;
-      args.nbThread = _nbThreads;
-      _sonTab.push_back(process);
-      process->create(&Listener::start, &args);
-      process->assign(fileName, info);
-    }
 
 void					Core::setSonTab(std::vector<Process *> *sonTab)
 {
