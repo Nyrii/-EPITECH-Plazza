@@ -1,7 +1,4 @@
 Saurs :
-      - Sockets (pense a utiliser les operateurs >> et << pour read et write !)
-      - Logfile (essaies d'abord avec la fonction SELECT et si ca ne fonctionne pas il faudra le faire avec des semaphores)
-      - Si TOUT est fini, ajoute la possibilite de mettre des options et de lancer en consequence (--namedpipe, --localsocket, --internetsocket) : s'il n'y a pas d'option, tu peux mettre namedpipe par default
       - Check les includes de tous les fichiers
 
 Wilmot :
