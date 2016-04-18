@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:24:35 2016 Florian Saurs
-// Last update Mon Apr 18 16:14:00 2016 Florian Saurs
+// Last update Wed Apr  6 15:58:17 2016 Florian Saurs
 //
 
 #ifndef CLIENTSOCKETLOCAL_HPP_
@@ -16,12 +16,13 @@
 class	ClientSocketLocal : public ASocket
 {
 public:
-  ClientSocketLocal(std::string);
-  ~ClientSocketLocal();
+  ClientSocketLocal();
+  virtual	~ClientSocketLocal();
 
-  int		destroy() const;
-  int		read(char &) const;
-  int		write(char &) const;
+  int		create();
+  int		destroy();
+  std::string	read();
+  int		write(std::string const &);
 };
 
 #endif /* !CLIENTSOCKETLOCAL_HPP_ */

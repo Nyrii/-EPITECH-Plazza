@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.eu>
 //
 // Started on  Mon Apr 18 12:47:20 2016 Florian Saurs
-// Last update Mon Apr 18 17:26:58 2016 Florian Saurs
+// Last update Mon Apr 18 17:10:24 2016 Florian Saurs
 //
 
 #ifndef SOCKETSLOCAL_HPP_
@@ -19,8 +19,8 @@ public:
   SocketsLocal(int);
   ~SocketsLocal();
 
-  int			write(t_processState &) const;
-  int			read(t_processState &) const;
+  int			write(char &) const;
+  int			read(char &) const;
   int			destroy() const;
 
 private:

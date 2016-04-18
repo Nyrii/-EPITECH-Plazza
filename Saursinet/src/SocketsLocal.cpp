@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.eu>
 //
 // Started on  Mon Apr 18 12:43:02 2016 Florian Saurs
-// Last update Mon Apr 18 17:28:52 2016 Florian Saurs
+// Last update Mon Apr 18 17:11:38 2016 Florian Saurs
 //
 
 #include "SocketsLocal.hpp"
@@ -25,7 +25,7 @@ SocketsLocal::~SocketsLocal()
   destroy();
 }
 
-int	SocketsLocal::write(t_processState &state) const
+int	SocketsLocal::write(char &state) const
 {
   if (_a == 0)
     {
@@ -39,7 +39,7 @@ int	SocketsLocal::write(t_processState &state) const
   }
 }
 
-int	SocketsLocal::read(t_processState &state) const
+int	SocketsLocal::read(char &state) const
 {
   if (_a == 0)
     {

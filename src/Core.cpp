@@ -5,17 +5,15 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Mon Apr 18 12:06:36 2016 Florian Saurs
+// Last update Mon Apr 18 14:37:34 2016 Florian Saurs
 //
 
 #include <fstream>
 #include <signal.h>
 #include "Core.hpp"
 #include "Parsing.hpp"
-#include "ClientSocketLocal.hpp"
-#include "ServeurSocketLocal.hpp"
-#include "ClientSocket.hpp"
-#include "ServeurSocket.hpp"
+#include "Sockets.hpp"
+#include "SocketsLocal.hpp"
 #include "Listener.hpp"
 #include "ReadAndFind.hh"
 #include "Pipes.hpp"
@@ -27,6 +25,9 @@ Core::Core(int nbThreads)
   signal(SIGCHLD, SIG_IGN);
   _nbThreads = nbThreads;
   setSonTab(&_sonTab);
+  _communicationTab.insert(std::pair<Communication, void (Core:: *)(int &)>(NAMED_PIPE, &Core::createPipes));
+  _communicationTab.insert(std::pair<Communication, void (Core:: *)(int &)>(INTERNET_SOCKET, &Core::createSockets));
+  _communicationTab.insert(std::pair<Communication, void (Core:: *)(int &)>(LOCAL_SOCKET, &Core::createSocketsLocal));
 }
 
 Core::~Core()
@@ -48,7 +49,7 @@ void		Core::read() const
   parser.read(this, LOCAL_SOCKET);
 }
 
-void			Core::runProcessNP(std::string fileName, Information info, Communication)
+void			Core::runProcessNP(std::string fileName, Information info, Communication com)
 {
   for (unsigned int i = 0; i < _sonTab.size(); i++)
     try {
@@ -65,40 +66,18 @@ void			Core::runProcessNP(std::string fileName, Information info, Communication)
     }
 
   static int		id = 0;
-  Com			*com = new Pipes(id++);
-  Process		*process = new Process(com);
+
+  (this->*this->_communicationTab[com])(id);
+
+  Process		*process = new Process(_com);
   t_processArgs		args;
 
-  args.com = com;
+  args.com = _com;
   args.nbThread = _nbThreads;
   _sonTab.push_back(process);
   process->create(&Listener::start, &args);
   process->assign(fileName, info);
 }
-
-// void			Core::launchWorkNP(std::string fileName, NamedPipe *serv, Information _type)
-// {
-//     t_processState	*struc = new t_processState;
-//     int			retRead;
-
-//     _isFinished = false;
-//     while (_isFinished == false)
-//       {
-// 	memset(struc, 0, sizeof(*struc));
-// 	struc->id = 0;
-//       	struc->free = false;
-//       	struc->fileName = new std::string("");
-// 	serv->write(*struc);
-// 	execParse(fileName, _type);
-//         struc->free = true;
-// 	serv->write(*struc);
-// 	if ((retRead = serv->read(*struc)) == 0 && struc->id == 0)
-// 	  fileName = *(struc->fileName);
-// 	else if ((retRead == 0 && struc->id == -1) || retRead == -1)
-// 	  _isFinished = true;
-//       }
-//     exit(0);
-// }
 
 // void			Core::launchWorkSocket(std::string fileName, Information _type, int id)
 // {
@@ -174,7 +153,22 @@ void			Core::runProcessNP(std::string fileName, Information info, Communication)
 //     exit (0);
 // }
 
-void			Core::runProcessSocket(std::string fileName, Information info, Communication)
+void		Core::createPipes(int &id)
+{
+    _com = new Pipes(id++);
+}
+
+void		Core::createSockets(int &id)
+{
+    _com = new Sockets(id);
+}
+
+void		Core::createSocketsLocal(int &id)
+{
+    _com = new SocketsLocal(id++);
+}
+
+void			Core::runProcessSocket(std::string fileName, Information info, Communication com)
 {
     for (unsigned int i = 0; i < _sonTab.size(); i++)
       try {
@@ -191,11 +185,13 @@ void			Core::runProcessSocket(std::string fileName, Information info, Communicat
 	}
 
       static int		id = 0;
-      Com			*com = new Pipes(id++);
-      Process		*process = new Process(com);
+
+      (this->*this->_communicationTab[com])(id);
+
+      Process		*process = new Process(_com);
       t_processArgs		args;
 
-      args.com = com;
+      args.com = _com;
       args.nbThread = _nbThreads;
       _sonTab.push_back(process);
       process->create(&Listener::start, &args);

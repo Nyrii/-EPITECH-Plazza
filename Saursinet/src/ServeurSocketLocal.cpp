@@ -5,75 +5,69 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Wed Apr  6 17:29:03 2016 Florian Saurs
+// Last update Mon Apr 18 16:45:11 2016 Florian Saurs
 //
 
 #include <iostream>
-#include "../inc/ServeurSocketLocal.hpp"
+#include "ServeurSocketLocal.hpp"
+// #include "CommunicationError.hh"
 
-ServeurSocketLocal::ServeurSocketLocal()
-{}
-
-ServeurSocketLocal::~ServeurSocketLocal()
-{}
-
-int		ServeurSocketLocal::create()
+ServeurSocketLocal::ServeurSocketLocal(std::string path)
 {
-  unlink("server_socket");
-  _sock = socket(AF_UNIX, SOCK_STREAM, 0);
-  _erreur = 0;
-  _recsize = sizeof(_sun);
-  _crecsize = sizeof(_csun);
-  if (_sock != INVALID_SOCKET)
+  struct sockaddr_un socketAddress;
+
+  _path = path;
+  _clientSocket = -1;
+  unlink(_path.c_str());
+  _socket = socket(AF_UNIX, SOCK_STREAM, 0);
+  _clientReceiveSize = sizeof(_clientUnixSocket);
+  if (_socket != INVALID_SOCKET)
     {
-      std::cout << "La socket " << _sock <<
-	" est maintenant ouverte en mode TCP/IP" << std::endl;
-      struct sockaddr_un saddr = {AF_UNIX, "server_socket"};
-      _sun = saddr;
-      _sock_err = bind(_sock, (sockaddr*)&_sun, _recsize);
-      if (_sock_err == SOCKET_ERROR)
-	std::cerr << "Bind error" << std::endl;
+      socketAddress.sun_family = AF_UNIX;
+      strcpy(socketAddress.sun_path, _path.c_str());
+      _unixSocket = socketAddress;
+      _socketError = bind(_socket, (sockaddr*)&_unixSocket, sizeof(_unixSocket));
+      if (_socketError == SOCKET_ERROR)
+	std::cerr << "Error: bind error." << std::endl;
+      else
+	_socketError = listen(_socket, 5);
     }
   else
-    std::cerr << "Socket error" << std::endl;
+  std::cerr << "Error: socket error." << std::endl;
+}
+
+ServeurSocketLocal::~ServeurSocketLocal()
+{
+  unlink(_path.c_str());
+}
+
+int		ServeurSocketLocal::destroy() const
+{
+  closesocket(_socket);
   return (0);
 }
 
-int		ServeurSocketLocal::destroy()
+int		ServeurSocketLocal::read(char &c) const
 {
-  std::cout << "Fermeture de la socket client" << std::endl;
-  closesocket(_csock);
-  std::cout << "Fermeture de la socket serveur" << std::endl;
-  closesocket(_sock);
+  if (_clientSocket == -1)
+    if ((const_cast<ServeurSocketLocal *>(this)->_clientSocket = accept(_socket, (sockaddr*)&_clientUnixSocket, &const_cast<ServeurSocketLocal *>(this)->_clientReceiveSize)) == -1)
+      std::cerr << "Error: accept error." << std::endl;
+    std::cout << "read by server local" << std::endl;
+  return (::read(_clientSocket, &c, sizeof(char)));
+    return (-1);
+    std::cout << "read by server local---------------------------" << c << std::endl;
   return (0);
 }
 
-std::string	ServeurSocketLocal::read()
+int		ServeurSocketLocal::write(char &c) const
 {
-  return ("");
-}
+  if (_clientSocket == -1)
+    if ((const_cast<ServeurSocketLocal *>(this)->_clientSocket = accept(_socket, (sockaddr*)&_clientUnixSocket, &const_cast<ServeurSocketLocal *>(this)->_clientReceiveSize)) == -1)
+	std::cerr << "Error: accept error." << std::endl;
+      std::cout << "write by server local" << std::endl;
+  if (::write(_clientSocket, &c, sizeof(char)) == -1)
+    return (-1);
+    std::cout << "write by server local" << std::endl;
 
-int		ServeurSocketLocal::write(std::string const &)
-{
-  if (_sock_err != SOCKET_ERROR)
-    {
-      // 5 is the number max of connection
-      _sock_err = listen(_sock, 5);
-      if (_sock_err != SOCKET_ERROR)
-	{
-	  while (1)
-	    {
-	      char ch;
-	      std::cout << "Server wait..." << std::endl;
-	      _csock = accept(_sock, (sockaddr*)&_csun, &_crecsize);
-	      ::read(_csock, &ch, 1);
-	      ch++;
-	      ::write(_csock, &ch, 1);
-	      close(_csock);
-	    }
-	}
-      else
-	std::cerr << "Listen error" << std::endl;
-    }
   return (0);
 }

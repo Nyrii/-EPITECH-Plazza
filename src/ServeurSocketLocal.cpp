@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Mon Apr 18 12:38:14 2016 Florian Saurs
+// Last update Mon Apr 18 17:29:43 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -17,8 +17,10 @@ ServeurSocketLocal::ServeurSocketLocal(std::string path)
   struct sockaddr_un socketAddress;
 
   _path = path;
+  _clientSocket = -1;
   unlink(_path.c_str());
   _socket = socket(AF_UNIX, SOCK_STREAM, 0);
+  _clientReceiveSize = sizeof(_clientUnixSocket);
   if (_socket != INVALID_SOCKET)
     {
       socketAddress.sun_family = AF_UNIX;
@@ -47,14 +49,20 @@ int		ServeurSocketLocal::destroy() const
 
 int		ServeurSocketLocal::read(t_processState &state) const
 {
-  if (::read(_socket, &state, sizeof(state)) == -1)
+  if (_clientSocket == -1)
+    if ((const_cast<ServeurSocketLocal *>(this)->_clientSocket = accept(_socket, (sockaddr*)&_clientUnixSocket, &const_cast<ServeurSocketLocal *>(this)->_clientReceiveSize)) == -1)
+      throw CommunicationError("Error: accept error.");
+  if (::read(_clientSocket, &state, sizeof(state)) == -1)
     return (-1);
   return (0);
 }
 
 int		ServeurSocketLocal::write(t_processState &state) const
 {
-  if (::write(_socket, &state, sizeof(state)) == -1)
+  if (_clientSocket == -1)
+    if ((const_cast<ServeurSocketLocal *>(this)->_clientSocket = accept(_socket, (sockaddr*)&_clientUnixSocket, &const_cast<ServeurSocketLocal *>(this)->_clientReceiveSize)) == -1)
+       throw CommunicationError("Error: accept error.");
+  if (::write(_clientSocket, &state, sizeof(state)) == -1)
     return (-1);
   return (0);
 }

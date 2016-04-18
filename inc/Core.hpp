@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
-// Last update Sun Apr 17 18:36:01 2016 guillaume wilmot
+// Last update Mon Apr 18 14:10:48 2016 Florian Saurs
 //
 
 #ifndef CORE_HPP_
@@ -26,8 +26,10 @@ enum	Communication {
 class	Core
 {
   std::vector<Process *>	_sonTab;
+  std::map<Communication, void (Core:: *)(int &)>	_communicationTab;
   bool				_isFinished;
   int				_nbThreads;
+  Com				*_com;
 
 public:
   Core(int);
@@ -35,6 +37,9 @@ public:
 
   void	runProcessNP(std::string, Information, Communication);
   void	runProcessSocket(std::string, Information, Communication);
+  void	createPipes(int &);
+  void	createSockets(int &);
+  void	createSocketsLocal(int &);
   // void	execParse(std::string, Information) const;
   int	checkAvailable() const;
   // void	launchWorkNP(std::string, NamedPipe *, Information);

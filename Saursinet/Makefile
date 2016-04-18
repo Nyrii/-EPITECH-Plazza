@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Mon Feb 29 13:25:56 2016 Nyrandone Noboud-Inpeng
-## Last update Thu Apr  7 00:31:22 2016 Florian Saurs
+## Last update Apr 18 16:34:39 2016
 ##
 
 #
@@ -43,17 +43,16 @@ SRCPARS		= Parsing.cpp	\
 SRCXOR		= CryptXor.cpp	\
 		  MainXor.cpp
 
-SRCSERVEUR	= ServeurSocket.cpp	\
-		  MainServeur.cpp
+# SRCSERVEUR	= ServeurSocket.cpp	\
+# 		  MainServeur.cpp
+#
+# SRCCLIENT	= ClientSocket.cpp	\
+# 		  MainClient.cpp
 
-SRCCLIENT	= ClientSocket.cpp	\
-		  MainClient.cpp
-
-SRCSERVEURLOC	= ServeurSocketLocal.cpp	\
-		  MainServeurLocal.cpp
-
-SRCCLIENTLOC	= ClientSocketLocal.cpp	\
-		  MainClientLocal.cpp
+SRCSLOC	= ServeurSocketLocal.cpp	\
+	  ClientSocketLocal.cpp		\
+	  SocketsLocal.cpp		\
+	  MainClientLocal.cpp
 
 #
 ## OBJS
@@ -65,13 +64,11 @@ OBJPARS		= $(addprefix $(OBJDIR), $(SRCPARS:.cpp=.o))
 
 OBJXOR		= $(addprefix $(OBJDIR), $(SRCXOR:.cpp=.o))
 
-OBJSERVEUR	= $(addprefix $(OBJDIR), $(SRCSERVEUR:.cpp=.o))
+# OBJSERVEUR	= $(addprefix $(OBJDIR), $(SRCSERVEUR:.cpp=.o))
+#
+# OBJCLIENT	= $(addprefix $(OBJDIR), $(SRCCLIENT:.cpp=.o))
 
-OBJCLIENT	= $(addprefix $(OBJDIR), $(SRCCLIENT:.cpp=.o))
-
-OBJSERVEURLOC	= $(addprefix $(OBJDIR), $(SRCSERVEURLOC:.cpp=.o))
-
-OBJCLIENTLOC	= $(addprefix $(OBJDIR), $(SRCCLIENTLOC:.cpp=.o))
+OBJSLOC	= $(addprefix $(OBJDIR), $(SRCSLOC:.cpp=.o))
 
 
 #
@@ -84,13 +81,13 @@ NAMEPARS	= pars
 
 NAMEXOR		= decodexor
 
-NAMESERVEUR	= server
+# NAMESERVEUR	= server
+#
+# NAMECLIENT	= client
 
-NAMECLIENT	= client
+NAMELOC	= loc
 
-NAMESERVEURLOC	= serverloc
-
-NAMECLIENTLOC	= clientloc
+# NAMECLIENTLOC	= clientloc
 
 
 #
@@ -110,10 +107,9 @@ all:
 		@make --no-print-directory $(NAME)
 		@make --no-print-directory $(NAMEPARS)
 		@make --no-print-directory $(NAMEXOR)
-		@make --no-print-directory $(NAMESERVEUR)
-		@make --no-print-directory $(NAMECLIENT)
-		@make --no-print-directory $(NAMESERVEURLOC)
-		@make --no-print-directory $(NAMECLIENTLOC)
+		# @make --no-print-directory $(NAMESERVEUR)
+		# @make --no-print-directory $(NAMECLIENT)
+		@make --no-print-directory $(NAMELOC)
 
 $(OBJDIR)%.o:	$(SRCDIR)%.cpp
 		@mkdir -p $(MAKEOBJ)
@@ -128,17 +124,14 @@ $(NAMEPARS): 	$(OBJPARS)
 $(NAMEXOR): 	$(OBJXOR)
 		$(CCX) -o $(NAMEXOR) $(OBJXOR)
 
-$(NAMESERVEUR): $(OBJSERVEUR)
-		$(CCX) -o $(NAMESERVEUR) $(OBJSERVEUR)
+# $(NAMESERVEUR): $(OBJSERVEUR)
+# 		$(CCX) -o $(NAMESERVEUR) $(OBJSERVEUR)
+#
+# $(NAMECLIENT): $(OBJCLIENT)
+# 		$(CCX) -o $(NAMECLIENT) $(OBJCLIENT)
 
-$(NAMECLIENT): $(OBJCLIENT)
-		$(CCX) -o $(NAMECLIENT) $(OBJCLIENT)
-
-$(NAMESERVEURLOC): $(OBJSERVEURLOC)
-		$(CCX) -o $(NAMESERVEURLOC) $(OBJSERVEURLOC)
-
-$(NAMECLIENTLOC): $(OBJCLIENTLOC)
-		$(CCX) -o $(NAMECLIENTLOC) $(OBJCLIENTLOC)
+$(NAMELOC): $(OBJSLOC)
+		$(CCX) -o $(NAMELOC) $(OBJSLOC)
 
 clean:
 		$(RM) $(OBJ)

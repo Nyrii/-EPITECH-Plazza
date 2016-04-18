@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Wed Apr  6 13:33:00 2016 Florian Saurs
-// Last update Mon Apr 18 12:30:41 2016 Florian Saurs
+// Last update Mon Apr 18 16:10:48 2016 Florian Saurs
 //
 
 #ifndef SOCKET_HPP_

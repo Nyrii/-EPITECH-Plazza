@@ -5,14 +5,14 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 23:31:50 2016 Florian Saurs
-// Last update Wed Apr  6 16:04:37 2016 Florian Saurs
+// Last update Mon Apr 18 16:15:25 2016 Florian Saurs
 //
 
 #include "../inc/ServeurSocketLocal.hpp"
 
 int	main()
 {
-  ServeurSocketLocal	sock;
+  ServeurSocketLocal	*sock;
 
   sock.create();
   sock.write("toto");

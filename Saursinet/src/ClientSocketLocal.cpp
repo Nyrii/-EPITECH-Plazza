@@ -5,51 +5,48 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Wed Apr  6 17:28:55 2016 Florian Saurs
+// Last update Mon Apr 18 16:44:56 2016 Florian Saurs
 //
 
 #include <iostream>
-#include "../inc/ClientSocketLocal.hpp"
+#include "ClientSocketLocal.hpp"
 
-ClientSocketLocal::ClientSocketLocal()
-{}
+ClientSocketLocal::ClientSocketLocal(std::string path)
+{
+  struct sockaddr_un socketAddress;
+
+  _path = path;
+  _socket = socket(AF_UNIX, SOCK_STREAM, 0);
+  socketAddress.sun_family = AF_UNIX;
+  strcpy(socketAddress.sun_path, _path.c_str());
+  _unixSocket = socketAddress;
+  if(connect(_socket, (sockaddr*)&_unixSocket, sizeof(_unixSocket)) == SOCKET_ERROR)
+    std::cerr << "Error: local connection impossible." << std::endl;
+}
 
 ClientSocketLocal::~ClientSocketLocal()
 {}
 
-int		ClientSocketLocal::create()
+int		ClientSocketLocal::destroy() const
 {
-  _sock = socket(AF_UNIX, SOCK_STREAM, 0);
-  _erreur = 0;
-  _recsize = sizeof(_sun);
-  _crecsize = sizeof(_csun);
-  struct sockaddr_un saddr = {AF_UNIX, "server_socket"};
-  _sun = saddr;
-  if(connect(_sock, (sockaddr*)&_sun, sizeof(_sun)) != SOCKET_ERROR)
-    std::cout << "Connexion à la socket en local" << std::endl;
-  else
-    std::cout << "Impossible de se connecter" << std::endl;
+  closesocket(_socket);
   return (0);
 }
 
-int		ClientSocketLocal::destroy()
+int		ClientSocketLocal::read(char &c) const
 {
-  closesocket(_sock);
+  std::cout << "read by client local" << std::endl;
+  return (::read(_socket, &c, sizeof(char)));
+    return (-1);
+  std::cout << "read by client local--------------------------" << c << std::endl;
   return (0);
 }
 
-std::string	ClientSocketLocal::read()
+int		ClientSocketLocal::write(char &c) const
 {
-  char	ch = 'A';
-
-  ::write(_sock, &ch, 1);
-  ::read(_sock, &ch, 1);
-  std::cout << "Char received from server " << ch << std::endl;
-  close(_sock);
-  return ("");
-}
-
-int		ClientSocketLocal::write(std::string const &)
-{
+  std::cout << "write by client local" << std::endl;
+  if (::write(_socket, &c, sizeof(char)) == -1)
+    return (-1);
+    std::cout << "write by client local" << std::endl;
   return (0);
 }

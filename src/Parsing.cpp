@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Sun Apr 17 16:21:02 2016 guillaume wilmot
+// Last update Mon Apr 18 14:19:26 2016 Florian Saurs
 //
 
 #include <dirent.h>
@@ -17,9 +17,6 @@ Parsing::Parsing()
   _compare.insert(std::pair<std::string, Information>("PHONE_NUMBER", PHONE_NUMBER));
   _compare.insert(std::pair<std::string, Information>("EMAIL_ADDRESS", EMAIL_ADDRESS));
   _compare.insert(std::pair<std::string, Information>("IP_ADDRESS", IP_ADDRESS));
-  _communicationTab.insert(std::pair<Communication, void (Core:: *)(std::string, Information, Communication)>(LOCAL_SOCKET, &Core::runProcessSocket));
-  _communicationTab.insert(std::pair<Communication, void (Core:: *)(std::string, Information, Communication)>(INTERNET_SOCKET, &Core::runProcessSocket));
-  _communicationTab.insert(std::pair<Communication, void (Core:: *)(std::string, Information, Communication)>(NAMED_PIPE, &Core::runProcessNP));
 }
 
 Parsing::~Parsing()
@@ -105,7 +102,7 @@ int				Parsing::parseCommandLine(std::vector<std::string> *command, Core const *
 	      closedir(directory);
 	    }
 	  else
-	    (const_cast<Core *>(core)->*(this->_communicationTab)[_com])(*itFiles, _compare.at(*it), _com);
+	    const_cast<Core *>(core)->runProcessSocket(*itFiles, _compare.at(*it), _com);
 	}
       delete filesName;
     }
