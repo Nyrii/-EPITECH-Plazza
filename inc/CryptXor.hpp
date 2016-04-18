@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Thu Apr  7 00:19:09 2016 Florian Saurs
-// Last update Thu Apr 21 12:58:24 2016 guillaume wilmot
+// Last update Mon Apr 18 09:20:32 2016 Nyrandone Noboud-Inpeng
 //
 
 #ifndef CRYPTXOR_HPP_
@@ -19,7 +19,7 @@ public:
   CryptXor();
   ~CryptXor();
 
-  std::string	Decrypt(std::string, unsigned char, uint16_t);
+  std::string	Decrypt(std::string, unsigned char, uint16_t) const;
 };
 
 #endif /* !CRYPTXOR_HPP_ */

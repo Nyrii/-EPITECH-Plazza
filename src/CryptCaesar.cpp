@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Thu Apr  7 10:34:02 2016 Nyrandone Noboud-Inpeng
-// Last update Thu Apr 21 13:10:18 2016 guillaume wilmot
+// Last update Mon Apr 18 09:20:52 2016 Nyrandone Noboud-Inpeng
 //
 
 #include "CryptCaesar.hh"
@@ -14,7 +14,7 @@ CryptCaesar::CryptCaesar() {}
 
 CryptCaesar::~CryptCaesar() {}
 
-std::string		CryptCaesar::Decrypt(std::string to_decrypt, unsigned char key, uint16_t)
+std::string		CryptCaesar::Decrypt(std::string to_decrypt, unsigned char key, uint16_t) const
 {
   for (unsigned int i = 0; i < to_decrypt.length(); i++)
     to_decrypt[i] = (to_decrypt[i] - key) % 255;

@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Thu Apr  7 00:18:46 2016 Florian Saurs
-// Last update Thu Apr 21 14:39:10 2016 guillaume wilmot
+// Last update Mon Apr 18 09:20:54 2016 Nyrandone Noboud-Inpeng
 //
 
 #include "CryptXor.hpp"
@@ -14,7 +14,7 @@ CryptXor::CryptXor() {}
 
 CryptXor::~CryptXor() {}
 
-std::string	CryptXor::Decrypt(std::string msg, unsigned char, uint16_t key)
+std::string	CryptXor::Decrypt(std::string msg, unsigned char, uint16_t key) const
 {
   int		pos;
   char		keyFirst;
