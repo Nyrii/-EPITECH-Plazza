@@ -1,8 +1,10 @@
 Saurs :
-      - Check les includes de tous les fichiers
+      - Check les includes de tous les fichiers (et aussi les protections de headers)
 
 Wilmot :
       - GUI
 
 ALL :
       - Remove -g
+      - Remove .lol.wav
+      - Remove la ligne de compilation qui va avec
