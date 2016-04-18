@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr 13 14:27:40 2016 Nyrandone Noboud-Inpeng
-// Last update Mon Apr 18 23:24:43 2016 Florian Saurs
+// Last update Mon Apr 18 06:44:22 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <fstream>
@@ -29,7 +29,7 @@ void				*ReadAndFind::execute(void *arg)
   CryptXor			Xor;
   CryptCaesar			Caesar;
   std::vector<std::string>	found;
-  // uint16_t			i = 0;
+  uint16_t			i = 0;
   int				start = 0;
   std::ifstream			file(args->file.c_str(), std::ifstream::in);
   std::string			content((std::istreambuf_iterator<char>(file)),
@@ -46,12 +46,11 @@ void				*ReadAndFind::execute(void *arg)
   std::ofstream			fileOut(saveFile.c_str());
 
   found = search.parseFile(content, args->order);
-  // while ((i != 0 || start == 0) && found.size() == 0)
-  //   {
-  //     start = 1;
-  //     std::cerr << "Debug " << i << std::endl;
-  //     found = search.parseFile(Xor.Decrypt(content, 0, i++), args->order);
-  //   }
+  while ((i != 0 || start == 0) && found.size() == 0)
+    {
+      start = 1;
+      found = search.parseFile(Xor.Decrypt(content, 0, i++), args->order);
+    }
   for (start = 0; start <= 255 && found.size() == 0; start++)
     found = search.parseFile(Caesar.Decrypt(content, start, 0), args->order);
   for (std::vector<std::string>::iterator it = found.begin(); it != found.end(); ++it)
