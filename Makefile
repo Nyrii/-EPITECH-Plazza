@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Mon Apr 18 21:47:10 2016 Florian Saurs
+## Last update Mon Apr 18 06:20:59 2016 Nyrandone Noboud-Inpeng
 ##
 
 SRC	= ClientSocket.cpp		\
@@ -34,7 +34,8 @@ SRC	= ClientSocket.cpp		\
 	  Thread.cpp			\
 	  ThreadPool.cpp		\
 	  Timer.cpp			\
-	  TimerError.cpp
+	  TimerError.cpp		\
+	  UsageError.cpp
 
 ifeq ($(ui), yes)
 SRC	+= Gui.cpp
