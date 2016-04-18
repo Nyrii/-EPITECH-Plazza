@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Mon Apr 18 17:38:33 2016 Florian Saurs
+// Last update Mon Apr 18 20:49:00 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -29,8 +29,6 @@ ServeurSocket::ServeurSocket()
 	  if (_socketError == SOCKET_ERROR)
 	    throw CommunicationError("Error: listen error.");
 	}
-      else
-	throw CommunicationError("Error: bind error.");
     }
   else
     throw CommunicationError("Error: socket error.");

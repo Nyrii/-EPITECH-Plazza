@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Tue Apr  5 16:31:06 2016 guillaume wilmot
-// Last update Sun Apr 17 21:44:11 2016 guillaume wilmot
+// Last update Mon Apr 18 18:57:49 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -80,4 +80,9 @@ bool			Process::assign(const std::string &fileName, Information info)
     }
   delete state;
   return (true);
+}
+
+Com			*Process::getCom() const
+{
+  return (_com);
 }

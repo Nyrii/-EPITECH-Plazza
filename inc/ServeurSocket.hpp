@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:24:35 2016 Florian Saurs
-// Last update Mon Apr 18 12:32:21 2016 Florian Saurs
+// Last update Mon Apr 18 20:45:58 2016 Florian Saurs
 //
 
 #ifndef SERVEURSOCKET_HPP_
@@ -22,6 +22,8 @@ public:
   int		destroy() const;
   int		read(t_processState &) const;
   int		write(t_processState &) const;
+
+  ServeurSocket	*getServeurSocket() const;
 };
 
 #endif /* !SERVEURSOCKET_HPP_ */
