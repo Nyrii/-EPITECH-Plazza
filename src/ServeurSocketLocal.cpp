@@ -5,33 +5,25 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Mon Apr 18 11:58:22 2016 Florian Saurs
+// Last update Mon Apr 18 12:38:14 2016 Florian Saurs
 //
 
 #include <iostream>
 #include "ServeurSocketLocal.hpp"
 #include "CommunicationError.hh"
 
-ServeurSocketLocal::ServeurSocketLocal()
-{}
-
-ServeurSocketLocal::~ServeurSocketLocal()
+ServeurSocketLocal::ServeurSocketLocal(std::string path)
 {
-  unlink(_path.c_str());
-}
+  struct sockaddr_un socketAddress;
 
-int		ServeurSocketLocal::create(int _id)
-{
-  struct sockaddr_un saddr;
-
-  _path = std::string("./soLoc") + std::to_string(_id);
+  _path = path;
   unlink(_path.c_str());
   _socket = socket(AF_UNIX, SOCK_STREAM, 0);
   if (_socket != INVALID_SOCKET)
     {
-      saddr.sun_family = AF_UNIX;
-      strcpy(saddr.sun_path, _path.c_str());
-      _unixSocket = saddr;
+      socketAddress.sun_family = AF_UNIX;
+      strcpy(socketAddress.sun_path, _path.c_str());
+      _unixSocket = socketAddress;
       _socketError = bind(_socket, (sockaddr*)&_unixSocket, sizeof(_unixSocket));
       if (_socketError == SOCKET_ERROR)
 	throw CommunicationError("Error: bind error.");
@@ -40,7 +32,11 @@ int		ServeurSocketLocal::create(int _id)
     }
   else
     throw CommunicationError("Error: socket error.");
-  return (0);
+}
+
+ServeurSocketLocal::~ServeurSocketLocal()
+{
+  unlink(_path.c_str());
 }
 
 int		ServeurSocketLocal::destroy() const

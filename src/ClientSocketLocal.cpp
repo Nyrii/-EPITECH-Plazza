@@ -5,32 +5,28 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Mon Apr 18 11:58:24 2016 Florian Saurs
+// Last update Mon Apr 18 12:39:22 2016 Florian Saurs
 //
 
 #include <iostream>
 #include "ClientSocketLocal.hpp"
 #include "CommunicationError.hh"
 
-ClientSocketLocal::ClientSocketLocal()
-{}
+ClientSocketLocal::ClientSocketLocal(std::string path)
+{
+  struct sockaddr_un socketAddress;
+
+  _path = path;
+  _socket = socket(AF_UNIX, SOCK_STREAM, 0);
+  socketAddress.sun_family = AF_UNIX;
+  strcpy(socketAddress.sun_path, _path.c_str());
+  _unixSocket = socketAddress;
+  if(connect(_socket, (sockaddr*)&_unixSocket, sizeof(_unixSocket)) == SOCKET_ERROR)
+    throw CommunicationError("Error: local connection impossible.");
+}
 
 ClientSocketLocal::~ClientSocketLocal()
 {}
-
-int		ClientSocketLocal::create(int _id)
-{
-  struct sockaddr_un saddr;
-
-  _path = std::string("./soLoc") + std::to_string(_id);
-  _socket = socket(AF_UNIX, SOCK_STREAM, 0);
-  saddr.sun_family = AF_UNIX;
-  strcpy(saddr.sun_path, _path.c_str());
-  _unixSocket = saddr;
-  if(connect(_socket, (sockaddr*)&_unixSocket, sizeof(_unixSocket)) == SOCKET_ERROR)
-    throw CommunicationError("Error: local connection impossible.");
-  return (0);
-}
 
 int		ClientSocketLocal::destroy() const
 {

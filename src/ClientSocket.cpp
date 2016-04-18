@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Mon Apr 18 11:56:39 2016 Florian Saurs
+// Last update Mon Apr 18 12:31:30 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -13,12 +13,6 @@
 #include "CommunicationError.hh"
 
 ClientSocket::ClientSocket()
-{}
-
-ClientSocket::~ClientSocket()
-{}
-
-int		ClientSocket::create(int)
 {
   _socket = socket(AF_INET, SOCK_STREAM, 0);
   _internetSocket.sin_addr.s_addr = inet_addr("127.0.0.1");
@@ -26,8 +20,10 @@ int		ClientSocket::create(int)
   _internetSocket.sin_port = 17030;
   if(connect(_socket, (sockaddr*)&_internetSocket, sizeof(_internetSocket)) == SOCKET_ERROR)
     throw CommunicationError("Error: connection impossible.");
-  return (0);
 }
+
+ClientSocket::~ClientSocket()
+{}
 
 int		ClientSocket::destroy() const
 {

@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Sun Apr 17 20:05:31 2016 guillaume wilmot
+## Last update Apr 18 12:51:23 2016
 ##
 
 SRC	= ClientSocket.cpp		\
@@ -28,6 +28,8 @@ SRC	= ClientSocket.cpp		\
           Search.cpp			\
 	  ServeurSocket.cpp		\
 	  ServeurSocketLocal.cpp	\
+	  Sockets.cpp			\
+          SocketsLocal.cpp		\
 	  Thread.cpp			\
 	  ThreadPool.cpp		\
 	  Timer.cpp			\

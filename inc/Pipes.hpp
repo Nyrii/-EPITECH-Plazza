@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 10:54:41 2016 Nyrandone Noboud-Inpeng
-// Last update Sun Apr 17 18:06:48 2016 guillaume wilmot
+// Last update Mon Apr 18 12:33:56 2016 Florian Saurs
 //
 
 #ifndef PIPES_HPP_
@@ -22,7 +22,6 @@ public:
 
   int			write(t_processState &) const;
   int			read(t_processState &) const;
-  int			create(int) { return (0); };
   int			destroy() const;
 private:
   IPipe			*_out;

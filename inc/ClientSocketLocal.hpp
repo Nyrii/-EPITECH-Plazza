@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:24:35 2016 Florian Saurs
-// Last update Tue Apr 12 16:58:53 2016 Saursinet
+// Last update Mon Apr 18 12:36:22 2016 Florian Saurs
 //
 
 #ifndef CLIENTSOCKETLOCAL_HPP_
@@ -16,7 +16,7 @@
 class	ClientSocketLocal : public ASocket
 {
 public:
-  ClientSocketLocal();
+  ClientSocketLocal(std::string);
   ~ClientSocketLocal();
 
   int		create(int);

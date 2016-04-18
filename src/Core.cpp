@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Mon Apr 18 00:17:11 2016 guillaume wilmot
+// Last update Mon Apr 18 12:06:36 2016 Florian Saurs
 //
 
 #include <fstream>
@@ -45,7 +45,7 @@ void		Core::read() const
 {
   Parsing	parser;
 
-  parser.read(this, NAMED_PIPE);
+  parser.read(this, LOCAL_SOCKET);
 }
 
 void			Core::runProcessNP(std::string fileName, Information info, Communication)
@@ -144,37 +144,63 @@ void			Core::runProcessNP(std::string fileName, Information info, Communication)
 //       }
 // }
 
-void			Core::launchWorkSocket(std::string fileName, Information // _type
-					       , int id)
+// void			Core::launchWorkSocket(std::string fileName, Information // _type
+// 					       , int id)
+// {
+//     t_processState	*struc = new t_processState;
+//     int			retRead;
+//     ClientSocket	*client = new ClientSocket();
+//     ReadAndFind		raf;
+//
+//     client->create(id);
+//     _isFinished = false;
+//     while (_isFinished == false)
+//       {
+// 	memset(struc, 0, sizeof(*struc));
+//         struc->id = 0;
+// 	struc->free = false;
+//         memset(struc->fileName, 0, sizeof(struc->fileName));
+// 	client->write(*struc);
+// 	raf.execute(NULL// fileName, _type
+// 		    );
+// 	struc->free = true;
+// 	client->write(*struc);
+// 	std::cout << "read in son just now" << std::endl;
+// 	if ((retRead = client->read(*struc)) > 0 && struc->id == 0)
+// 	  fileName = struc->fileName;
+// 	else if ((retRead > 0 && struc->id == -1) || retRead == -1)
+// 	  _isFinished = true;
+//       }
+//     exit (0);
+// }
+
+void			Core::runProcessSocket(std::string fileName, Information info, Communication)
 {
-    t_processState	*struc = new t_processState;
-    int			retRead;
-    ClientSocket	*client = new ClientSocket();
-    ReadAndFind		raf;
+    for (unsigned int i = 0; i < _sonTab.size(); i++)
+      try {
+	if (_sonTab[i]->checkAvailable())
+	  if (_sonTab[i]->assign(fileName, info) == true)
+	    return;
+	} catch (const CommunicationError &e) {
+	  std::cerr << e.what() << std::endl;
+	    try {
+	      _sonTab.erase(_sonTab.begin() + i);
+	    } catch (const CommunicationError &e) {
+	      std::cerr << e.what() << std::endl;
+	    }
+	}
 
-    client->create(id);
-    _isFinished = false;
-    while (_isFinished == false)
-      {
-	memset(struc, 0, sizeof(*struc));
-        struc->id = 0;
-	struc->free = false;
-        memset(struc->fileName, 0, sizeof(struc->fileName));
-	client->write(*struc);
-	raf.execute(NULL// fileName, _type
-		    );
-	struc->free = true;
-	client->write(*struc);
-	std::cout << "read in son just now" << std::endl;
-	if ((retRead = client->read(*struc)) > 0 && struc->id == 0)
-	  fileName = struc->fileName;
-	else if ((retRead > 0 && struc->id == -1) || retRead == -1)
-	  _isFinished = true;
-      }
-    exit (0);
-}
+      static int		id = 0;
+      Com			*com = new Pipes(id++);
+      Process		*process = new Process(com);
+      t_processArgs		args;
 
-void			Core::runProcessSocket(std::string, Information, Communication) {}
+      args.com = com;
+      args.nbThread = _nbThreads;
+      _sonTab.push_back(process);
+      process->create(&Listener::start, &args);
+      process->assign(fileName, info);
+    }
 
 void					Core::setSonTab(std::vector<Process *> *sonTab)
 {

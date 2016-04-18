@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Mon Apr 18 11:57:25 2016 Florian Saurs
+// Last update Mon Apr 18 12:32:17 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -13,12 +13,6 @@
 #include "CommunicationError.hh"
 
 ServeurSocket::ServeurSocket()
-{}
-
-ServeurSocket::~ServeurSocket()
-{}
-
-int		ServeurSocket::create(int)
 {
   _clientSocket = -1;
   _socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -41,8 +35,10 @@ int		ServeurSocket::create(int)
     }
   else
     throw CommunicationError("Error: socket error.");
-  return (0);
 }
+
+ServeurSocket::~ServeurSocket()
+{}
 
 int		ServeurSocket::destroy() const
 {
