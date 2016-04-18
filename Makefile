@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Apr 19 12:34:35 2016
+## Last update Mon Apr 18 08:58:18 2016 Nyrandone Noboud-Inpeng
 ##
 
 SRC	= ClientSocket.cpp		\
@@ -36,6 +36,7 @@ SRC	= ClientSocket.cpp		\
 	  Timer.cpp			\
 	  TimerError.cpp		\
           Regex.cpp			\
+	  RegexError.cpp		\
 	  UsageError.cpp
 
 ifeq ($(ui), yes)

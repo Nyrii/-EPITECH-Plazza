@@ -5,13 +5,13 @@
 // Login   <saurs_f@epitech.eu>
 //
 // Started on  Tue Apr 19 12:00:38 2016 Florian Saurs
-// Last update Tue Apr 19 15:19:10 2016 Florian Saurs
+// Last update Mon Apr 18 08:57:14 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <regex.h>
 #include <cstring>
 #include "Regex.hpp"
-// #include "CommunicationError.hh"
+#include "RegexError.hh"
 
 Regex::Regex()
 {}
@@ -27,11 +27,7 @@ std::string	Regex::match(std::string regex, std::string str)
   regmatch_t	*pmatch;
 
   if (regcomp(&preg, regex.c_str(), REG_EXTENDED) == -1)
-    {
-      std::cerr << "regex not good" << std::endl;
-      // throw CommunicationError("Regex wrong");
-      return ("");
-    }
+    throw RegexError("Invalid regex");
   nmatch = 1;
   pmatch = new regmatch_t[nmatch];
 

@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr 13 14:27:40 2016 Nyrandone Noboud-Inpeng
-// Last update Tue Apr 19 15:19:58 2016 Florian Saurs
+// Last update Mon Apr 18 08:55:04 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <fstream>
@@ -46,13 +46,14 @@ void				*ReadAndFind::execute(void *arg)
   std::ofstream			fileOut(saveFile.c_str());
 
   found = search.parseFile(content, args->order);
+  for (start = 0; start <= 255 && found.size() == 0; start++)
+    found = search.parseFile(Caesar.Decrypt(content, start, 0), args->order);
+  start = 0;
   while ((i != 0 || start == 0) && found.size() == 0)
     {
       start = 1;
       found = search.parseFile(Xor.Decrypt(content, 0, i++), args->order);
     }
-  for (start = 0; start <= 255 && found.size() == 0; start++)
-    found = search.parseFile(Caesar.Decrypt(content, start, 0), args->order);
   for (std::vector<std::string>::iterator it = found.begin(); it != found.end(); ++it)
     std::cout << *it << std::endl;
   if (fileOut.is_open())
