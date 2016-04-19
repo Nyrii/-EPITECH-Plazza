@@ -5,7 +5,113 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Sun Apr 17 19:59:02 2016 guillaume wilmot
-// Last update Sun Apr 17 19:59:11 2016 guillaume wilmot
+// Last update Mon Apr 18 17:54:38 2016 guillaume wilmot
 //
 
-#include "GUI.hpp"
+#include <cstring>
+#include <ncurses/curses.h>
+#include <signal.h>
+#include <algorithm>
+#include <unistd.h>
+#include <signal.h>
+#include "Gui.hpp"
+#include "Thread.hpp"
+#include "Core.hpp"
+#include "Parsing.hpp"
+
+Menu				*g_menuFiles = NULL;
+Menu				*g_menuTasks = NULL;
+
+void				Gui::handleResize()
+{
+  endwin();
+  refresh();
+  clear();
+}
+
+Gui::Gui()
+{
+  _menuFiles = NULL;
+}
+
+Gui::~Gui()
+{
+  endwin();
+  if (_menuFiles)
+    delete _menuFiles;
+}
+
+void				Gui::init(Core *core)
+{
+  _core = core;
+  _menuFiles = new MenuFiles;
+  _menuTasks = new MenuTasks;
+  g_menuFiles = _menuFiles;
+  g_menuTasks = _menuTasks;
+  initscr();
+  start_color();
+  cbreak();
+  noecho();
+  raw();
+  curs_set(0);
+  init_pair(1, COLOR_BLACK, COLOR_CYAN);
+  init_pair(2, COLOR_CYAN, COLOR_BLACK);
+  init_pair(3, COLOR_GREEN, COLOR_BLACK);
+  init_pair(4, COLOR_BLACK, COLOR_CYAN);
+}
+
+void				Gui::changeDir(std::string &path, DIR **dir)
+{
+  if (chdir(path.c_str()) == -1)
+    return;
+  path = "./";
+  if ((*dir = opendir(path.c_str())) == NULL)
+    {
+      std::cerr << "Cannot open folder" << std::endl;
+      return ;
+    }
+}
+
+void				Gui::startMenu()
+{
+  std::vector<std::string>	choices;
+  DIR                           *dir = NULL;
+  struct dirent                 *rd;
+  int				ret;
+  std::string			path = "./";
+
+  while (1)
+    {
+      changeDir(path, &dir);
+      while ((rd = readdir(dir)) != NULL)
+	choices.push_back(std::string(rd->d_name));
+      std::sort(choices.begin(), choices.end());
+      closedir(dir);
+      if (_menuFiles->init(choices) == -1 ||
+	  _menuFiles->initWindow() == -1)
+	return ;
+      _menuFiles->draw();
+      if ((ret = _menuFiles->events()) == -1)
+	return ;
+      if (ret == 1)
+	path = reinterpret_cast<MenuFiles *>(_menuFiles)->getDir();
+      else if (ret != 2)
+	{
+	  if (_menuTasks->init(choices) == -1 ||
+	      _menuTasks->initWindow() == -1)
+	    return ;
+	  _menuTasks->draw();
+	  if ((ret = _menuTasks->events()) == 0)
+	    {
+	      _order += _menuFiles->getRet() + _menuTasks->getRet();
+	      Parsing			parser;
+	      std::vector<std::string>	command;
+	      command.push_back(_order);
+	      parser.parseCommandLine(&command, _core, NAMED_PIPE);
+	      _order.clear();
+	    }
+	}
+      _menuFiles->free();
+      choices.clear();
+    }
+}

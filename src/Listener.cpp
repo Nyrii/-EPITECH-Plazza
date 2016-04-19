@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Mon Apr 18 00:16:28 2016 guillaume wilmot
+// Last update Mon Apr 18 15:58:56 2016 guillaume wilmot
 //
 
 /**/
@@ -76,6 +76,12 @@ t_processState		*Listener::getTask(ThreadPool &threadPool)
   }
   if (struc->state == FREE)
     struc->free = threadPool.getTotalOrders() < _nbThread * 2 ? true : false;
+  if (struc->state == STATE)
+    {
+      struc->threads[0] = _nbThread;
+      struc->threads[1] = threadPool.getWorking();
+      struc->threads[2] = threadPool.getQueueSize();
+    }
   try {
     *_com << *struc;
   } catch  (const CommunicationError &e) {

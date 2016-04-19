@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Mon Apr 18 00:17:11 2016 guillaume wilmot
+// Last update Mon Apr 18 05:41:16 2016 guillaume wilmot
 //
 
 #include <fstream>
@@ -195,7 +195,7 @@ void					Core::sigHandler(int)
 
   signal(SIGINT, SIG_IGN);
   if ((_sonTab = getSonTab(NULL)))
-    for (unsigned int i; i < _sonTab->size(); i++)
+    for (unsigned int i = 0; i < _sonTab->size(); i++)
       {
 	if ((*_sonTab)[i]->getPid() > 0)
 	  kill((*_sonTab)[i]->getPid(), SIGUSR1);

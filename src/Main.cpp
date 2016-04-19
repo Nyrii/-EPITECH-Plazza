@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Sun Apr 17 22:18:22 2016 guillaume wilmot
+// Last update Mon Apr 18 09:49:06 2016 guillaume wilmot
 //
 
 #include <iostream>
@@ -15,8 +15,6 @@
 #include "Core.hpp"
 #include "CryptCaesar.hh"
 #include "Error.hpp"
-#include "Thread.hpp"
-#include "NoGUI.hpp"
 
 int		main(int ac, char **av)
 {
@@ -36,10 +34,8 @@ int		main(int ac, char **av)
       return (-1);
     }
 
-  Thread	Gui;
   Core		*core = new Core(nbThreads);
 
-  Gui.start(&launchGui, core);
   try {
     core->read();
   } catch (const Error &e) {

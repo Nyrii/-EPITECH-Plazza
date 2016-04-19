@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Sun Apr 17 20:05:31 2016 guillaume wilmot
+## Last update Mon Apr 18 10:36:16 2016 guillaume wilmot
 ##
 
 SRC	= ClientSocket.cpp		\
@@ -18,7 +18,6 @@ SRC	= ClientSocket.cpp		\
 	  CryptXor.cpp			\
 	  Errors.cpp			\
 	  Listener.cpp			\
-	  Main.cpp			\
 	  Parsing.cpp			\
 	  Pipes.cpp			\
 	  PipeOut.cpp			\
@@ -35,8 +34,12 @@ SRC	= ClientSocket.cpp		\
 
 ifeq ($(ui), yes)
 SRC	+= Gui.cpp
+SRC	+= MenuFiles.cpp
+SRC	+= MenuTasks.cpp
+SRC	+= MainGui.cpp
+LDFLAGS += -lmenu -lncurses
 else
-SRC	+= NoGui.cpp
+SRC	+= Main.cpp
 endif
 
 
@@ -54,8 +57,8 @@ INCDIR	= -I inc/
 
 MAKEOBJ	= obj
 
-LDFLAGS 	= -lpthread -lboost_regex -lrt
-CXXFLAGS	= -W -Wall -Wextra -Werror
+LDFLAGS 	+= -lpthread -lboost_regex -lrt
+CXXFLAGS	+= -W -Wall -Wextra -Werror
 
 $(OBJDIR)%.o: $(SRCDIR)%.cpp
 	@mkdir -p $(MAKEOBJ)
