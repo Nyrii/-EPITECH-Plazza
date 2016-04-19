@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Mon Apr 18 12:31:30 2016 Florian Saurs
+// Last update Tue Apr 19 17:19:11 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -22,8 +22,7 @@ ClientSocket::ClientSocket()
     throw CommunicationError("Error: connection impossible.");
 }
 
-ClientSocket::~ClientSocket()
-{}
+ClientSocket::~ClientSocket() {}
 
 int		ClientSocket::destroy() const
 {

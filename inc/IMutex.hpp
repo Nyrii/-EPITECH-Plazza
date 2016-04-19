@@ -5,13 +5,14 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:55:07 2016 guillaume wilmot
-// Last update Wed Apr  6 23:55:08 2016 guillaume wilmot
+// Last update Tue Apr 19 17:48:32 2016 Florian Saurs
 //
 
 #ifndef IMUTEX_HPP_
 # define IMUTEX_HPP_
 
-class IMutex {
+class IMutex
+{
 public:
   virtual ~IMutex(void) {}
   virtual void lock(void) = 0;

@@ -5,11 +5,10 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr 13 14:27:40 2016 Nyrandone Noboud-Inpeng
-// Last update Mon Apr 18 08:55:04 2016 Nyrandone Noboud-Inpeng
+// Last update Tue Apr 19 17:32:02 2016 Florian Saurs
 //
 
 #include <fstream>
-#include <iostream>
 #include "CryptCaesar.hh"
 #include "CryptXor.hpp"
 #include "Search.hpp"

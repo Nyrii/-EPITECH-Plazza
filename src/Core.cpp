@@ -5,18 +5,16 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Mon Apr 18 21:57:42 2016 Florian Saurs
+// Last update Tue Apr 19 17:18:31 2016 Florian Saurs
 //
 
-#include <fstream>
 #include <signal.h>
 #include "Core.hpp"
 #include "Parsing.hpp"
 #include "Sockets.hpp"
 #include "SocketsLocal.hpp"
-#include "Listener.hpp"
-#include "ReadAndFind.hh"
 #include "Pipes.hpp"
+#include "Listener.hpp"
 #include "CommunicationError.hh"
 
 Core::Core(int nbThreads)

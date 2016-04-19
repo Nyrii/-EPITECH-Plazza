@@ -5,12 +5,11 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 18:19:02 2016 guillaume wilmot
-// Last update Mon Apr 11 09:33:06 2016 guillaume wilmot
+// Last update Tue Apr 19 17:16:14 2016 Florian Saurs
 //
 
 #include "ScopedLock.hpp"
 #include "CondThread.hpp"
-#include <unistd.h>
 
 CondThread::CondThread() : _cond(_mutex)
 {

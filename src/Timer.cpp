@@ -5,14 +5,11 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Fri Apr 15 22:52:38 2016 guillaume wilmot
-// Last update Sun Apr 17 20:57:24 2016 guillaume wilmot
+// Last update Tue Apr 19 17:36:26 2016 Florian Saurs
 //
 
 #include <time.h>
 #include <signal.h>
-#include <unistd.h>
-#include <exception>
-#include <iostream>
 #include <cstring>
 #include "Timer.hh"
 #include "TimerError.hh"

@@ -5,16 +5,10 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Mon Apr 18 22:18:31 2016 Florian Saurs
+// Last update Tue Apr 19 17:27:24 2016 Florian Saurs
 //
 
-#include <iostream>
-#include <unistd.h>
-#include <list>
-#include <fstream>
-#include <map>
 #include "ParseAv.hpp"
-#include "CryptCaesar.hh"
 #include "Error.hpp"
 #include "Thread.hpp"
 #include "NoGUI.hpp"

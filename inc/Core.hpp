@@ -5,15 +5,13 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
-// Last update Mon Apr 18 21:58:11 2016 Florian Saurs
+// Last update Tue Apr 19 17:46:45 2016 Florian Saurs
 //
 
 #ifndef CORE_HPP_
 # define CORE_HPP_
 
 # include <vector>
-# include <iostream>
-# include "ICommunication.hpp"
 # include "Process.hpp"
 # include "Queue.hpp"
 

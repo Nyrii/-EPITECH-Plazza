@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Mon Apr 18 06:19:05 2016 Nyrandone Noboud-Inpeng
-// Last update Mon Apr 18 06:20:19 2016 Nyrandone Noboud-Inpeng
+// Last update Tue Apr 19 17:36:40 2016 Florian Saurs
 //
 
 #include "UsageError.hh"
@@ -15,7 +15,4 @@ UsageError::UsageError(std::string const &message)
   _message = message;
 }
 
-UsageError::~UsageError() throw()
-{
-
-}
+UsageError::~UsageError() throw() {}

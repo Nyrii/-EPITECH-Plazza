@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 00:29:53 2016 guillaume wilmot
-// Last update Sun Apr 17 00:24:44 2016 guillaume wilmot
+// Last update Tue Apr 19 17:54:46 2016 Florian Saurs
 //
 
 #ifndef THREADPOOL_HPP_

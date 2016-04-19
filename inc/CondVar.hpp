@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:54:51 2016 guillaume wilmot
-// Last update Thu Apr  7 23:16:17 2016 guillaume wilmot
+// Last update Tue Apr 19 17:39:22 2016 Florian Saurs
 //
 
 #ifndef CONDVAR_HPP_
@@ -13,7 +13,8 @@
 
 # include "Mutex.hpp"
 
-class CondVar {
+class CondVar
+{
 public:
   CondVar(Mutex &);
   ~CondVar();

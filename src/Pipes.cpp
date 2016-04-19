@@ -5,11 +5,10 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 10:46:45 2016 Nyrandone Noboud-Inpeng
-// Last update Mon Apr 18 00:17:36 2016 guillaume wilmot
+// Last update Tue Apr 19 17:30:49 2016 Florian Saurs
 //
 
 #include <unistd.h>
-#include <sys/types.h>
 #include <sys/stat.h>
 #include "Pipes.hpp"
 #include "PipeOut.hh"

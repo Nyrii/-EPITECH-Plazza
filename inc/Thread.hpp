@@ -5,15 +5,14 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:55:40 2016 guillaume wilmot
-// Last update Thu Apr  7 18:20:46 2016 guillaume wilmot
+// Last update Tue Apr 19 17:54:23 2016 Florian Saurs
 //
 
 #ifndef THREAD_HPP_
 # define THREAD_HPP_
 
-# include <stdlib.h>
-
-class		Thread {
+class		Thread
+{
 public:
   Thread();
   ~Thread() {}

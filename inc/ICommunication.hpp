@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr  6 13:44:41 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr 15 23:33:49 2016 Florian Saurs
+// Last update Tue Apr 19 17:47:51 2016 Florian Saurs
 //
 
 #ifndef ICOMMUNICATION_HPP_

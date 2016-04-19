@@ -5,13 +5,9 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Tue Apr 19 15:43:49 2016 Florian Saurs
+// Last update Tue Apr 19 17:33:18 2016 Florian Saurs
 //
 
-#include <iostream>
-#include <fstream>
-#include <cstdio>
-#include <dirent.h>
 #include "Search.hpp"
 #include "Regex.hpp"
 

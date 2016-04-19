@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:55:22 2016 guillaume wilmot
-// Last update Fri Apr 15 17:52:21 2016 Nyrandone Noboud-Inpeng
+// Last update Tue Apr 19 17:49:36 2016 Florian Saurs
 //
 
 #ifndef MUTEX_HPP_
@@ -14,7 +14,8 @@
 # include <pthread.h>
 # include "IMutex.hpp"
 
-class Mutex : public IMutex {
+class Mutex : public IMutex
+{
 public:
   Mutex() {pthread_mutex_init(&_mutex, NULL);}
   ~Mutex() {pthread_mutex_destroy(&_mutex);}

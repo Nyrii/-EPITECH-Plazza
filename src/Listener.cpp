@@ -5,15 +5,12 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Mon Apr 18 00:16:28 2016 guillaume wilmot
+// Last update Tue Apr 19 17:25:57 2016 Florian Saurs
 //
 
-/**/
 #include <unistd.h>
-/**/
 #include <cstring>
 #include <signal.h>
-#include <iostream>
 #include "Listener.hpp"
 #include "ReadAndFind.hh"
 #include "CommunicationError.hh"

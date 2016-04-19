@@ -5,16 +5,14 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Thu Apr  7 00:18:46 2016 Florian Saurs
-// Last update Sun Apr 17 16:18:05 2016 guillaume wilmot
+// Last update Tue Apr 19 17:19:48 2016 Florian Saurs
 //
 
 #include "CryptXor.hpp"
 
-CryptXor::CryptXor()
-{}
+CryptXor::CryptXor() {}
 
-CryptXor::~CryptXor()
-{}
+CryptXor::~CryptXor() {}
 
 std::string	CryptXor::Decrypt(std::string msg, int, uint16_t key)
 {

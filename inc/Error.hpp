@@ -5,13 +5,12 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr  8 10:56:46 2016 Nyrandone Noboud-Inpeng
-// Last update Sun Apr 17 21:53:42 2016 guillaume wilmot
+// Last update Tue Apr 19 17:47:09 2016 Florian Saurs
 //
 
 #ifndef ERROR_HPP_
 # define ERROR_HPP_
 
-# include <iostream>
 # include <stdexcept>
 
 class			Error : public std::exception
