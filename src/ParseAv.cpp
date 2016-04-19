@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Mon Apr 18 21:16:51 2016 Florian Saurs
-// Last update Mon Apr 18 22:50:44 2016 Florian Saurs
+// Last update Tue Apr 19 12:13:01 2016 Florian Saurs
 //
 
 #include <cstring>
@@ -90,7 +90,7 @@ int	ParseAv::pars()
 	++fullNb;
       ++i;
     }
-  if (fullNb > 1 || i > 2)
+  if (fullNb > 1 || i > 3)
     {
       usage(1);
       return (0);
