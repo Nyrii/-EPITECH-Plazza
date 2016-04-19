@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:55:22 2016 guillaume wilmot
-// Last update Tue Apr 19 17:49:36 2016 Florian Saurs
+// Last update Tue Apr 19 18:02:28 2016 Saursinet
 //
 
 #ifndef MUTEX_HPP_
@@ -28,4 +28,4 @@ private:
   pthread_mutex_t	_mutex;
 };
 
-#endif /* !MUTEX_HPP */
+#endif /* !MUTEX_HPP_ */

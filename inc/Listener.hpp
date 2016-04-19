@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:54:31 2016 guillaume wilmot
-// Last update Tue Apr 19 17:49:07 2016 Florian Saurs
+// Last update Tue Apr 19 18:02:17 2016 Saursinet
 //
 
 #ifndef LISTENER_HPP_
@@ -39,4 +39,4 @@ private:
   Timer			_timer;
 };
 
-#endif /* !LISTENER */
+#endif /* !LISTENER_HPP_ */

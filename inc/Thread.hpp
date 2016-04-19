@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:55:40 2016 guillaume wilmot
-// Last update Tue Apr 19 17:54:23 2016 Florian Saurs
+// Last update Tue Apr 19 18:02:42 2016 Saursinet
 //
 
 #ifndef THREAD_HPP_
@@ -25,4 +25,4 @@ private:
   bool		_started;
 };
 
-#endif /* !THREAD_HPP */
+#endif /* !THREAD_HPP_ */

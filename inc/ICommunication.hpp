@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr  6 13:44:41 2016 Nyrandone Noboud-Inpeng
-// Last update Tue Apr 19 17:47:51 2016 Florian Saurs
+// Last update Tue Apr 19 18:04:23 2016 Saursinet
 //
 
 #ifndef ICOMMUNICATION_HPP_
@@ -15,11 +15,12 @@
 # include <map>
 # include "Information.hh"
 
-enum	Packet {
-  DEAD,
-  ASSIGN,
-  FREE
-};
+enum	Packet
+  {
+    DEAD,
+    ASSIGN,
+    FREE
+  };
 
 typedef struct			s_processState
 {

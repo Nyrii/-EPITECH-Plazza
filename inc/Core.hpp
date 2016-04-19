@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
-// Last update Tue Apr 19 17:46:45 2016 Florian Saurs
+// Last update Tue Apr 19 18:04:31 2016 Saursinet
 //
 
 #ifndef CORE_HPP_
@@ -15,11 +15,12 @@
 # include "Process.hpp"
 # include "Queue.hpp"
 
-enum	Communication {
-  LOCAL_SOCKET,
-  INTERNET_SOCKET,
-  NAMED_PIPE
-};
+enum	Communication
+  {
+    LOCAL_SOCKET,
+    INTERNET_SOCKET,
+    NAMED_PIPE
+  };
 
 class	Core
 {
