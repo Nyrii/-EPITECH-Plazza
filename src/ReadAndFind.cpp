@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr 13 14:27:40 2016 Nyrandone Noboud-Inpeng
-// Last update Sun Apr 17 16:48:15 2016 guillaume wilmot
+// Last update Mon Apr 18 08:55:04 2016 Nyrandone Noboud-Inpeng
 //
 
 #include <fstream>
@@ -14,6 +14,7 @@
 #include "CryptXor.hpp"
 #include "Search.hpp"
 #include "ReadAndFind.hh"
+#include "Information.hh"
 
 ReadAndFind::ReadAndFind() {}
 
@@ -28,23 +29,39 @@ void				*ReadAndFind::execute(void *arg)
   CryptXor			Xor;
   CryptCaesar			Caesar;
   std::vector<std::string>	found;
-  // uint16_t			i = 0;
+  uint16_t			i = 0;
   int				start = 0;
   std::ifstream			file(args->file.c_str(), std::ifstream::in);
   std::string			content((std::istreambuf_iterator<char>(file)),
   					(std::istreambuf_iterator<char>()));
+  std::string			saveFile(((args->order == PHONE_NUMBER) ?
+					  "_phone_number.log" :
+					  args->order == EMAIL_ADDRESS ?
+					  "_email_address.log" :
+					  args->order == IP_ADDRESS ?
+					  "_ip_address.log" : ".log"));
+  std::string			saveDirectory("logFiles/");
+
+  saveFile = saveDirectory + args->file.substr(args->file.find_last_of("/") + 1) + saveFile;
+  std::ofstream			fileOut(saveFile.c_str());
 
   found = search.parseFile(content, args->order);
-  // while ((i != 0 || start == 0) && found.size() == 0)
-  //   {
-  //     start = 1;
-  //     std::cerr << "Debug " << i << std::endl;
-  //     found = search.parseFile(Xor.Decrypt(content, 0, i++), args->order);
-  //   }
   for (start = 0; start <= 255 && found.size() == 0; start++)
     found = search.parseFile(Caesar.Decrypt(content, start, 0), args->order);
+  start = 0;
+  while ((i != 0 || start == 0) && found.size() == 0)
+    {
+      start = 1;
+      found = search.parseFile(Xor.Decrypt(content, 0, i++), args->order);
+    }
   for (std::vector<std::string>::iterator it = found.begin(); it != found.end(); ++it)
     std::cout << *it << std::endl;
+  if (fileOut.is_open())
+    {
+      for (std::vector<std::string>::iterator it = found.begin(); it != found.end(); ++it)
+	fileOut << *it << std::endl;
+      fileOut.close();
+    }
   file.close();
   return (NULL);
 }

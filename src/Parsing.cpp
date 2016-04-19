@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Sun Apr 17 16:21:02 2016 guillaume wilmot
+// Last update Tue Apr 19 15:21:45 2016 Florian Saurs
 //
 
 #include <dirent.h>
@@ -17,9 +17,6 @@ Parsing::Parsing()
   _compare.insert(std::pair<std::string, Information>("PHONE_NUMBER", PHONE_NUMBER));
   _compare.insert(std::pair<std::string, Information>("EMAIL_ADDRESS", EMAIL_ADDRESS));
   _compare.insert(std::pair<std::string, Information>("IP_ADDRESS", IP_ADDRESS));
-  _communicationTab.insert(std::pair<Communication, void (Core:: *)(std::string, Information, Communication)>(LOCAL_SOCKET, &Core::runProcessSocket));
-  _communicationTab.insert(std::pair<Communication, void (Core:: *)(std::string, Information, Communication)>(INTERNET_SOCKET, &Core::runProcessSocket));
-  _communicationTab.insert(std::pair<Communication, void (Core:: *)(std::string, Information, Communication)>(NAMED_PIPE, &Core::runProcessNP));
 }
 
 Parsing::~Parsing()
@@ -28,7 +25,6 @@ Parsing::~Parsing()
 int				Parsing::commandIsFalse(std::string str) const
 {
   boost::smatch	matches;
-  // check maybe there is no ; to delimitate command line
   boost::regex	reg("[0-9a-zA-Z._-]+[ ]{1,}(PHONE_NUMBER|EMAIL_ADDRESS|IP_ADDRESS)");
 
   if (boost::regex_search(str, matches, reg))
@@ -95,6 +91,10 @@ int				Parsing::parseCommandLine(std::vector<std::string> *command, Core const *
       for (std::vector<std::string>::iterator itFiles = filesName->begin();
 	   itFiles != filesName->end(); ++itFiles)
 	{
+	  t_args	*a = new t_args;
+	  a->callback = NULL;
+	  a->order = _compare.at(*it);
+	  a->file = *itFiles;
 	  if (access((*itFiles).c_str(), F_OK) == -1)
 	    std::cerr << *itFiles << ": file doesn't exist." << std::endl;
 	  else if (access((*itFiles).c_str(), R_OK) == -1)
@@ -105,7 +105,7 @@ int				Parsing::parseCommandLine(std::vector<std::string> *command, Core const *
 	      closedir(directory);
 	    }
 	  else
-	    (const_cast<Core *>(core)->*(this->_communicationTab)[_com])(*itFiles, _compare.at(*it), _com);
+	    const_cast<Core *>(core)->runProcess(*itFiles, _compare.at(*it), _com);
 	}
       delete filesName;
     }

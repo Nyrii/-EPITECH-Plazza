@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Tue Apr  5 16:31:06 2016 guillaume wilmot
-// Last update Sun Apr 17 21:44:11 2016 guillaume wilmot
+// Last update Tue Apr 19 18:24:31 2016 guillaume wilmot
 //
 
 #include <iostream>
@@ -58,13 +58,29 @@ bool			Process::checkAvailable()
   return (ret);
 }
 
+void			Process::getStatus(int *arg)
+{
+  t_processState	*state;
+
+  state = new t_processState;
+  memset(state, 0, sizeof(*state));
+  state->state = STATE;
+  try {
+    *_com << *state;
+    *_com >> *state;
+    arg[0] = state->threads[0];
+    arg[1] = state->threads[1];
+    arg[2] = state->threads[2];
+  } catch (const CommunicationError &e) {}
+  delete state;
+}
+
 bool			Process::assign(const std::string &fileName, Information info)
 {
   t_processState	*state;
 
   state = new t_processState;
   memset(state, 0, sizeof(*state));
-  state->id = 20;
   state->free = 0;
   state->info = info;
   memset(state->fileName, 0, sizeof(state->fileName));
@@ -80,4 +96,9 @@ bool			Process::assign(const std::string &fileName, Information info)
     }
   delete state;
   return (true);
+}
+
+Com			*Process::getCom() const
+{
+  return (_com);
 }

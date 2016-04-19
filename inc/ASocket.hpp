@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Wed Apr  6 13:33:00 2016 Florian Saurs
-// Last update Sun Apr 17 18:04:53 2016 guillaume wilmot
+// Last update Mon Apr 18 16:10:48 2016 Florian Saurs
 //
 
 #ifndef SOCKET_HPP_
@@ -26,24 +26,22 @@
 class	ASocket : public Com
 {
 protected:
-  int			_erreur;
-  int			_sock;
-  socklen_t		_recsize;
-  int			_csock;
-  socklen_t		_crecsize;
-  int			_sock_err;
+  int			_socket;
+  int			_clientSocket;
+  int			_socketError;
 
-  sockaddr_in		_sin;
-  sockaddr_in		_csin;
+  socklen_t		_clientReceiveSize;
 
-  sockaddr_un		_sun;
-  sockaddr_un		_csun;
+  sockaddr_in		_internetSocket;
+  sockaddr_in		_clientInternetSocket;
+
+  sockaddr_un		_unixSocket;
+  sockaddr_un		_clientUnixSocket;
 
   std::string		_path;
 
 public:
   virtual		~ASocket() {};
-  virtual int		create(int) = 0;
   virtual int		destroy() const = 0;
   virtual int		read(t_processState &) const = 0;
   virtual int		write(t_processState &) const = 0;

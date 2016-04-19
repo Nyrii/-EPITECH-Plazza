@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:24:35 2016 Florian Saurs
-// Last update Tue Apr 12 16:58:59 2016 Saursinet
+// Last update Mon Apr 18 12:38:22 2016 Florian Saurs
 //
 
 #ifndef SERVEURSOCKETLOCAL_HPP_
@@ -16,7 +16,7 @@
 class	ServeurSocketLocal : public ASocket
 {
 public:
-  ServeurSocketLocal();
+  ServeurSocketLocal(std::string);
   ~ServeurSocketLocal();
 
   int		create(int);

@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Mon Apr 18 10:36:16 2016 guillaume wilmot
+## Last update Tue Apr 19 16:56:44 2016 guillaume wilmot
 ##
 
 SRC	= ClientSocket.cpp		\
@@ -18,6 +18,7 @@ SRC	= ClientSocket.cpp		\
 	  CryptXor.cpp			\
 	  Errors.cpp			\
 	  Listener.cpp			\
+	  ParseAv.cpp			\
 	  Parsing.cpp			\
 	  Pipes.cpp			\
 	  PipeOut.cpp			\
@@ -27,16 +28,21 @@ SRC	= ClientSocket.cpp		\
           Search.cpp			\
 	  ServeurSocket.cpp		\
 	  ServeurSocketLocal.cpp	\
+	  Sockets.cpp			\
+          SocketsLocal.cpp		\
 	  Thread.cpp			\
 	  ThreadPool.cpp		\
 	  Timer.cpp			\
-	  TimerError.cpp
+	  TimerError.cpp		\
+          Regex.cpp			\
+	  RegexError.cpp		\
+	  UsageError.cpp
 
 ifeq ($(ui), yes)
 SRC	+= Gui.cpp
+SRC	+= MainGui.cpp
 SRC	+= MenuFiles.cpp
 SRC	+= MenuTasks.cpp
-SRC	+= MainGui.cpp
 LDFLAGS += -lmenu -lncurses
 else
 SRC	+= Main.cpp
@@ -47,7 +53,7 @@ OBJ	= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))
 
 RM	= rm -f
 
-CXX	= g++ -std=c++11 -g
+CXX	= g++ -std=c++11
 
 NAME	= plazza
 

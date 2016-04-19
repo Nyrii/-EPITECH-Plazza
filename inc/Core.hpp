@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
-// Last update Mon Apr 18 01:43:30 2016 guillaume wilmot
+// Last update Tue Apr 19 17:59:47 2016 guillaume wilmot
 //
 
 #ifndef CORE_HPP_
@@ -28,18 +28,21 @@ class	Core
   std::vector<Process *>	_sonTab;
   bool				_isFinished;
   int				_nbThreads;
+  Com				*_com;
+
+  std::map<Communication, void (Core:: *)(int &)>	_communicationTab;
 
 public:
   Core(int);
   ~Core();
 
-  void	runProcessNP(std::string, Information, Communication);
-  void	runProcessSocket(std::string, Information, Communication);
-  // void	execParse(std::string, Information) const;
+  void	runProcess(std::string, Information, Communication);
+  void	createPipes(int &);
+  void	createSockets(int &);
+  void	createSocketsLocal(int &);
   int	checkAvailable() const;
-  // void	launchWorkNP(std::string, NamedPipe *, Information);
-  void	launchWorkSocket(std::string, Information, int);
-  void	read() const;
+  void	getThreadStatus(int *);
+  void	read(Communication) const;
 
   void				setSonTab(std::vector<Process *> *);
   static std::vector<Process *>	*getSonTab(std::vector<Process *> *);

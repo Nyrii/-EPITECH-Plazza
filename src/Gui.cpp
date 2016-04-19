@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Sun Apr 17 19:59:02 2016 guillaume wilmot
-// Last update Mon Apr 18 17:54:38 2016 guillaume wilmot
+// Last update Tue Apr 19 19:01:28 2016 guillaume wilmot
 //
 
 #include <cstring>
@@ -18,9 +18,6 @@
 #include "Thread.hpp"
 #include "Core.hpp"
 #include "Parsing.hpp"
-
-Menu				*g_menuFiles = NULL;
-Menu				*g_menuTasks = NULL;
 
 void				Gui::handleResize()
 {
@@ -44,15 +41,12 @@ Gui::~Gui()
 void				Gui::init(Core *core)
 {
   _core = core;
-  _menuFiles = new MenuFiles;
-  _menuTasks = new MenuTasks;
-  g_menuFiles = _menuFiles;
-  g_menuTasks = _menuTasks;
+  _menuFiles = new MenuFiles(core);
+  _menuTasks = new MenuTasks(core);
   initscr();
   start_color();
-  cbreak();
+  timeout(1000);
   noecho();
-  raw();
   curs_set(0);
   init_pair(1, COLOR_BLACK, COLOR_CYAN);
   init_pair(2, COLOR_CYAN, COLOR_BLACK);

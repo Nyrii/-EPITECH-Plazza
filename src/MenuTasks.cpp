@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr 18 03:57:07 2016 guillaume wilmot
-// Last update Mon Apr 18 17:48:56 2016 guillaume wilmot
+// Last update Tue Apr 19 17:48:51 2016 guillaume wilmot
 //
 
 #include <dirent.h>
@@ -15,7 +15,7 @@
 #include "MenuTasks.hpp"
 #include "Gui.hpp"
 
-MenuTasks::MenuTasks() : Menu()
+MenuTasks::MenuTasks(Core *core) : Menu(core)
 {
   _items = NULL;
   _nbItem = 0;

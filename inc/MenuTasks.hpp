@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr 18 04:44:42 2016 guillaume wilmot
-// Last update Mon Apr 18 10:32:00 2016 guillaume wilmot
+// Last update Tue Apr 19 17:48:45 2016 guillaume wilmot
 //
 
 #ifndef MENUTASKS_HPP_
@@ -13,10 +13,11 @@
 
 # include <vector>
 # include "Menu.hpp"
+# include "Core.hpp"
 
 class		MenuTasks : public Menu {
 public:
-  MenuTasks();
+  MenuTasks(Core *);
   ~MenuTasks();
 
   int		init(const std::vector<std::string> &);

@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr 18 03:57:07 2016 guillaume wilmot
-// Last update Tue Apr 19 16:46:58 2016 guillaume wilmot
+// Last update Tue Apr 19 19:02:56 2016 guillaume wilmot
 //
 
 #include <dirent.h>
@@ -15,7 +15,7 @@
 #include "MenuFiles.hpp"
 #include "Gui.hpp"
 
-MenuFiles::MenuFiles() : Menu()
+MenuFiles::MenuFiles(Core *core) : Menu(core)
 {
   _items = NULL;
   _nbItem = 0;
@@ -32,7 +32,6 @@ int				MenuFiles::init(const std::vector<std::string> &choices)
     _items[i] = new_item(choices[i].c_str(), choices[i].c_str());
   _items[i] = NULL;
   _nbItem = choices.size();
-
   if (!(_menu = new_menu(_items)))
     return (-1);
   menu_opts_off(_menu, O_ONEVALUE);
@@ -47,6 +46,7 @@ int				MenuFiles::initWindow()
   if (!(_win = newwin(LINES - 2, COLS - 2, 1, 1)) ||
       !(_subWin = derwin(_win, LINES - 7, COLS - 3, 5, 1)))
     return (-1);
+  wtimeout(_win, 1000);
   keypad(_win, TRUE);
   set_menu_win(_menu, _win);
   set_menu_sub(_menu, _subWin);
@@ -60,7 +60,33 @@ int				MenuFiles::initWindow()
   return (0);
 }
 
-void				MenuFiles::printThreads(int x)
+void				MenuFiles::printThreads()
+{
+  int				res[3];
+
+  memset(res, 0, sizeof(res));
+  _core->getThreadStatus(res);
+  mvwprintw(_win, 3, 1, "Tasks: ");
+  wattron(_win, A_BOLD);
+  wprintw(_win, "%d", res[2]);
+  wattroff(_win, A_BOLD);
+  wprintw(_win, ", ");
+  wattron(_win, A_BOLD);
+  wprintw(_win, "%d", res[0]);
+  wattroff(_win, A_BOLD);
+  wprintw(_win, " threads, ");
+  wattron(_win, A_BOLD);
+  wattroff(_win, COLOR_PAIR(2));
+  wattron(_win, COLOR_PAIR(3));
+  wprintw(_win, "%d", res[1]);
+  wattroff(_win, COLOR_PAIR(3));
+  wattron(_win, COLOR_PAIR(2));
+  wattroff(_win, A_BOLD);
+  wprintw(_win, " running");
+  wattroff(_win, COLOR_PAIR(2));
+}
+
+void				MenuFiles::printDirectory(int x)
 {
   char				cwd[x - 2 < 15 ? 15 : x - 2];
 
@@ -71,28 +97,6 @@ void				MenuFiles::printThreads(int x)
   if (getcwd(cwd, sizeof(cwd)) == NULL)
     strcpy(cwd, "Too long");
   wprintw(_win, "%s", cwd);
-}
-
-void				MenuFiles::printDirectory()
-{
-  mvwprintw(_win, 3, 1, "Tasks: ");
-  wattron(_win, A_BOLD);
-  wprintw(_win, "%d", 4000);
-  wattroff(_win, A_BOLD);
-  wprintw(_win, ", ");
-  wattron(_win, A_BOLD);
-  wprintw(_win, "%d", 4000);
-  wattroff(_win, A_BOLD);
-  wprintw(_win, " threads, ");
-  wattron(_win, A_BOLD);
-  wattroff(_win, COLOR_PAIR(2));
-  wattron(_win, COLOR_PAIR(3));
-  wprintw(_win, "%d", 4000);
-  wattroff(_win, COLOR_PAIR(3));
-  wattron(_win, COLOR_PAIR(2));
-  wattroff(_win, A_BOLD);
-  wprintw(_win, " running");
-  wattroff(_win, COLOR_PAIR(2));
 }
 
 void				MenuFiles::printHelp(int y)
@@ -128,8 +132,8 @@ void				MenuFiles::draw()
 
   box(_win, 0, 0);
   getmaxyx(_subWin, y, x);
-  printThreads(x);
-  printDirectory();
+  printDirectory(x);
+  printThreads();
   printHelp(y);
   mvwaddch(_subWin, y - 1, 3, ACS_LRCORNER);
   mvwaddch(_subWin, y - 2, 3, ACS_ULCORNER);

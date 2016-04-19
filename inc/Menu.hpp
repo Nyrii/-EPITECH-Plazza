@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr 18 03:54:51 2016 guillaume wilmot
-// Last update Tue Apr 19 15:16:46 2016 guillaume wilmot
+// Last update Tue Apr 19 18:34:22 2016 guillaume wilmot
 //
 
 #ifndef MENU_HPP_
@@ -14,10 +14,11 @@
 # include <ncurses/menu.h>
 # include <vector>
 # include <iostream>
+# include "Core.hpp"
 
 class		Menu {
 public:
-  Menu() {_win = NULL; _subWin = NULL; _menu = NULL;}
+  Menu(Core *core) {_win = NULL; _subWin = NULL; _menu = NULL; _core = core;}
   virtual		~Menu() {}
 
   virtual int		init(const std::vector<std::string> &) = 0;
@@ -29,6 +30,7 @@ public:
   void			unpost() {unpost_menu(_menu);}
 
 protected:
+  Core		*_core;
   WINDOW	*_win;
   WINDOW	*_subWin;
   MENU		*_menu;

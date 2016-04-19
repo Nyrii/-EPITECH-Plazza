@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr  6 13:44:41 2016 Nyrandone Noboud-Inpeng
-// Last update Mon Apr 18 15:54:16 2016 guillaume wilmot
+// Last update Tue Apr 19 18:22:42 2016 guillaume wilmot
 //
 
 #ifndef ICOMMUNICATION_HPP_
@@ -24,7 +24,6 @@ enum	Packet {
 
 typedef struct			s_processState
 {
-  int				id;
   bool				free;
   Information			info;
   char				fileName[250];

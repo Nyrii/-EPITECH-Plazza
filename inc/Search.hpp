@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:35 2016 Florian Saurs
-// Last update Sun Apr 17 16:44:10 2016 guillaume wilmot
+// Last update Tue Apr 19 15:20:28 2016 Florian Saurs
 //
 
 #ifndef SEARCH_HPP_
@@ -19,7 +19,8 @@
 
 class	Search
 {
-  boost::regex	*_reg;
+  // boost::regex	*_reg;
+  std::string	*_regs;
   int		_nbReg;
 
 public:
