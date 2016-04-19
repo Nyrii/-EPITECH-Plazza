@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Mon Apr 18 17:50:05 2016 Florian Saurs
+// Last update Tue Apr 19 15:21:45 2016 Florian Saurs
 //
 
 #include <dirent.h>
@@ -25,7 +25,6 @@ Parsing::~Parsing()
 int				Parsing::commandIsFalse(std::string str) const
 {
   boost::smatch	matches;
-  // check maybe there is no ; to delimitate command line
   boost::regex	reg("[0-9a-zA-Z._-]+[ ]{1,}(PHONE_NUMBER|EMAIL_ADDRESS|IP_ADDRESS)");
 
   if (boost::regex_search(str, matches, reg))
@@ -92,6 +91,10 @@ int				Parsing::parseCommandLine(std::vector<std::string> *command, Core const *
       for (std::vector<std::string>::iterator itFiles = filesName->begin();
 	   itFiles != filesName->end(); ++itFiles)
 	{
+	  t_args	*a = new t_args;
+	  a->callback = NULL;
+	  a->order = _compare.at(*it);
+	  a->file = *itFiles;
 	  if (access((*itFiles).c_str(), F_OK) == -1)
 	    std::cerr << *itFiles << ": file doesn't exist." << std::endl;
 	  else if (access((*itFiles).c_str(), R_OK) == -1)
