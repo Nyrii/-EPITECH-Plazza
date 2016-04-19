@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.eu>
 //
 // Started on  Tue Apr 19 12:00:38 2016 Florian Saurs
-// Last update Mon Apr 18 08:57:14 2016 Nyrandone Noboud-Inpeng
+// Last update Tue Apr 19 15:47:24 2016 Florian Saurs
 //
 
 #include <regex.h>
@@ -21,30 +21,28 @@ Regex::~Regex()
 
 std::string	Regex::match(std::string regex, std::string str)
 {
-  regex_t	preg;
+  regex_t	regStruc;
   int		match;
-  size_t	nmatch = 0;
-  regmatch_t	*pmatch;
+  regmatch_t	*found;
 
-  if (regcomp(&preg, regex.c_str(), REG_EXTENDED) == -1)
+  if (regcomp(&regStruc, regex.c_str(), REG_EXTENDED) == -1)
     throw RegexError("Invalid regex");
-  nmatch = 1;
-  pmatch = new regmatch_t[nmatch];
+  found = new regmatch_t;
 
-  match = regexec(&preg, str.c_str(), nmatch, pmatch, 0);
-  regfree(&preg);
+  match = regexec(&regStruc, str.c_str(), 1, found, 0);
+  regfree(&regStruc);
 
   if (match == 0)
     {
       char		*result;
       size_t		size;
 
-      size = pmatch[0].rm_eo - pmatch[0].rm_so;
+      size = found[0].rm_eo - found[0].rm_so;
       if (size == 0)
 	return ("");
       result = new char[size + 1];
 
-      strncpy(result, &str.c_str()[pmatch[0].rm_so], size);
+      strncpy(result, &str.c_str()[found[0].rm_so], size);
       result[size] = 0;
       return (result);
       delete [] result;
