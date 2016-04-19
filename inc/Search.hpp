@@ -5,16 +5,13 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:35 2016 Florian Saurs
-// Last update Tue Apr 19 15:20:28 2016 Florian Saurs
+// Last update Tue Apr 19 17:53:33 2016 Florian Saurs
 //
 
 #ifndef SEARCH_HPP_
 # define SEARCH_HPP_
 
 # include <vector>
-# include <string>
-# include <boost/regex.hpp>
-# include "Information.hh"
 # include "Core.hpp"
 
 class	Search

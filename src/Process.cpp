@@ -5,12 +5,10 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Tue Apr  5 16:31:06 2016 guillaume wilmot
-// Last update Tue Apr 19 18:24:31 2016 guillaume wilmot
+// Last update Tue Apr 19 19:27:52 2016 guillaume wilmot
 //
 
-#include <iostream>
 #include <unistd.h>
-#include <cstdlib>
 #include <cstring>
 #include "Process.hpp"
 

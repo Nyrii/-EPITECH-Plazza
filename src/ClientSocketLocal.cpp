@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Mon Apr 18 17:30:22 2016 Florian Saurs
+// Last update Tue Apr 19 17:19:16 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -25,8 +25,7 @@ ClientSocketLocal::ClientSocketLocal(std::string path)
     throw CommunicationError("Error: local connection impossible.");
 }
 
-ClientSocketLocal::~ClientSocketLocal()
-{}
+ClientSocketLocal::~ClientSocketLocal() {}
 
 int		ClientSocketLocal::destroy() const
 {

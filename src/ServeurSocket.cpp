@@ -5,10 +5,9 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Mon Apr 18 20:49:00 2016 Florian Saurs
+// Last update Tue Apr 19 17:34:01 2016 Florian Saurs
 //
 
-#include <iostream>
 #include "ServeurSocket.hpp"
 #include "CommunicationError.hh"
 
@@ -34,8 +33,7 @@ ServeurSocket::ServeurSocket()
     throw CommunicationError("Error: socket error.");
 }
 
-ServeurSocket::~ServeurSocket()
-{}
+ServeurSocket::~ServeurSocket() {}
 
 int		ServeurSocket::destroy() const
 {

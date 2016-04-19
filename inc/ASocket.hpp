@@ -5,13 +5,12 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Wed Apr  6 13:33:00 2016 Florian Saurs
-// Last update Mon Apr 18 16:10:48 2016 Florian Saurs
+// Last update Tue Apr 19 17:37:31 2016 Florian Saurs
 //
 
 #ifndef SOCKET_HPP_
 # define SOCKET_HPP_
 
-# include <errno.h>
 # include <arpa/inet.h>
 # include <unistd.h>
 # include <sys/un.h>

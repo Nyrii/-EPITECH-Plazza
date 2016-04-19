@@ -5,10 +5,9 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 22:25:27 2016 Florian Saurs
-// Last update Mon Apr 18 17:29:43 2016 Florian Saurs
+// Last update Tue Apr 19 17:34:08 2016 Florian Saurs
 //
 
-#include <iostream>
 #include "ServeurSocketLocal.hpp"
 #include "CommunicationError.hh"
 

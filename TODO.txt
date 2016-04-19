@@ -1,5 +1,4 @@
 Saurs :
-      - Check les includes de tous les fichiers (et aussi les protections de headers)
 
 Wilmot :
       - GUI

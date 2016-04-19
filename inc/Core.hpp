@@ -5,23 +5,26 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
+<<<<<<< HEAD
 // Last update Tue Apr 19 17:59:47 2016 guillaume wilmot
+=======
+// Last update Tue Apr 19 18:04:31 2016 Saursinet
+>>>>>>> ccd424b39a537c84856028c2a56cf4168b2a3a3c
 //
 
 #ifndef CORE_HPP_
 # define CORE_HPP_
 
 # include <vector>
-# include <iostream>
-# include "ICommunication.hpp"
 # include "Process.hpp"
 # include "Queue.hpp"
 
-enum	Communication {
-  LOCAL_SOCKET,
-  INTERNET_SOCKET,
-  NAMED_PIPE
-};
+enum	Communication
+  {
+    LOCAL_SOCKET,
+    INTERNET_SOCKET,
+    NAMED_PIPE
+  };
 
 class	Core
 {

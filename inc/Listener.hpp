@@ -5,19 +5,19 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:54:31 2016 guillaume wilmot
-// Last update Sun Apr 17 21:08:06 2016 guillaume wilmot
+// Last update Tue Apr 19 18:02:17 2016 Saursinet
 //
 
 #ifndef LISTENER_HPP_
 # define LISTENER_HPP_
 
 # include "ThreadPool.hpp"
-# include "Thread.hpp"
 # include "Com.hpp"
 # include "Process.hpp"
 # include "Timer.hh"
 
-class		Listener {
+class		Listener
+{
 public:
   Listener();
   ~Listener() {}
@@ -39,4 +39,4 @@ private:
   Timer			_timer;
 };
 
-#endif /* !LISTENER */
+#endif /* !LISTENER_HPP_ */

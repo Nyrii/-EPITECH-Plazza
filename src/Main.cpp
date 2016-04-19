@@ -5,16 +5,10 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Tue Apr 19 16:55:18 2016 guillaume wilmot
+// Last update Tue Apr 19 19:28:00 2016 guillaume wilmot
 //
 
-#include <iostream>
-#include <unistd.h>
-#include <list>
-#include <fstream>
-#include <map>
 #include "ParseAv.hpp"
-#include "CryptCaesar.hh"
 #include "Error.hpp"
 
 int					main(int, char **av)

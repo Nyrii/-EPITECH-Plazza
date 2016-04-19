@@ -5,13 +5,12 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:55:40 2016 guillaume wilmot
-// Last update Thu Apr 14 17:04:53 2016 guillaume wilmot
+// Last update Tue Apr 19 17:57:09 2016 Saursinet
 //
 
 #ifndef CONDTHREAD_HPP_
 # define CONDTHREAD_HPP_
 
-# include <stdlib.h>
 # include "Thread.hpp"
 # include "CondVar.hpp"
 # include "ThreadPool.hpp"
@@ -20,7 +19,8 @@
 
 class		ThreadPool;
 
-class		CondThread : public Thread{
+class		CondThread : public Thread
+{
 public:
   CondThread();
   ~CondThread() {}
@@ -39,4 +39,4 @@ private:
   ProtectedVar<t_queue *> _order;
 };
 
-#endif /* !CONDTHREAD_HPP */
+#endif /* !CONDTHREAD_HPP_ */

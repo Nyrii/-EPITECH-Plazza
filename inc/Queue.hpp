@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 23:32:47 2016 guillaume wilmot
-// Last update Thu Apr 14 17:43:40 2016 guillaume wilmot
+// Last update Tue Apr 19 17:52:01 2016 Florian Saurs
 //
 
 #ifndef QUEUE_HPP_

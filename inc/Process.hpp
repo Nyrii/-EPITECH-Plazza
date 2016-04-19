@@ -5,16 +5,16 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:56:05 2016 guillaume wilmot
-// Last update Tue Apr 19 18:21:17 2016 guillaume wilmot
+// Last update Tue Apr 19 19:28:27 2016 guillaume wilmot
 //
 
 #ifndef PROCESS_HPP_
 # define PROCESS_HPP_
 
 # include "Com.hpp"
-# include "Information.hh"
 
-class		Process {
+class		Process
+{
 private:
   pid_t			_pid;
   Com			*_com;
