@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Wed Apr 20 10:24:29 2016 guillaume wilmot
+// Last update Wed Apr 20 18:59:51 2016 guillaume wilmot
 //
 
 #include <unistd.h>
@@ -32,6 +32,7 @@ void			Listener::handler(int)
   com = getCom(NULL);
   try {
     delete com;
+    setCom(NULL);
   } catch (const CommunicationError &e) {
     std::cerr << e.what() << std::endl;
   }
