@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Tue Apr 19 17:33:18 2016 Florian Saurs
+// Last update Wed Apr 20 21:17:03 2016 Florian Saurs
 //
 
 #include "Search.hpp"
@@ -19,7 +19,8 @@ Search::Search()
   // _reg[2] = boost::regex("(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])");
   _regs = new std::string[3];
   _regs[0] = std::string("0[1-9]([ ]?[0-9]{2}){4}");
-  _regs[1] = std::string("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]{2,}\\.[a-zA-Z]{2,63}");
+  // _regs[1] = std::string("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]{2,}\\.[a-zA-Z]{2,63}");
+  _regs[1] = std::string("[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+");
   _regs[2] = std::string("(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])");
   _nbReg = 3;
 }
