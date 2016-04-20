@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Sun Apr 17 19:59:02 2016 guillaume wilmot
-// Last update Tue Apr 19 19:01:28 2016 guillaume wilmot
+// Last update Tue Apr 19 23:59:40 2016 guillaume wilmot
 //
 
 #include <cstring>
@@ -19,12 +19,7 @@
 #include "Core.hpp"
 #include "Parsing.hpp"
 
-void				Gui::handleResize()
-{
-  endwin();
-  refresh();
-  clear();
-}
+
 
 Gui::Gui()
 {
@@ -36,6 +31,13 @@ Gui::~Gui()
   endwin();
   if (_menuFiles)
     delete _menuFiles;
+}
+
+void				Gui::handleResize()
+{
+  endwin();
+  refresh();
+  clear();
 }
 
 void				Gui::init(Core *core)
@@ -78,7 +80,10 @@ void				Gui::startMenu()
     {
       changeDir(path, &dir);
       while ((rd = readdir(dir)) != NULL)
-	choices.push_back(std::string(rd->d_name));
+	{
+	  if ((std::string(rd->d_name).at(0) != 'n' || std::string(rd->d_name).at(1) != 'p') && std::string(rd->d_name) != ".")
+	  choices.push_back(std::string(rd->d_name));
+	}
       std::sort(choices.begin(), choices.end());
       closedir(dir);
       if (_menuFiles->init(choices) == -1 ||

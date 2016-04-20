@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Tue Apr 19 19:28:10 2016 guillaume wilmot
+// Last update Wed Apr 20 10:24:29 2016 guillaume wilmot
 //
 
 #include <unistd.h>
@@ -29,7 +29,6 @@ void			Listener::handler(int)
   Com			*com = NULL;
 
   signal(SIGUSR1, SIG_IGN);
-  std::cerr << "Timer Timed Out" << std::endl;
   com = getCom(NULL);
   try {
     delete com;

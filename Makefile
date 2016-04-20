@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Tue Apr 19 16:56:44 2016 guillaume wilmot
+## Last update Wed Apr 20 17:33:07 2016 guillaume wilmot
 ##
 
 SRC	= ClientSocket.cpp		\
@@ -43,9 +43,11 @@ SRC	+= Gui.cpp
 SRC	+= MainGui.cpp
 SRC	+= MenuFiles.cpp
 SRC	+= MenuTasks.cpp
+SRC	+= DisplayerGui.cpp
 LDFLAGS += -lmenu -lncurses
 else
 SRC	+= Main.cpp
+SRC	+= Displayer.cpp
 endif
 
 
@@ -74,7 +76,7 @@ $(NAME): $(OBJ)
 	$(CXX) -o $(NAME) $(OBJ) $(LDFLAGS)
 
 all:
-	@make --no-print-directory $(NAME) && [ $$? -eq 0 ] || aplay .lol.wav
+	@make --no-print-directory $(NAME)
 
 clean:
 	$(RM) $(OBJ)

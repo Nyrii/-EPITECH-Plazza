@@ -5,11 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
-<<<<<<< HEAD
-// Last update Tue Apr 19 17:59:47 2016 guillaume wilmot
-=======
-// Last update Tue Apr 19 18:04:31 2016 Saursinet
->>>>>>> ccd424b39a537c84856028c2a56cf4168b2a3a3c
+// Last update Tue Apr 19 19:51:41 2016 guillaume wilmot
 //
 
 #ifndef CORE_HPP_

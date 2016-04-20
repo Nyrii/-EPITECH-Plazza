@@ -1,11 +1,11 @@
 //
-// main.cpp for main.cpp in /Users/noboud_n/rendu/cpp_plazza/nyrii/
+// MainGui.cpp for Plazza in /home/wilmot_g/Rendu/cpp_plazza
 //
-// Made by Nyrandone Noboud-Inpeng
-// Login   <noboud_n@epitech.eu>
+// Made by guillaume wilmot
+// Login   <wilmot_g@epitech.net>
 //
-// Started on  Tue Apr  5 21:17:23 2016 Nyrandone Noboud-Inpeng
-// Last update Tue Apr 19 18:56:01 2016 guillaume wilmot
+// Started on  Tue Apr 19 23:00:57 2016 guillaume wilmot
+// Last update Tue Apr 19 23:00:58 2016 guillaume wilmot
 //
 
 #include <iostream>

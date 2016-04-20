@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Sun Apr 17 19:57:03 2016 guillaume wilmot
-// Last update Mon Apr 18 17:53:53 2016 guillaume wilmot
+// Last update Tue Apr 19 23:59:55 2016 guillaume wilmot
 //
 
 #ifndef GUI_HPP_
@@ -13,11 +13,13 @@
 
 # include <iostream>
 # include <dirent.h>
+# include <ncurses/curses.h>
 # include "Core.hpp"
 # include "MenuFiles.hpp"
 # include "MenuTasks.hpp"
 
-class		Gui {
+class		Gui
+{
 public:
   Gui();
   ~Gui();
