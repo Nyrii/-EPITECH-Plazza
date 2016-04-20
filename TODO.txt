@@ -1,9 +1,0 @@
-Saurs :
-
-Wilmot :
-      - GUI
-
-ALL :
-      - Remove -g
-      - Remove .lol.wav
-      - Remove la ligne de compilation qui va avec

@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Wed Apr 13 14:27:40 2016 Nyrandone Noboud-Inpeng
-// Last update Tue Apr 19 17:32:02 2016 Florian Saurs
+// Last update Wed Apr 20 00:43:18 2016 guillaume wilmot
 //
 
 #include <fstream>
@@ -14,6 +14,7 @@
 #include "Search.hpp"
 #include "ReadAndFind.hh"
 #include "Information.hh"
+#include "Displayer.hh"
 
 ReadAndFind::ReadAndFind() {}
 
@@ -30,6 +31,8 @@ void				*ReadAndFind::execute(void *arg)
   std::vector<std::string>	found;
   uint16_t			i = 0;
   int				start = 0;
+  Displayer			displayer;
+  std::string			saveDirectory("logFiles/");
   std::ifstream			file(args->file.c_str(), std::ifstream::in);
   std::string			content((std::istreambuf_iterator<char>(file)),
   					(std::istreambuf_iterator<char>()));
@@ -39,7 +42,6 @@ void				*ReadAndFind::execute(void *arg)
 					  "_email_address.log" :
 					  args->order == IP_ADDRESS ?
 					  "_ip_address.log" : ".log"));
-  std::string			saveDirectory("logFiles/");
 
   saveFile = saveDirectory + args->file.substr(args->file.find_last_of("/") + 1) + saveFile;
   std::ofstream			fileOut(saveFile.c_str());
@@ -54,7 +56,7 @@ void				*ReadAndFind::execute(void *arg)
       found = search.parseFile(Xor.Decrypt(content, 0, i++), args->order);
     }
   for (std::vector<std::string>::iterator it = found.begin(); it != found.end(); ++it)
-    std::cout << *it << std::endl;
+    displayer.Display(*it + "\n");
   if (fileOut.is_open())
     {
       for (std::vector<std::string>::iterator it = found.begin(); it != found.end(); ++it)

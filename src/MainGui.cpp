@@ -1,0 +1,39 @@
+//
+// MainGui.cpp for Plazza in /home/wilmot_g/Rendu/cpp_plazza
+//
+// Made by guillaume wilmot
+// Login   <wilmot_g@epitech.net>
+//
+// Started on  Tue Apr 19 23:00:57 2016 guillaume wilmot
+// Last update Tue Apr 19 23:00:58 2016 guillaume wilmot
+//
+
+#include <iostream>
+#include <unistd.h>
+#include <list>
+#include <fstream>
+#include "Core.hpp"
+#include "Error.hpp"
+#include "Gui.hpp"
+#include "ParseAv.hpp"
+
+int		main(int, char **av)
+{
+  ParseAv	*pars = new ParseAv(av);
+
+  try {
+    if (pars->pars() == -1)
+      return (0);
+  } catch (const Error &e) {
+    std::cerr << e.what() << std::endl;
+    return (-1);
+  }
+
+  Core		*core = new Core(pars->getNbThread());
+  Gui           gui;
+
+  gui.init(core);
+  gui.startMenu();
+  delete core;
+  return (0);
+}

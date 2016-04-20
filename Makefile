@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Mon Apr 18 08:58:18 2016 Nyrandone Noboud-Inpeng
+## Last update Wed Apr 20 17:33:07 2016 guillaume wilmot
 ##
 
 SRC	= ClientSocket.cpp		\
@@ -18,7 +18,6 @@ SRC	= ClientSocket.cpp		\
 	  CryptXor.cpp			\
 	  Errors.cpp			\
 	  Listener.cpp			\
-	  Main.cpp			\
 	  ParseAv.cpp			\
 	  Parsing.cpp			\
 	  Pipes.cpp			\
@@ -41,8 +40,14 @@ SRC	= ClientSocket.cpp		\
 
 ifeq ($(ui), yes)
 SRC	+= Gui.cpp
+SRC	+= MainGui.cpp
+SRC	+= MenuFiles.cpp
+SRC	+= MenuTasks.cpp
+SRC	+= DisplayerGui.cpp
+LDFLAGS += -lmenu -lncurses
 else
-SRC	+= NoGui.cpp
+SRC	+= Main.cpp
+SRC	+= Displayer.cpp
 endif
 
 
@@ -60,8 +65,8 @@ INCDIR	= -I inc/
 
 MAKEOBJ	= obj
 
-LDFLAGS 	= -lpthread -lboost_regex -lrt
-CXXFLAGS	= -W -Wall -Wextra -Werror
+LDFLAGS 	+= -lpthread -lboost_regex -lrt
+CXXFLAGS	+= -W -Wall -Wextra -Werror
 
 $(OBJDIR)%.o: $(SRCDIR)%.cpp
 	@mkdir -p $(MAKEOBJ)
@@ -71,7 +76,7 @@ $(NAME): $(OBJ)
 	$(CXX) -o $(NAME) $(OBJ) $(LDFLAGS)
 
 all:
-	@make --no-print-directory $(NAME) && [ $$? -eq 0 ] || aplay .lol.wav
+	@make --no-print-directory $(NAME)
 
 clean:
 	$(RM) $(OBJ)

@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Tue Apr 19 17:18:31 2016 Florian Saurs
+// Last update Tue Apr 19 19:28:19 2016 guillaume wilmot
 //
 
 #include <signal.h>
@@ -115,13 +115,29 @@ std::vector<Process *>			*Core::getSonTab(std::vector<Process *> *sonTab)
   return (_sonTab);
 }
 
+void					Core::getThreadStatus(int *arg)
+{
+  int					res[3];
+
+  memset(&res, 0, sizeof(res));
+  for (unsigned int i = 0; i < _sonTab.size(); i++)
+    try {
+      _sonTab[i]->getStatus(res);
+      arg[0] += res[0];
+      arg[1] += res[1];
+      arg[2] += res[2];
+    } catch (const CommunicationError &e) {
+      std::cerr << e.what() << std::endl;
+    }
+}
+
 void					Core::sigHandler(int)
 {
   std::vector<Process *>		*_sonTab;
 
   signal(SIGINT, SIG_IGN);
   if ((_sonTab = getSonTab(NULL)))
-    for (unsigned int i; i < _sonTab->size(); i++)
+    for (unsigned int i = 0; i < _sonTab->size(); i++)
       {
 	if ((*_sonTab)[i]->getPid() > 0)
 	  kill((*_sonTab)[i]->getPid(), SIGUSR1);

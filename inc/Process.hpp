@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:56:05 2016 guillaume wilmot
-// Last update Tue Apr 19 17:51:22 2016 Florian Saurs
+// Last update Tue Apr 19 19:28:27 2016 guillaume wilmot
 //
 
 #ifndef PROCESS_HPP_
@@ -28,6 +28,7 @@ public:
   bool			checkAvailable();
   bool			assign(const std::string &, Information);
   Com			*getCom() const;
+  void			getStatus(int *);
 };
 
 typedef struct		s_processArgs {
