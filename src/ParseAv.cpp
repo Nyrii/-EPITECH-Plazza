@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Mon Apr 18 21:16:51 2016 Florian Saurs
-// Last update Tue Apr 19 17:28:45 2016 Florian Saurs
+// Last update Wed Apr 20 17:44:25 2016 Saursinet
 //
 
 #include <cstring>
@@ -68,7 +68,7 @@ void	ParseAv::takeComWay()
 	}
       ++i;
     }
-  if (found != 1 && _av[1] && ((i == 1 && _arg == 0) || (i == 2 && _arg == 1)))
+  if (found != 1 && _av[1] && i == 1 && _arg == 0)
     {
       usage(1);
       throw UsageError("Error: expected good argument as way of communication.");
