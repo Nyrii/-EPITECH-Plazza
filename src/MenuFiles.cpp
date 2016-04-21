@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr 18 03:57:07 2016 guillaume wilmot
-// Last update Wed Apr 20 10:08:38 2016 guillaume wilmot
+// Last update Thu Apr 21 18:49:00 2016 guillaume wilmot
 //
 
 #include <dirent.h>
@@ -25,12 +25,29 @@ MenuFiles::~MenuFiles() {}
 
 int				MenuFiles::init(const std::vector<std::string> &choices)
 {
+  std::vector<std::string>	dirs;
+  std::vector<std::string>	files;
+  struct stat			path_stat;
   unsigned int                  i;
+  int				j = 0;
 
   _items = new ITEM *[choices.size() + 1];
   for (i = 0; i < choices.size(); ++i)
-    _items[i] = new_item(choices[i].c_str(), choices[i].c_str());
-  _items[i] = NULL;
+    {
+      stat(choices[i].c_str(), &path_stat);
+      if (!S_ISREG(path_stat.st_mode))
+	dirs.push_back(choices[i]);
+      else
+	files.push_back(choices[i]);
+    }
+  for (i = 0; i < dirs.size(); ++i)
+    {
+      _items[j++] = new_item(dirs[i].c_str(), dirs[i].c_str());
+      item_opts_off(_items[i], O_SELECTABLE);
+    }
+  for (i = 0; i < files.size(); ++i)
+    _items[j++] = new_item(files[i].c_str(), files[i].c_str());
+  _items[j] = NULL;
   _nbItem = choices.size();
   if (!(_menu = new_menu(_items)))
     return (-1);
@@ -54,8 +71,9 @@ int				MenuFiles::initWindow()
     if (std::string(item_name(_items[i])).size() > size)
       size = std::string(item_name(_items[i])).size();
   set_menu_format(_menu, LINES - 9, (COLS - 5) / (size ? size + 2 : 20));
-  set_menu_mark(_menu, " ");
+  set_menu_mark(_menu, "-");
   set_menu_fore(_menu, COLOR_PAIR(4));
+  set_menu_grey(_menu, COLOR_PAIR(5));
   post_menu(_menu);
   return (0);
 }

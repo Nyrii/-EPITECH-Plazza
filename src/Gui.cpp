@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Sun Apr 17 19:59:02 2016 guillaume wilmot
-// Last update Tue Apr 19 23:59:40 2016 guillaume wilmot
+// Last update Thu Apr 21 18:42:27 2016 guillaume wilmot
 //
 
 #include <cstring>
@@ -54,6 +54,7 @@ void				Gui::init(Core *core)
   init_pair(2, COLOR_CYAN, COLOR_BLACK);
   init_pair(3, COLOR_GREEN, COLOR_BLACK);
   init_pair(4, COLOR_BLACK, COLOR_CYAN);
+  init_pair(5, COLOR_BLUE, COLOR_BLACK);
 }
 
 void				Gui::changeDir(std::string &path, DIR **dir)
@@ -68,22 +69,21 @@ void				Gui::changeDir(std::string &path, DIR **dir)
     }
 }
 
-void				Gui::startMenu()
+void				Gui::startMenu(Communication com)
 {
   std::vector<std::string>	choices;
   DIR                           *dir = NULL;
-  struct dirent                 *rd;
+  struct dirent                 **rd;
   int				ret;
   std::string			path = "./";
 
   while (1)
     {
       changeDir(path, &dir);
-      while ((rd = readdir(dir)) != NULL)
-	{
-	  if ((std::string(rd->d_name).at(0) != 'n' || std::string(rd->d_name).at(1) != 'p') && std::string(rd->d_name) != ".")
-	  choices.push_back(std::string(rd->d_name));
-	}
+      if ((ret = scandir(".", &rd, 0, versionsort)) >= 0)
+	for (int i = 0; i < ret; i++)
+	  if ((std::string(rd[i]->d_name).at(0) != 'n' || std::string(rd[i]->d_name).at(1) != 'p') && std::string(rd[i]->d_name) != ".")
+	    choices.push_back(std::string(rd[i]->d_name));
       std::sort(choices.begin(), choices.end());
       closedir(dir);
       if (_menuFiles->init(choices) == -1 ||
@@ -106,7 +106,7 @@ void				Gui::startMenu()
 	      Parsing			parser;
 	      std::vector<std::string>	command;
 	      command.push_back(_order);
-	      parser.parseCommandLine(&command, _core, NAMED_PIPE);
+	      parser.parseCommandLine(&command, _core, com);
 	      _order.clear();
 	    }
 	}
