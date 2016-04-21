@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Sun Apr 17 19:57:03 2016 guillaume wilmot
-// Last update Tue Apr 19 23:59:55 2016 guillaume wilmot
+// Last update Thu Apr 21 20:18:23 2016 Florian Saurs
 //
 
 #ifndef GUI_HPP_
@@ -24,7 +24,7 @@ public:
   Gui();
   ~Gui();
 
-  void			startMenu();
+  void			startMenu(Communication);
   void			init(Core *);
   static void		handleResize();
 

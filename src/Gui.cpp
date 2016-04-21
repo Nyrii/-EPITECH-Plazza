@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Sun Apr 17 19:59:02 2016 guillaume wilmot
-// Last update Tue Apr 19 23:59:40 2016 guillaume wilmot
+// Last update Thu Apr 21 20:18:41 2016 Florian Saurs
 //
 
 #include <cstring>
@@ -68,7 +68,7 @@ void				Gui::changeDir(std::string &path, DIR **dir)
     }
 }
 
-void				Gui::startMenu()
+void				Gui::startMenu(Communication com)
 {
   std::vector<std::string>	choices;
   DIR                           *dir = NULL;
@@ -106,7 +106,7 @@ void				Gui::startMenu()
 	      Parsing			parser;
 	      std::vector<std::string>	command;
 	      command.push_back(_order);
-	      parser.parseCommandLine(&command, _core, NAMED_PIPE);
+	      parser.parseCommandLine(&command, _core, com);
 	      _order.clear();
 	    }
 	}

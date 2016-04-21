@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Tue Apr 19 23:00:57 2016 guillaume wilmot
-// Last update Tue Apr 19 23:00:58 2016 guillaume wilmot
+// Last update Thu Apr 21 20:16:51 2016 Florian Saurs
 //
 
 #include <iostream>
@@ -33,7 +33,7 @@ int		main(int, char **av)
   Gui           gui;
 
   gui.init(core);
-  gui.startMenu();
+  gui.startMenu(pars->getComWay());
   delete core;
   return (0);
 }
