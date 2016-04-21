@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Wed Apr 20 17:33:07 2016 guillaume wilmot
+## Last update Thu Apr 21 13:22:40 2016 Florian Saurs
 ##
 
 SRC	= ClientSocket.cpp		\
@@ -65,7 +65,7 @@ INCDIR	= -I inc/
 
 MAKEOBJ	= obj
 
-LDFLAGS 	+= -lpthread -lboost_regex -lrt
+LDFLAGS 	+= -lpthread -lrt
 CXXFLAGS	+= -W -Wall -Wextra -Werror
 
 $(OBJDIR)%.o: $(SRCDIR)%.cpp
