@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:35 2016 Florian Saurs
-// Last update Tue Apr 19 17:53:33 2016 Florian Saurs
+// Last update Thu Apr 21 22:44:48 2016 guillaume wilmot
 //
 
 #ifndef SEARCH_HPP_
@@ -13,12 +13,11 @@
 
 # include <vector>
 # include "Core.hpp"
+# include "Regex.hpp"
 
 class	Search
 {
-  // boost::regex	*_reg;
-  std::string	*_regs;
-  int		_nbReg;
+  std::vector<Regex *>	_regs;
 
 public:
   Search();
