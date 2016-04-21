@@ -5,12 +5,13 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Thu Apr 21 13:47:33 2016 guillaume wilmot
+// Last update Thu Apr 21 16:48:57 2016 guillaume wilmot
 //
 
 #include <dirent.h>
-#include <boost/regex.hpp>
+#include <unistd.h>
 #include "Parsing.hpp"
+#include "Regex.hpp"
 
 Parsing::Parsing()
 {
@@ -24,12 +25,10 @@ Parsing::~Parsing()
 
 int				Parsing::commandIsFalse(std::string str) const
 {
-  boost::smatch	matches;
-  boost::regex	reg("[0-9a-zA-Z._-]+[ ]{1,}(PHONE_NUMBER|EMAIL_ADDRESS|IP_ADDRESS)");
+  Regex		*regex = new Regex ();
+  std::string	reg("[0-9a-zA-Z._-]+[ ]{1,}(PHONE_NUMBER|EMAIL_ADDRESS|IP_ADDRESS)");
 
-  if (boost::regex_search(str, matches, reg))
-    return (0);
-  return (1);
+  return (regex->match(reg, str) == "" ? 1 : 0);
 }
 
 void		Parsing::takeCommandFromInput(std::string input, std::vector<std::string> *command) const
