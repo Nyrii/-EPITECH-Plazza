@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.eu>
 //
 // Started on  Tue Apr 19 12:00:52 2016 Florian Saurs
-// Last update Thu Apr 21 22:47:17 2016 guillaume wilmot
+// Last update Thu Apr 21 23:02:52 2016 Florian Saurs
 //
 
 #ifndef REGEX_HPP_
@@ -19,7 +19,7 @@ public:
   Regex(const std::string &);
   ~Regex();
 
-  std::string	match(std::string);
+  std::string	match(std::string) const;
 private:
   std::string	_pattern;
 };
