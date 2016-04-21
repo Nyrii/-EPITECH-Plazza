@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Mon Apr 18 21:16:51 2016 Florian Saurs
-// Last update Wed Apr 20 17:44:25 2016 Saursinet
+// Last update Thu Apr 21 20:13:57 2016 Florian Saurs
 //
 
 #include <cstring>

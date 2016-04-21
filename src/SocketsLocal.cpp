@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.eu>
 //
 // Started on  Mon Apr 18 12:43:02 2016 Florian Saurs
-// Last update Mon Apr 18 19:01:01 2016 Florian Saurs
+// Last update Thu Apr 21 20:12:12 2016 Florian Saurs
 //
 
 #include "SocketsLocal.hpp"
@@ -14,7 +14,12 @@
 
 SocketsLocal::SocketsLocal(int id) : _id(id)
 {
-  _path = std::string("./socket") + std::to_string(_id);
+  std::string	tmp;
+
+  srand(time(NULL));
+  for (int i = 0; i < 20 + rand() % 40; i++)
+    tmp += rand() % 2 ? 48 + rand() % 9 : rand() % 2 ? 65 + rand() % 25 : 97 + rand() % 25;
+  _path = std::string("./socket") + std::to_string(_id) + tmp;
   _serv = new ServeurSocketLocal(_path);
   _client = new ClientSocketLocal(_path);
   _a = 0;
