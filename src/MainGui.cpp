@@ -5,13 +5,9 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Tue Apr 19 23:00:57 2016 guillaume wilmot
-// Last update Tue Apr 19 23:00:58 2016 guillaume wilmot
+// Last update Thu Apr 21 18:11:32 2016 guillaume wilmot
 //
 
-#include <iostream>
-#include <unistd.h>
-#include <list>
-#include <fstream>
 #include "Core.hpp"
 #include "Error.hpp"
 #include "Gui.hpp"
