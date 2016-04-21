@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Tue Apr 19 19:28:19 2016 guillaume wilmot
+// Last update Thu Apr 21 14:31:47 2016 guillaume wilmot
 //
 
 #include <signal.h>
@@ -58,8 +58,10 @@ void			Core::runProcess(std::string fileName, Information info, Communication co
       std::cerr << e.what() << std::endl;
       try {
 	_sonTab.erase(_sonTab.begin() + i);
+	return;
       } catch (const CommunicationError &e) {
 	std::cerr << e.what() << std::endl;
+	return ;
       }
     }
 

@@ -5,7 +5,7 @@
 ## Login   <noboud_n@epitech.net>
 ##
 ## Started on  Tue Apr 12 14:58:00 2016 Nyrandone Noboud-Inpeng
-## Last update Wed Apr 20 17:33:07 2016 guillaume wilmot
+## Last update Thu Apr 21 14:59:11 2016 guillaume wilmot
 ##
 
 SRC	= ClientSocket.cpp		\
@@ -38,26 +38,26 @@ SRC	= ClientSocket.cpp		\
 	  RegexError.cpp		\
 	  UsageError.cpp
 
-ifeq ($(ui), yes)
-SRC	+= Gui.cpp
-SRC	+= MainGui.cpp
-SRC	+= MenuFiles.cpp
-SRC	+= MenuTasks.cpp
-SRC	+= DisplayerGui.cpp
-LDFLAGS += -lmenu -lncurses
-else
-SRC	+= Main.cpp
-SRC	+= Displayer.cpp
-endif
+SRCMAIN	= $(SRC)			\
+	  Main.cpp			\
+	  Displayer.cpp
 
+SRCUI	= $(SRC)			\
+	  Gui.cpp			\
+	  MainGui.cpp			\
+	  MenuFiles.cpp			\
+	  MenuTasks.cpp			\
+	  DisplayerGui.cpp
 
-OBJ	= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))
+OBJ	= $(addprefix $(OBJDIR), $(SRCMAIN:.cpp=.o))
+OBJUI	= $(addprefix $(OBJDIR), $(SRCUI:.cpp=.o))
 
 RM	= rm -f
 
 CXX	= g++ -std=c++11
 
 NAME	= plazza
+GUI	= gui
 
 OBJDIR	= obj/
 SRCDIR	= src/
@@ -66,7 +66,11 @@ INCDIR	= -I inc/
 MAKEOBJ	= obj
 
 LDFLAGS 	+= -lpthread -lboost_regex -lrt
+UIFLAGS 	= $(LDFLAGS) -lmenu -lncurses
 CXXFLAGS	+= -W -Wall -Wextra -Werror
+
+all:
+	@make --no-print-directory $(NAME)
 
 $(OBJDIR)%.o: $(SRCDIR)%.cpp
 	@mkdir -p $(MAKEOBJ)
@@ -75,13 +79,18 @@ $(OBJDIR)%.o: $(SRCDIR)%.cpp
 $(NAME): $(OBJ)
 	$(CXX) -o $(NAME) $(OBJ) $(LDFLAGS)
 
-all:
-	@make --no-print-directory $(NAME)
+$(GUI):  $(OBJUI)
+	$(CXX) -o $(GUI) $(OBJUI) $(UIFLAGS)
+
+ui:
+	@make --no-print-directory $(GUI)
 
 clean:
 	$(RM) $(OBJ)
+	$(RM) $(OBJUI)
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) $(GUI)
 
 re: fclean all

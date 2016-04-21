@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Thu Apr  7 10:31:54 2016 Nyrandone Noboud-Inpeng
-// Last update Fri Apr  8 10:43:35 2016 Florian Saurs
+// Last update Thu Apr 21 12:58:35 2016 guillaume wilmot
 //
 
 #ifndef CRYPTCAESAR_HH_
@@ -19,7 +19,7 @@ public:
   CryptCaesar();
   ~CryptCaesar();
 
-  std::string		Decrypt(std::string, int, uint16_t);
+  std::string		Decrypt(std::string, unsigned char, uint16_t);
 };
 
 #endif /* !CRYPTCAESAR_HH_ */

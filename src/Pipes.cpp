@@ -5,7 +5,7 @@
 // Login   <noboud_n@epitech.eu>
 //
 // Started on  Fri Apr 15 10:46:45 2016 Nyrandone Noboud-Inpeng
-// Last update Tue Apr 19 17:30:49 2016 Florian Saurs
+// Last update Thu Apr 21 16:34:08 2016 guillaume wilmot
 //
 
 #include <unistd.h>
@@ -17,7 +17,12 @@
 
 Pipes::Pipes(int id) : _id(id)
 {
-  _path = std::string("./np") + std::to_string(_id);
+  std::string	tmp;
+
+  srand(time(NULL));
+  for (int i = 0; i < 20 + rand() % 40; i++)
+    tmp += rand() % 2 ? 48 + rand() % 9 : rand() % 2 ? 65 + rand() % 25 : 97 + rand() % 25;
+  _path = std::string("./np") + std::to_string(_id) + tmp;
   if (mkfifo(_path.c_str(),
 	     S_IRWXU | S_IRGRP | S_IWGRP) == -1)
     {

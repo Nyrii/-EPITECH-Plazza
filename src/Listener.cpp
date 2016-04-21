@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Wed Apr 20 18:59:51 2016 guillaume wilmot
+// Last update Thu Apr 21 16:36:32 2016 guillaume wilmot
 //
 
 #include <unistd.h>
@@ -69,7 +69,7 @@ t_processState		*Listener::getTask(ThreadPool &threadPool)
     *_com >> *struc;
   } catch (const CommunicationError &e) {
     delete struc;
-    return (NULL);
+    throw CommunicationError();
   }
   if (struc->state == FREE)
     struc->free = threadPool.getTotalOrders() < _nbThread * 2 ? true : false;
@@ -111,8 +111,10 @@ void			*Listener::listen()
 	    delete struc;
 	  }
       } catch (const CommunicationError &e) {
-	std::cerr << "Pausing" << std::endl;
+	if (threadPool.getTotalOrders() == 0)
+	  _exit(0);
 	pause();
+	_exit(0);
       }
     }
   return (NULL);

@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Tue Apr 19 17:29:10 2016 Florian Saurs
+// Last update Thu Apr 21 13:47:33 2016 guillaume wilmot
 //
 
 #include <dirent.h>
@@ -92,6 +92,7 @@ int				Parsing::parseCommandLine(std::vector<std::string> *command, Core const *
 	   itFiles != filesName->end(); ++itFiles)
 	{
 	  t_args	*a = new t_args;
+
 	  a->callback = NULL;
 	  a->order = _compare.at(*it);
 	  a->file = *itFiles;

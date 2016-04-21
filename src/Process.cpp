@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Tue Apr  5 16:31:06 2016 guillaume wilmot
-// Last update Tue Apr 19 19:27:52 2016 guillaume wilmot
+// Last update Thu Apr 21 16:25:13 2016 guillaume wilmot
 //
 
 #include <unistd.h>
@@ -23,9 +23,9 @@ Process::~Process()
   delete _com;
 }
 
-int		Process::create(void *(*ptr)(void *), void *arg)
+int			Process::create(void *(*ptr)(void *), void *arg)
 {
-  void		*ret;
+  void			*ret;
 
   if ((_pid = fork()) == 0)
     {
