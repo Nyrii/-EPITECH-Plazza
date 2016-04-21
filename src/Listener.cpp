@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Thu Apr 21 16:36:32 2016 guillaume wilmot
+// Last update Thu Apr 21 21:44:35 2016 guillaume wilmot
 //
 
 #include <unistd.h>
@@ -20,8 +20,14 @@ Listener::Listener()
   _com = NULL;
   _nbThread = 0;
   _timer.setTime(5);
-  signal(SIGUSR1, &handler);
+  signal(SIGUSR2, &Listener::end);
+  signal(SIGUSR1, &Listener::handler);
   signal(SIGINT, SIG_IGN);
+}
+
+void			Listener::end(int)
+{
+  g_end = true;
 }
 
 void			Listener::handler(int)

@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:54:31 2016 guillaume wilmot
-// Last update Tue Apr 19 18:02:17 2016 Saursinet
+// Last update Thu Apr 21 21:29:18 2016 guillaume wilmot
 //
 
 #ifndef LISTENER_HPP_
@@ -27,6 +27,7 @@ public:
   bool		timeOut();
 
   static void	*start(void *);
+  static void	end(int);
   static void	handler(int);
   static void	setCom(Com *);
   static Com	*getCom(Com *);

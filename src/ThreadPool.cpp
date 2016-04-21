@@ -5,11 +5,15 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 00:30:45 2016 guillaume wilmot
-// Last update Sun Apr 17 00:24:53 2016 guillaume wilmot
+// Last update Thu Apr 21 21:43:52 2016 guillaume wilmot
 //
 
+#include <signal.h>
 #include "ScopedLock.hpp"
 #include "ThreadPool.hpp"
+#include "Listener.hpp"
+
+bool		g_end = false;
 
 ThreadPool::ThreadPool(int nbThread)
 {
@@ -64,8 +68,11 @@ int		ThreadPool::queue(void *(*ptr)(void *), Information order, const std::strin
 
 int		ThreadPool::assign(CondThread *ref, bool lock)
 {
+
   if (_stack.size() == 0)
     {
+      if (g_end)
+	Listener::handler(0);
       _timer->setTime(5);
       return (-1);
     }

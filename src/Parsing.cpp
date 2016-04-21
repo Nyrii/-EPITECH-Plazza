@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Thu Apr 21 16:48:57 2016 guillaume wilmot
+// Last update Thu Apr 21 20:54:30 2016 guillaume wilmot
 //
 
 #include <dirent.h>
@@ -70,6 +70,7 @@ int				Parsing::read(Core const *core, Communication _com) const
       const_cast<Parsing *>(this)->parseCommandLine(command, core, _com);
       delete command;
     }
+  core->wait();
   return (0);
 }
 

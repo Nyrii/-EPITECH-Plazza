@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
-// Last update Tue Apr 19 19:51:41 2016 guillaume wilmot
+// Last update Thu Apr 21 21:09:56 2016 guillaume wilmot
 //
 
 #ifndef CORE_HPP_
@@ -42,6 +42,7 @@ public:
   int	checkAvailable() const;
   void	getThreadStatus(int *);
   void	read(Communication) const;
+  void	wait() const;
 
   void				setSonTab(std::vector<Process *> *);
   static std::vector<Process *>	*getSonTab(std::vector<Process *> *);

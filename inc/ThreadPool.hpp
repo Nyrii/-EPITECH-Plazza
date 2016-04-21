@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Thu Apr  7 00:29:53 2016 guillaume wilmot
-// Last update Tue Apr 19 18:03:01 2016 Saursinet
+// Last update Thu Apr 21 21:39:15 2016 guillaume wilmot
 //
 
 #ifndef THREADPOOL_HPP_
@@ -18,9 +18,11 @@
 # include "Queue.hpp"
 # include "Timer.hh"
 
-class			CondThread;
+extern bool			g_end;
 
-class			ThreadPool {
+class				CondThread;
+
+class				ThreadPool {
 public:
   ThreadPool(int);
   ~ThreadPool() {}

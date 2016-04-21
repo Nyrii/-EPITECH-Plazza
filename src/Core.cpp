@@ -5,9 +5,10 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Thu Apr 21 14:31:47 2016 guillaume wilmot
+// Last update Thu Apr 21 21:09:46 2016 guillaume wilmot
 //
 
+#include <sys/wait.h>
 #include <signal.h>
 #include "Core.hpp"
 #include "Parsing.hpp"
@@ -40,14 +41,29 @@ Core::~Core()
     }
 }
 
-void		Core::read(Communication com) const
+void					Core::read(Communication com) const
 {
-  Parsing	parser;
+  Parsing				parser;
 
   parser.read(this, com);
 }
 
-void			Core::runProcess(std::string fileName, Information info, Communication com)
+void					Core::wait() const
+{
+  std::vector<Process *>		*_sonTab;
+
+  if ((_sonTab = getSonTab(NULL)))
+    for (unsigned int i = 0; i < _sonTab->size(); i++)
+      {
+	int	ret;
+
+	if ((*_sonTab)[i]->getPid() > 0)
+	  kill((*_sonTab)[i]->getPid(), SIGUSR2);
+	waitpid((*_sonTab)[i]->getPid(), &ret, 0);
+      }
+}
+
+void					Core::runProcess(std::string fileName, Information info, Communication com)
 {
   for (unsigned int i = 0; i < _sonTab.size(); i++)
     try {
@@ -65,12 +81,12 @@ void			Core::runProcess(std::string fileName, Information info, Communication co
       }
     }
 
-  static int		id = 0;
+  static int				id = 0;
 
   (this->*this->_communicationTab[com])(id);
 
-  Process		*process = new Process(_com);
-  t_processArgs		args;
+  Process				*process = new Process(_com);
+  t_processArgs				args;
 
   args.com = _com;
   args.nbThread = _nbThreads;
@@ -79,12 +95,12 @@ void			Core::runProcess(std::string fileName, Information info, Communication co
   process->assign(fileName, info);
 }
 
-void		Core::createPipes(int &id)
+void					Core::createPipes(int &id)
 {
   _com = new Pipes(id++);
 }
 
-void		Core::createSockets(int &id)
+void					Core::createSockets(int &id)
 {
   std::vector<Process *>		*_sonTab;
   Sockets				*tmp;
@@ -99,7 +115,7 @@ void		Core::createSockets(int &id)
     _com = new Sockets(tmp->getServeurSocket());
 }
 
-void		Core::createSocketsLocal(int &id)
+void					Core::createSocketsLocal(int &id)
 {
   _com = new SocketsLocal(id++);
 }
