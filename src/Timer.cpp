@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Fri Apr 15 22:52:38 2016 guillaume wilmot
-// Last update Tue Apr 19 17:36:26 2016 Florian Saurs
+// Last update Sun Apr 24 23:05:50 2016 guillaume wilmot
 //
 
 #include <time.h>
@@ -26,7 +26,7 @@ Timer::Timer()
     throw TimerError("Error: Timer creation failed.");
 }
 
-void			Timer::setTime(int val)
+void			Timer::setTime(int val) const
 {
   struct itimerspec	value;
 
@@ -37,7 +37,7 @@ void			Timer::setTime(int val)
     throw TimerError("Error: Timer setting time failed.");
 }
 
-bool			Timer::isElapsed()
+bool			Timer::isElapsed() const
 {
   return (false);
   struct itimerspec	value;

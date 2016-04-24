@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:54:31 2016 guillaume wilmot
-// Last update Thu Apr 21 21:29:18 2016 guillaume wilmot
+// Last update Sun Apr 24 23:06:38 2016 guillaume wilmot
 //
 
 #ifndef LISTENER_HPP_
@@ -24,7 +24,7 @@ public:
 
   void		init(int, Com *);
   void		*listen();
-  bool		timeOut();
+  bool		timeOut() const;
 
   static void	*start(void *);
   static void	end(int);

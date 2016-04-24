@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Sun Apr 17 19:57:03 2016 guillaume wilmot
-// Last update Thu Apr 21 20:18:23 2016 Florian Saurs
+// Last update Sun Apr 24 23:04:14 2016 guillaume wilmot
 //
 
 #ifndef GUI_HPP_
@@ -26,10 +26,10 @@ public:
 
   void			startMenu(Communication);
   void			init(Core *);
-  static void		handleResize();
+  static void		handleResize() const;
 
 private:
-  void			changeDir(std::string &, DIR **);
+  void			changeDir(std::string &, DIR **) const;
 
   Menu			*_menuFiles;
   Menu			*_menuTasks;

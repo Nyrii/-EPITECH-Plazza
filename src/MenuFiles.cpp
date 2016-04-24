@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr 18 03:57:07 2016 guillaume wilmot
-// Last update Thu Apr 21 18:49:00 2016 guillaume wilmot
+// Last update Sun Apr 24 23:08:05 2016 guillaume wilmot
 //
 
 #include <dirent.h>
@@ -78,7 +78,7 @@ int				MenuFiles::initWindow()
   return (0);
 }
 
-void				MenuFiles::printThreads()
+void				MenuFiles::printThreads() const
 {
   int				res[3];
 
@@ -104,7 +104,7 @@ void				MenuFiles::printThreads()
   wattroff(_win, COLOR_PAIR(2));
 }
 
-void				MenuFiles::printDirectory(int x)
+void				MenuFiles::printDirectory(int x) const
 {
   char				cwd[x - 2 < 15 ? 15 : x - 2];
 
@@ -117,7 +117,7 @@ void				MenuFiles::printDirectory(int x)
   wprintw(_win, "%s", cwd);
 }
 
-void				MenuFiles::printHelp(int y)
+void				MenuFiles::printHelp(int y) const
 {
   mvwprintw(_subWin, y - 1, 4, "ESCAPE ");
   wattron(_subWin, COLOR_PAIR(1));
@@ -141,7 +141,7 @@ void				MenuFiles::printHelp(int y)
   wattroff(_subWin, COLOR_PAIR(1));
 }
 
-void				MenuFiles::draw()
+void				MenuFiles::draw() const
 {
   int				x;
   int				y;
@@ -190,7 +190,7 @@ void				MenuFiles::setFiles()
       _ret += std::string(item_name(_items[i])) + " ";
 }
 
-int				MenuFiles::events()
+int				MenuFiles::events() const
 {
   struct stat			path_stat;
   int				c;

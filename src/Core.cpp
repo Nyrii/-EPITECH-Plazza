@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Thu Apr 21 21:09:46 2016 guillaume wilmot
+// Last update Sun Apr 24 23:02:31 2016 guillaume wilmot
 //
 
 #include <sys/wait.h>
@@ -120,7 +120,7 @@ void					Core::createSocketsLocal(int &id)
   _com = new SocketsLocal(id++);
 }
 
-void					Core::setSonTab(std::vector<Process *> *sonTab)
+void					Core::setSonTab(std::vector<Process *> *sonTab) const
 {
   getSonTab(sonTab);
 }
@@ -133,7 +133,7 @@ std::vector<Process *>			*Core::getSonTab(std::vector<Process *> *sonTab)
   return (_sonTab);
 }
 
-void					Core::getThreadStatus(int *arg)
+void					Core::getThreadStatus(int *arg) const
 {
   int					res[3];
 

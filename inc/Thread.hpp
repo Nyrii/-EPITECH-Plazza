@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:55:40 2016 guillaume wilmot
-// Last update Tue Apr 19 18:02:42 2016 Saursinet
+// Last update Sun Apr 24 23:11:15 2016 guillaume wilmot
 //
 
 #ifndef THREAD_HPP_
@@ -18,7 +18,7 @@ public:
   ~Thread() {}
 
   void		start(void *(*)(void *), void *);
-  void		join();
+  void		join() const;
   bool		getStatus() const;
 private:
   pthread_t	_thread;

@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:58:38 2016 guillaume wilmot
-// Last update Thu Apr 21 21:44:35 2016 guillaume wilmot
+// Last update Sun Apr 24 23:06:34 2016 guillaume wilmot
 //
 
 #include <unistd.h>
@@ -96,7 +96,7 @@ t_processState		*Listener::getTask(ThreadPool &threadPool)
   return (NULL);
 }
 
-bool			Listener::timeOut()
+bool			Listener::timeOut() const
 {
   return (_timer.isElapsed() ? true : false);
 }

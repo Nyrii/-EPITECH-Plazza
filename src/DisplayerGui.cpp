@@ -5,13 +5,13 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr 20 00:01:08 2016 guillaume wilmot
-// Last update Wed Apr 20 10:23:31 2016 guillaume wilmot
+// Last update Sun Apr 24 23:03:39 2016 guillaume wilmot
 //
 
 #include <ncurses/ncurses.h>
 #include "Displayer.hh"
 
-void		Displayer::Display(const std::string &str)
+void		Displayer::Display(const std::string &str) const
 {
   WINDOW	*_win = newwin(1, str.size() + 13, 4, 40);
 

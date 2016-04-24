@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Sun Apr 17 19:59:02 2016 guillaume wilmot
-// Last update Thu Apr 21 18:42:27 2016 guillaume wilmot
+// Last update Sun Apr 24 23:04:06 2016 guillaume wilmot
 //
 
 #include <cstring>
@@ -33,7 +33,7 @@ Gui::~Gui()
     delete _menuFiles;
 }
 
-void				Gui::handleResize()
+void				Gui::handleResize() const
 {
   endwin();
   refresh();
@@ -57,7 +57,7 @@ void				Gui::init(Core *core)
   init_pair(5, COLOR_BLUE, COLOR_BLACK);
 }
 
-void				Gui::changeDir(std::string &path, DIR **dir)
+void				Gui::changeDir(std::string &path, DIR **dir) const
 {
   if (chdir(path.c_str()) == -1)
     return;

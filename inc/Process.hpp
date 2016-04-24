@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:56:05 2016 guillaume wilmot
-// Last update Tue Apr 19 19:28:27 2016 guillaume wilmot
+// Last update Sun Apr 24 23:10:30 2016 guillaume wilmot
 //
 
 #ifndef PROCESS_HPP_
@@ -25,10 +25,10 @@ public:
 
   pid_t			getPid() const {return (_pid);}
   int			create(void *(*)(void *), void *);
-  bool			checkAvailable();
-  bool			assign(const std::string &, Information);
+  bool			checkAvailable() const;
+  bool			assign(const std::string &, Information) const;
   Com			*getCom() const;
-  void			getStatus(int *);
+  void			getStatus(int *) const;
 };
 
 typedef struct		s_processArgs {

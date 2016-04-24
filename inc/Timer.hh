@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Fri Apr 15 22:43:51 2016 guillaume wilmot
-// Last update Tue Apr 19 17:54:55 2016 Florian Saurs
+// Last update Sun Apr 24 23:06:01 2016 guillaume wilmot
 //
 
 #ifndef TIMER_HH_
@@ -17,8 +17,8 @@ public:
   Timer();
   ~Timer() {}
 
-  void			setTime(int);
-  bool			isElapsed();
+  void			setTime(int) const;
+  bool			isElapsed() const;
 private:
   timer_t		_id;
 };

@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr 20 00:04:23 2016 guillaume wilmot
-// Last update Wed Apr 20 00:43:35 2016 guillaume wilmot
+// Last update Sun Apr 24 23:03:19 2016 guillaume wilmot
 //
 
 #ifndef DISPLAYER_HH_
@@ -18,7 +18,7 @@ public:
   Displayer() {}
   ~Displayer() {}
 
-  void	Display(const std::string &);
+  void	Display(const std::string &) const;
 };
 
 #endif /* !DISPLAYER_HH_ */

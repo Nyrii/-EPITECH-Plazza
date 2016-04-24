@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr 18 03:57:07 2016 guillaume wilmot
-// Last update Tue Apr 19 17:48:51 2016 guillaume wilmot
+// Last update Sun Apr 24 23:08:58 2016 guillaume wilmot
 //
 
 #include <dirent.h>
@@ -57,7 +57,7 @@ int				MenuTasks::initWindow()
   return (0);
 }
 
-void				MenuTasks::draw()
+void				MenuTasks::draw() const
 {
   int				x;
   int				y;
@@ -110,7 +110,7 @@ void				MenuTasks::setTasks()
   _ret += item_name(current_item(_menu));
 }
 
-int				MenuTasks::events()
+int				MenuTasks::events() const
 {
   int				c;
 

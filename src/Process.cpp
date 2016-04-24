@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Tue Apr  5 16:31:06 2016 guillaume wilmot
-// Last update Thu Apr 21 16:25:13 2016 guillaume wilmot
+// Last update Sun Apr 24 23:10:26 2016 guillaume wilmot
 //
 
 #include <unistd.h>
@@ -35,7 +35,7 @@ int			Process::create(void *(*ptr)(void *), void *arg)
   return (_pid == -1 ? -1 : 0);
 }
 
-bool			Process::checkAvailable()
+bool			Process::checkAvailable() const
 {
   t_processState	*state;
   bool			ret;
@@ -56,7 +56,7 @@ bool			Process::checkAvailable()
   return (ret);
 }
 
-void			Process::getStatus(int *arg)
+void			Process::getStatus(int *arg) const
 {
   t_processState	*state;
 
@@ -73,7 +73,7 @@ void			Process::getStatus(int *arg)
   delete state;
 }
 
-bool			Process::assign(const std::string &fileName, Information info)
+bool			Process::assign(const std::string &fileName, Information info) const
 {
   t_processState	*state;
 

@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr  4 20:57:09 2016 guillaume wilmot
-// Last update Wed Apr  6 23:39:24 2016 guillaume wilmot
+// Last update Sun Apr 24 23:11:06 2016 guillaume wilmot
 //
 
 #include <pthread.h>
@@ -22,7 +22,7 @@ void		Thread::start(void *(*ptr)(void *), void *arg)
   _started = true;
 }
 
-void		Thread::join()
+void		Thread::join() const
 {
   pthread_join(_thread, NULL);
 }

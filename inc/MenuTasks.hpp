@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr 18 04:44:42 2016 guillaume wilmot
-// Last update Tue Apr 19 17:48:45 2016 guillaume wilmot
+// Last update Sun Apr 24 23:09:05 2016 guillaume wilmot
 //
 
 #ifndef MENUTASKS_HPP_
@@ -22,9 +22,9 @@ public:
 
   int		init(const std::vector<std::string> &);
   int		initWindow();
-  void		draw();
+  void		draw() const;
   void		free();
-  int		events();
+  int		events() const;
   void		setTasks();
   std::string	getRet();
 

@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Wed Apr  6 23:54:51 2016 guillaume wilmot
-// Last update Tue Apr 19 17:39:22 2016 Florian Saurs
+// Last update Sun Apr 24 23:00:19 2016 guillaume wilmot
 //
 
 #ifndef CONDVAR_HPP_

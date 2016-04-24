@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:57:11 2016 Florian Saurs
-// Last update Thu Apr 21 21:09:56 2016 guillaume wilmot
+// Last update Sun Apr 24 23:02:34 2016 guillaume wilmot
 //
 
 #ifndef CORE_HPP_
@@ -40,11 +40,11 @@ public:
   void	createSockets(int &);
   void	createSocketsLocal(int &);
   int	checkAvailable() const;
-  void	getThreadStatus(int *);
+  void	getThreadStatus(int *) const;
   void	read(Communication) const;
   void	wait() const;
 
-  void				setSonTab(std::vector<Process *> *);
+  void				setSonTab(std::vector<Process *> *) const;
   static std::vector<Process *>	*getSonTab(std::vector<Process *> *);
   static void			sigHandler(int);
 };
