@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Thu Apr 21 22:47:48 2016 guillaume wilmot
+// Last update Sun Apr 24 23:19:17 2016 guillaume wilmot
 //
 
 #include <dirent.h>
@@ -23,7 +23,7 @@ Parsing::Parsing()
 Parsing::~Parsing()
 {}
 
-int				Parsing::commandIsFalse(std::string str) const
+int				Parsing::commandIsFalse(const std::string &str) const
 {
   Regex		*regex = new Regex ("[0-9a-zA-Z._-]+[ ]{1,}(PHONE_NUMBER|EMAIL_ADDRESS|IP_ADDRESS)");
 

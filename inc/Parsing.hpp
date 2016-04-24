@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:35 2016 Florian Saurs
-// Last update Mon Apr 18 14:15:17 2016 Florian Saurs
+// Last update Sun Apr 24 23:21:04 2016 guillaume wilmot
 //
 
 #ifndef PARSING_HPP_
@@ -21,7 +21,7 @@ class	Parsing
   Parsing();
   ~Parsing();
 
-  int	commandIsFalse(std::string) const;
+  int	commandIsFalse(const std::string &) const;
   int	read(Core const *, Communication) const;
   void	takeCommandFromInput(std::string, std::vector<std::string> *) const;
   int	parseCommandLine(std::vector<std::string> *, Core const *, Communication);

@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.eu>
 //
 // Started on  Tue Apr 19 12:00:38 2016 Florian Saurs
-// Last update Thu Apr 21 23:02:43 2016 Florian Saurs
+// Last update Sun Apr 24 23:22:06 2016 guillaume wilmot
 //
 
 #include <regex.h>
@@ -21,7 +21,7 @@ Regex::Regex(const std::string &pattern)
 Regex::~Regex()
 {}
 
-std::string	Regex::match(std::string str) const
+std::string	Regex::match(const std::string &str) const
 {
   regex_t	regStruc;
   int		match;

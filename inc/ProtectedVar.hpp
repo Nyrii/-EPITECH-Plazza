@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Fri Apr  8 17:56:22 2016 guillaume wilmot
-// Last update Tue Apr 19 17:51:49 2016 Florian Saurs
+// Last update Sun Apr 24 23:20:43 2016 guillaume wilmot
 //
 
 #ifndef PROTECTEVAR_HPP_
@@ -21,7 +21,7 @@ public:
   ProtectedVar<C>() {}
   ~ProtectedVar() {}
 
-  void			set(C var) {ScopedLock lock(_mutex); _var = var;}
+  void			set(const C &var) {ScopedLock lock(_mutex); _var = var;}
   C			get() {ScopedLock lock(_mutex); return (_var);}
 
 private:

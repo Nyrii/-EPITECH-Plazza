@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr 18 04:44:42 2016 guillaume wilmot
-// Last update Sun Apr 24 23:08:12 2016 guillaume wilmot
+// Last update Sun Apr 24 23:26:50 2016 guillaume wilmot
 //
 
 #ifndef MENUFILES_HPP_
@@ -23,7 +23,7 @@ public:
   int		initWindow();
   void		draw() const;
   void		free();
-  int		events() const;
+  int		events();
   void		setFiles();
   std::string	getDir() const;
   std::string	getRet();

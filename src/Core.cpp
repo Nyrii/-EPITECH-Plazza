@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 16:58:09 2016 Florian Saurs
-// Last update Sun Apr 24 23:02:31 2016 guillaume wilmot
+// Last update Sun Apr 24 23:15:31 2016 guillaume wilmot
 //
 
 #include <sys/wait.h>
@@ -63,7 +63,7 @@ void					Core::wait() const
       }
 }
 
-void					Core::runProcess(std::string fileName, Information info, Communication com)
+void					Core::runProcess(const std::string &fileName, Information info, Communication com)
 {
   for (unsigned int i = 0; i < _sonTab.size(); i++)
     try {

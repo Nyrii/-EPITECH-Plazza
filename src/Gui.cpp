@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Sun Apr 17 19:59:02 2016 guillaume wilmot
-// Last update Sun Apr 24 23:04:06 2016 guillaume wilmot
+// Last update Sun Apr 24 23:24:40 2016 guillaume wilmot
 //
 
 #include <cstring>
@@ -33,7 +33,7 @@ Gui::~Gui()
     delete _menuFiles;
 }
 
-void				Gui::handleResize() const
+void				Gui::handleResize()
 {
   endwin();
   refresh();

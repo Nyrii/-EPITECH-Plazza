@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:23 2016 Florian Saurs
-// Last update Thu Apr 21 22:47:01 2016 guillaume wilmot
+// Last update Sun Apr 24 23:22:38 2016 guillaume wilmot
 //
 
 #include "Search.hpp"
@@ -21,7 +21,7 @@ Search::Search()
 Search::~Search()
 {}
 
-std::string	Search::searchInCurrent(std::string current, Information type) const
+std::string	Search::searchInCurrent(const std::string &current, Information type) const
 {
   if (type < _regs.size())
     return (_regs[type]->match(current));

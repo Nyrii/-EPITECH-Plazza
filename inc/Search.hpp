@@ -5,7 +5,7 @@
 // Login   <saurs_f@epitech.net>
 //
 // Started on  Tue Apr  5 00:10:35 2016 Florian Saurs
-// Last update Thu Apr 21 22:44:48 2016 guillaume wilmot
+// Last update Sun Apr 24 23:23:27 2016 guillaume wilmot
 //
 
 #ifndef SEARCH_HPP_
@@ -24,7 +24,7 @@ public:
   ~Search();
 
   std::vector<std::string>	parseFile(std::string, Information) const;
-  std::string			searchInCurrent(std::string, Information) const;
+  std::string			searchInCurrent(const std::string &, Information) const;
   std::string			compareToReg(std::string) const;
 };
 

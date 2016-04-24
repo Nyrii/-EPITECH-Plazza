@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr 18 03:57:07 2016 guillaume wilmot
-// Last update Sun Apr 24 23:08:05 2016 guillaume wilmot
+// Last update Sun Apr 24 23:26:20 2016 guillaume wilmot
 //
 
 #include <dirent.h>
@@ -190,7 +190,7 @@ void				MenuFiles::setFiles()
       _ret += std::string(item_name(_items[i])) + " ";
 }
 
-int				MenuFiles::events() const
+int				MenuFiles::events()
 {
   struct stat			path_stat;
   int				c;

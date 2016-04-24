@@ -5,7 +5,7 @@
 // Login   <wilmot_g@epitech.net>
 //
 // Started on  Mon Apr 18 03:54:51 2016 guillaume wilmot
-// Last update Tue Apr 19 18:34:22 2016 guillaume wilmot
+// Last update Sun Apr 24 23:26:22 2016 guillaume wilmot
 //
 
 #ifndef MENU_HPP_
@@ -23,7 +23,7 @@ public:
 
   virtual int		init(const std::vector<std::string> &) = 0;
   virtual int		initWindow() = 0;
-  virtual void		draw() = 0;
+  virtual void		draw() const = 0;
   virtual void		free() = 0;
   virtual int		events() = 0;
   virtual std::string	getRet() = 0;
