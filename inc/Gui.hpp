@@ -13,7 +13,7 @@
 
 # include <iostream>
 # include <dirent.h>
-# include <ncurses/curses.h>
+# include <curses.h>
 # include "Core.hpp"
 # include "MenuFiles.hpp"
 # include "MenuTasks.hpp"

@@ -11,7 +11,7 @@
 #ifndef MENU_HPP_
 # define MENU_HPP_
 
-# include <ncurses/menu.h>
+# include <menu.h>
 # include <vector>
 # include <iostream>
 # include "Core.hpp"
