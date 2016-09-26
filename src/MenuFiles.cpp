@@ -42,11 +42,11 @@ int				MenuFiles::init(const std::vector<std::string> &choices)
     }
   for (i = 0; i < dirs.size(); ++i)
     {
-      _items[j++] = new_item(dirs[i].c_str(), dirs[i].c_str());
+      _items[j++] = new_item(strdup(dirs[i].c_str()), strdup(dirs[i].c_str()));
       item_opts_off(_items[i], O_SELECTABLE);
     }
   for (i = 0; i < files.size(); ++i)
-    _items[j++] = new_item(files[i].c_str(), files[i].c_str());
+    _items[j++] = new_item(strdup(files[i].c_str()), strdup(files[i].c_str()));
   _items[j] = NULL;
   _nbItem = choices.size();
   if (!(_menu = new_menu(_items)))

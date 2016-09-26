@@ -9,7 +9,7 @@
 //
 
 #include <cstring>
-#include <ncurses/curses.h>
+#include <curses.h>
 #include <signal.h>
 #include <algorithm>
 #include <unistd.h>
@@ -85,11 +85,11 @@ void				Gui::startMenu(Communication com)
 	  if ((std::string(rd[i]->d_name).at(0) != 'n' || std::string(rd[i]->d_name).at(1) != 'p') && std::string(rd[i]->d_name) != ".")
 	    choices.push_back(std::string(rd[i]->d_name));
       std::sort(choices.begin(), choices.end());
-      closedir(dir);
       if (_menuFiles->init(choices) == -1 ||
 	  _menuFiles->initWindow() == -1)
 	return ;
       _menuFiles->draw();
+      closedir(dir);
       if ((ret = _menuFiles->events()) == -1)
 	return ;
       if (ret == 1)

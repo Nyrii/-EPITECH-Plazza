@@ -8,7 +8,7 @@
 // Last update Sun Apr 24 23:03:39 2016 guillaume wilmot
 //
 
-#include <ncurses/ncurses.h>
+#include <ncurses.h>
 #include "Displayer.hh"
 
 void		Displayer::Display(const std::string &str) const
